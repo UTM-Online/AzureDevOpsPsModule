@@ -1,0 +1,21 @@
+@startuml
+class CheckIsLoggedIn <<F, blue>>
+class FetchAzureDevOpsBarrerToken <<F, blue>>
+
+class ConnectAzureDevOps <<F, blue>> {
+	Parameters
+	---
+	Credential : PSCredential
+	Account : string
+	Project : string
+}
+
+class SaveAzureDevOpsAuthenticationToken <<F, blue>> {
+	Parameters
+	---
+	UserUpn : string
+	PatToken : string
+}
+
+
+@enduml

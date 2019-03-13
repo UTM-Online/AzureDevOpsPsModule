@@ -1,0 +1,26 @@
+@startuml
+class AzureDevOpsConnection {
+	+IsConnected : bool
+	+AuthToken : SecureString
+	+Accounts : List<PSCustomObject>
+	+BaseUrl : string
+}
+
+class AzureDevOpsPatToken {
+	+Id : Guid
+	+FriendlyName : string
+	+TokenFileName : string
+	+TokenValue : Lazy<string>
+}
+
+class AzureDevOpsAccount {
+	+FriendlyName : string
+	+AccountName : string
+	+TokenId : Guid
+}
+
+class AzureDevOpsAccountCollection {
+	+Accounts : List<AzureDevOpsAccount>
+	+PatTokens : List<AzureDevOpsPatToken>
+}
+@enduml

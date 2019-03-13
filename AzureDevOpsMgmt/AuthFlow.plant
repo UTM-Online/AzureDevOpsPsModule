@@ -1,0 +1,11 @@
+@startuml
+actor User
+boundary Module
+database LocalCredCache
+entity AzureDevOps
+
+User --> Module : "Import Module"
+Module --> LocalCredCache : "Check for local credentials"
+LocalCredCache --> AzureDevOps : "Validate credentials are still valid"
+AzureDevOps --> Module : "If validation fails: request new credentials"
+@enduml
