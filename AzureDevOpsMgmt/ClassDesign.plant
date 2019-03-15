@@ -1,26 +1,106 @@
 @startuml
-class AzureDevOpsConnection {
-	+IsConnected : bool
-	+AuthToken : SecureString
-	+Accounts : List<PSCustomObject>
-	+BaseUrl : string
+namespace AzureDevOpsMgmt.Helpers.Models {
+	class AzureDevOpsConfiguration {
+		Constructors
+		---
+		+AzureDevOpsConfiguration()
+		+AzureDevOpsConfiguration(string currentAccountId, AzureDevOpsAccountCollection collection)
+		---
+		Properties
+		---
+		+ReadyForCommands : bool
+		+CurrentConnection : Tuple<AzureDevOpsAccount,AzureDevOpsPatToken>
+		+Accounts : AzureDevOpsAccountCollection
+		---
+		Methods
+		---
+		+SetCurrentConnection(string accountName) : void
+	}
+
+	class AzureDevOpsPatToken {
+		Constructors
+		---
+		+AzureDevOpsPatToken()
+		+AzureDevOpsPatToken(string friendlyName, string tokenValue)
+		---
+		Properties
+		---
+		+Id : Guid
+		+FriendlyName : string
+		+TokenValue : Lazy<string>
+		-CredentialManagerId : string
+		---
+		Methods
+		---
+		+UpdateToken(string newValue) : void
+		+DeleteToken() : void
+	}
+
+	class AzureDevOpsAccount {
+		Properties
+		---
+		+FriendlyName : string
+		+AccountName : string
+		+TokenId : Nullable<Guid>
+		+BaseUrl : string
+		---
+		Constructors
+		---
+		+AzureDevOpsAccount()
+		+AzureDevOpsAccount(string friendlyName, string accountName, Guid? tokenId = null)
+
+	}
+
+	class AzureDevOpsAccountCollection {
+		Constructors
+		---
+		+AzureDevOpsAccountCollection()
+		---
+		Properties
+		---
+		+Accounts : ObservableCollection<AzureDevOpsAccount>
+		+PatTokens : ObservableCollection<AzureDevOpsPatToken>
+		---
+		Methods
+		---
+		+GetAccountNames() : IEnumerable<string>
+		+AddAccount(string friendlyName, string AccountName) : void
+		+AddPatToken(string FriendlyName, string userName, string patToken) : void
+		+RemoveAccount(string friendlyName) : void
+		+RemovePatToken(string friendlyName) : void
+		+LinkPatTokenToAccount(string accountFriendlyName, string patTokenFriendlyName) : void
+		-OnCollectionChanged(object sender, notifyCollectionChangedEventArgs e) : void
+	}
+
+	AzureDevOpsConfiguration <-- AzureDevOpsAccountCollection
+	AzureDevOpsAccountCollection <-- AzureDevOpsAccount
+	AzureDevOpsAccountCollection <-- AzureDevOpsPatToken
+	AzureDevOpsAccount -Left-|> AzureDevOpsPatToken
 }
 
-class AzureDevOpsPatToken {
-	+Id : Guid
-	+FriendlyName : string
-	+TokenFileName : string
-	+TokenValue : Lazy<string>
+namespace AzureDevOpsMgmt.Helpers.Helpers {
+	class FileHelpers {
+		--Methods--
+		{static} +GetConfigFilePath(string fileName) : string
+		{static} +ReadFileJson<T>(string fileName) : T
+		{static} +WriteFileJson(string fileName, object fileData) : void
+	}
+
+	class InitialLoader {
+		--Methods--
+		{static} +LoadConfiguration() : AzureDevOpsConfiguration
+	}
+
+	InitialLoader -Left-> FileHelpers
 }
 
-class AzureDevOpsAccount {
-	+FriendlyName : string
-	+AccountName : string
-	+TokenId : Guid
+namespace AzureDevOpsMgmt.Helpers.Resources {
+	class FileNames
+	class StaticStrings
 }
 
-class AzureDevOpsAccountCollection {
-	+Accounts : List<AzureDevOpsAccount>
-	+PatTokens : List<AzureDevOpsPatToken>
-}
+AzureDevOpsMgmt.Helpers.Models -Right-> AzureDevOpsMgmt.Helpers.Helpers
+AzureDevOpsMgmt.Helpers.Models -Right-> AzureDevOpsMgmt.Helpers.Resources
+AzureDevOpsMgmt.Helpers.Helpers -Down-> AzureDevOpsMgmt.Helpers.Resources
+
 @enduml

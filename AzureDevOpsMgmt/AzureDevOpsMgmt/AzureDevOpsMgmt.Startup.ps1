@@ -1,0 +1,1 @@
+$AzureDevOpsConfiguration = [AzureDevOpsMgmt.Helpers.Helpers.InitialLoader]::LoadConfiguration()
