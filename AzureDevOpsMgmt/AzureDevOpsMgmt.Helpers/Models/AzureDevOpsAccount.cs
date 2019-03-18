@@ -14,6 +14,7 @@
 namespace AzureDevOpsMgmt.Helpers.Models
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Class AzureDevOpsAccount.
@@ -31,6 +32,7 @@ namespace AzureDevOpsMgmt.Helpers.Models
             this.AccountName = accountName;
             this.TokenId = tokenId;
             this.BaseUrl = baseUrl;
+            this.AccountProjects = new List<string>();
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Helpers.Models.AzureDevOpsAccount"/> class.</summary>
@@ -49,6 +51,10 @@ namespace AzureDevOpsMgmt.Helpers.Models
         /// </summary>
         /// <value>The name of the account.</value>
         public string AccountName { get; set; }
+
+        /// <summary>Gets or sets the account projects.</summary>
+        /// <value>The account projects.</value>
+        public List<string> AccountProjects { get; set; }
 
         /// <summary>
         /// Gets or sets the token identifier.

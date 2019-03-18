@@ -32,7 +32,6 @@ namespace AzureDevOpsMgmt.Helpers.Models
         public AzureDevOpsPatToken()
         {
             this.TokenValue = new Lazy<string>(() => CredentialManager.ReadCredential(this.CredentialManagerId).Password);
-            this.CredentialManagerId = $"{StaticStrings.ApplicationName}_{this.Id}";
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Helpers.Models.AzureDevOpsPatToken"/> class.</summary>
@@ -43,7 +42,6 @@ namespace AzureDevOpsMgmt.Helpers.Models
             this.FriendlyName = friendlyName;
             this.Id = Guid.NewGuid();
             this.TokenValue = new Lazy<string>(() => CredentialManager.ReadCredential(this.CredentialManagerId).Password);
-            this.CredentialManagerId = $"{StaticStrings.ApplicationName}_{this.Id}";
             this.UpdateToken(tokenValue);
         }
 
@@ -68,7 +66,7 @@ namespace AzureDevOpsMgmt.Helpers.Models
 
         /// <summary>Gets the credential manager identifier.</summary>
         /// <value>The credential manager identifier.</value>
-        private string CredentialManagerId { get; }
+        private string CredentialManagerId => $"{StaticStrings.ApplicationName}_{this.Id}";
 
         /// <summary>Updates the token.</summary>
         /// <param name="newValue">The new value.</param>

@@ -58,7 +58,7 @@ namespace AzureDevOpsMgmt.Helpers.Models
         /// <param name="accountName">Name of the account.</param>
         public void AddAccount(string friendlyName, string accountName)
         {
-            var url = $"https://dev.azure.com/{accountName}/_apis";
+            var url = $"https://dev.azure.com/{accountName}/";
             var account = new AzureDevOpsAccount(friendlyName, accountName, url);
 
             this.Accounts.Add(account);
@@ -105,6 +105,7 @@ namespace AzureDevOpsMgmt.Helpers.Models
 
             var account = this.Accounts.First(i => i.FriendlyName == accountFriendlyName);
 
+            // TODO: Make this an atomic transaction
             this.Accounts.Remove(account);
             account.TokenId = patTokenId;
             this.Accounts.Add(account);

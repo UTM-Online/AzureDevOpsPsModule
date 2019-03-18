@@ -11,6 +11,7 @@ function Set-Account
 	[CmdletBinding()]
 	param
 	(
+		[string]$ProjectName
 	)
 
 	DynamicParam
@@ -30,9 +31,20 @@ function Set-Account
 		return $RuntimeParameterDictionary
 	}
 
+	Begin
+	{
+		$ErrorActionPreference = "Stop"
+		if(!$AzureDevOpsConfiguration.Accounts.Accounts.Where({$_.FriendlyName -eq $PSBoundParameters["AccountName"]})[0].AccountProjects -contains $ProjectName)
+		{
+			Write-Debug -Message "Account Name is: $PSBoundParameters["AccountName"]"
+			Write-Debug -Message "Found: $($AzureDevOpsConfiguration.Accounts.Accounts.Where({$_.FriendlyName -eq $PSBoundParameters["AccountName"]})[0])"
+
+			Write-Error -Message "Specified Project is not registered for the selected account.  Please register the project with the account using the Add-AzureDevOpsAccountProject cmdlet" -ErrorAction Stop
+		}
+	}
 	Process
 	{
-		$AzureDevOpsConfiguration.SetCurrentConnection($AccountName)
+		$AzureDevOpsConfiguration.SetCurrentConnection($AccountName, $ProjectName)
 		"Current Connection updated to: $AccountName"
 	}
 }
@@ -125,4 +137,15 @@ function Get-PatToken
 	}
 
 	$AzureDevOpsConfiguration.Accounts.PatTokens
+}
+
+function Add-AccountProject
+{
+	param
+	(
+		[string]$AccountFriendlyName,
+		[string]$ProjectName
+	)
+
+	$AzureDevOpsConfiguration.Accounts.Accounts.Where({$_.FriendlyName -eq $AccountFriendlyName})[0].AccountProjects.Add($ProjectName)
 }

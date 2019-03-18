@@ -17,6 +17,8 @@ namespace AzureDevOpsMgmt.Helpers.Helpers
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.IO;
+    using System.Management.Automation;
+    using System.Management.Automation.Runspaces;
 
     using AzureDevOpsMgmt.Helpers.Models;
     using AzureDevOpsMgmt.Helpers.Resources;
@@ -29,14 +31,13 @@ namespace AzureDevOpsMgmt.Helpers.Helpers
         /// <summary>
         /// Loads the configuration.
         /// </summary>
-        /// <returns>The module configuration data.</returns>
         /// <exception cref="T:System.UnauthorizedAccessException">The caller does not have the required permission.</exception>
         /// <exception cref="T:System.IO.DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive).</exception>
         /// <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
         /// <exception cref="T:System.IO.FileNotFoundException">The file specified was not found.</exception>
         /// <exception cref="T:System.OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
         /// <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
-        public static AzureDevOpsConfiguration LoadConfiguration()
+        public static void LoadConfiguration()
         {
             AzureDevOpsAccountCollection accountData;
 
@@ -64,7 +65,10 @@ namespace AzureDevOpsMgmt.Helpers.Helpers
                 accountData.Init();
             }
 
-            return new AzureDevOpsConfiguration { Accounts = accountData };
+            AzureDevOpsConfiguration.Config.Accounts = accountData;
+
+            var ps = PowerShell.Create(RunspaceMode.CurrentRunspace);
+            ps.Runspace.InitialSessionState.Variables.Add(new SessionStateVariableEntry("AzureDevOpsConfiguration", AzureDevOpsConfiguration.Config, null));
         }
     }
 }

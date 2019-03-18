@@ -15,29 +15,25 @@
 namespace AzureDevOpsMgmt.Helpers.Models
 {
     using System;
-    using System.Linq;
 
     /// <summary>
     /// Class AzureDevOpsConfiguration.
     /// </summary>
     public class AzureDevOpsConfiguration
     {
-        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Helpers.Models.AzureDevOpsConfiguration"/> class.</summary>
-        public AzureDevOpsConfiguration()
+        /// <summary>Gets the configuration.</summary>
+        /// <value>The configuration.</value>
+        public static AzureDevOpsConfiguration Config
         {
-        }
+            get
+            {
+                if (PrivateConfig == null)
+                {
+                    PrivateConfig = new AzureDevOpsConfiguration();
+                }
 
-        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Helpers.Models.AzureDevOpsConfiguration"/> class.</summary>
-        /// <param name="currentAccountId">The current account identifier.</param>
-        /// <param name="collection">The collection.</param>
-        public AzureDevOpsConfiguration(string currentAccountId, AzureDevOpsAccountCollection collection)
-        {
-            this.Accounts = collection;
-
-            var currentAccount = this.Accounts.Accounts.First(a => a.FriendlyName == currentAccountId);
-            var currentPat = this.Accounts.PatTokens.First(a => a.Id == currentAccount.TokenId);
-
-            this.CurrentConnection = new Tuple<AzureDevOpsAccount, AzureDevOpsPatToken>(currentAccount, currentPat);
+                return PrivateConfig;
+            }
         }
 
         /// <summary>
@@ -50,21 +46,15 @@ namespace AzureDevOpsMgmt.Helpers.Models
         /// Gets or sets the current connection.
         /// </summary>
         /// <value>The current connection.</value>
-        public Tuple<AzureDevOpsAccount, AzureDevOpsPatToken> CurrentConnection { get; set; }
+        public Tuple<AzureDevOpsAccount, AzureDevOpsPatToken, string> CurrentConnection { get; set; }
 
         /// <summary>Gets a value indicating whether [ready for commands].</summary>
         /// <value>
         /// <c>true</c> if [ready for commands]; otherwise, <c>false</c>.</value>
         public bool ReadyForCommands => this.CurrentConnection != null;
 
-        /// <summary>Sets the current connection.</summary>
-        /// <param name="accountName">Name of the account.</param>
-        public void SetCurrentConnection(string accountName)
-        {
-            var newAccount = this.Accounts.Accounts.First(i => i.FriendlyName == accountName);
-            var newPatToken = this.Accounts.PatTokens.First(i => i.Id == newAccount.TokenId);
-
-            this.CurrentConnection = new Tuple<AzureDevOpsAccount, AzureDevOpsPatToken>(newAccount, newPatToken);
-        }
+        /// <summary>Gets or sets the private configuration.</summary>
+        /// <value>The private configuration.</value>
+        private static AzureDevOpsConfiguration PrivateConfig { get; set; }
     }
 }
