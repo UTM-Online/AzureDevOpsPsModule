@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AzureDevOpsMgmt.Helpers.Resources {
+namespace AzureDevOpsMgmt.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace AzureDevOpsMgmt.Helpers.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AzureDevOpsMgmt.Helpers.Resources.FileNames", typeof(FileNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AzureDevOpsMgmt.Resources.FileNames", typeof(FileNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -6,11 +6,12 @@
 // Last Modified By : joirwi
 // Last Modified On : 03-18-2019
 // ***********************************************************************
-// <copyright file="AddPatToken.cs" company="Microsoft">
+// <copyright file="AddAccount.cs" company="Microsoft">
 //     Copyright ©  2019
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Cmdlets.Accounts
 {
     using System.Diagnostics.CodeAnalysis;
@@ -19,14 +20,21 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
     using AzureDevOpsMgmt.Models;
 
     /// <summary>
-    /// Class AddPatToken.
+    /// Class AddAccount.
     /// Implements the <see cref="System.Management.Automation.PSCmdlet" />
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
-    [Cmdlet(VerbsCommon.Add, "PatToken")]
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Required for Cmdlets")]
-    public class AddPatToken : PSCmdlet
+    [Cmdlet(VerbsCommon.Add, "Account")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Required for PSCmdlets")]
+    public class AddAccount : PSCmdlet
     {
+        /// <summary>
+        /// Gets or sets the name of the account.
+        /// </summary>
+        /// <value>The name of the account.</value>
+        [Parameter]
+        public string AccountName { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the friendly.
         /// </summary>
@@ -35,26 +43,12 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         public string FriendlyName { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the user.
-        /// </summary>
-        /// <value>The name of the user.</value>
-        [Parameter]
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the pat token.
-        /// </summary>
-        /// <value>The pat token.</value>
-        [Parameter]
-        public string PatToken { get; set; }
-
-        /// <summary>
         /// When overridden in the derived class, performs execution
         /// of the command.
         /// </summary>
         protected override void ProcessRecord()
         {
-            AzureDevOpsConfiguration.Config.Accounts.AddPatToken(this.FriendlyName, this.UserName, this.PatToken);
+            AzureDevOpsConfiguration.Config.Accounts.AddAccount(this.FriendlyName, this.AccountName);
         }
     }
 }

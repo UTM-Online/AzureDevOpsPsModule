@@ -12,12 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace AzureDevOpsMgmt.Helpers.Helpers
+namespace AzureDevOpsMgmt.Helpers
 {
     using System;
     using System.IO;
 
-    using AzureDevOpsMgmt.Helpers.Resources;
+    using AzureDevOpsMgmt.Resources;
 
     using Newtonsoft.Json;
 

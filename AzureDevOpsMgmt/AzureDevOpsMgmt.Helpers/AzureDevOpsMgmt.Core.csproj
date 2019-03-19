@@ -7,8 +7,8 @@
     <ProjectGuid>{68245A33-6D14-4A75-8013-B100B182A39F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AzureDevOpsMgmt.Helpers</RootNamespace>
-    <AssemblyName>AzureDevOpsMgmt.Helpers</AssemblyName>
+    <RootNamespace>AzureDevOpsMgmt</RootNamespace>
+    <AssemblyName>AzureDevOpsMgmt.Core</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -79,6 +79,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.6.9.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.6.9\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -87,6 +90,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -95,15 +99,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authenticators\BarerTokenAuthenticator.cs" />
+    <Compile Include="Cmdlets\Accounts\AddAccount.cs" />
+    <Compile Include="Cmdlets\Accounts\AddAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\AddPatToken.cs" />
+    <Compile Include="Cmdlets\Accounts\GetAccount.cs" />
+    <Compile Include="Cmdlets\Accounts\GetPatToken.cs" />
+    <Compile Include="Cmdlets\Accounts\JoinAccountAndPatToken.cs" />
+    <Compile Include="Cmdlets\Accounts\RemoveAccount.cs" />
+    <Compile Include="Cmdlets\Accounts\RemoveAccountProject.cs" />
+    <Compile Include="Cmdlets\Accounts\RemovePatToken.cs" />
     <Compile Include="Cmdlets\Accounts\SetAccount.cs" />
+    <Compile Include="Cmdlets\Startup\LoadConfiguration.cs" />
+    <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
+    <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
-    <Compile Include="Helpers\InitialLoader.cs" />
+    <Compile Include="Helpers\JsonNetSerializer.cs" />
     <Compile Include="Helpers\OperationCheck.cs" />
     <Compile Include="Models\AzureDevOpsAccount.cs" />
     <Compile Include="Models\AzureDevOpsAccountCollection.cs" />
     <Compile Include="Models\AzureDevOpsConfiguration.cs" />
     <Compile Include="Models\AzureDevOpsPatToken.cs" />
+    <Compile Include="Models\CurrentConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\FileNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -130,8 +147,6 @@
       <LastGenOutput>StaticStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Cmdlets\DynamicParameters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

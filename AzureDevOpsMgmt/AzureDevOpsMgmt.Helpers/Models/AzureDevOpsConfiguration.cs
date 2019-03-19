@@ -12,10 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace AzureDevOpsMgmt.Helpers.Models
+namespace AzureDevOpsMgmt.Models
 {
-    using System;
-
     /// <summary>
     /// Class AzureDevOpsConfiguration.
     /// </summary>
@@ -46,7 +44,7 @@ namespace AzureDevOpsMgmt.Helpers.Models
         /// Gets or sets the current connection.
         /// </summary>
         /// <value>The current connection.</value>
-        public Tuple<AzureDevOpsAccount, AzureDevOpsPatToken, string> CurrentConnection { get; set; }
+        public CurrentConnection CurrentConnection { get; set; }
 
         /// <summary>Gets a value indicating whether [ready for commands].</summary>
         /// <value>

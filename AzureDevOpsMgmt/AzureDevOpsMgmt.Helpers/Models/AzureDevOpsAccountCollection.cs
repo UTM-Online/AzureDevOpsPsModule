@@ -12,35 +12,22 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace AzureDevOpsMgmt.Helpers.Models
+namespace AzureDevOpsMgmt.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Linq;
     using System.Text;
 
-    using AzureDevOpsMgmt.Helpers.Helpers;
-    using AzureDevOpsMgmt.Helpers.Resources;
+    using AzureDevOpsMgmt.Helpers;
+    using AzureDevOpsMgmt.Resources;
 
     /// <summary>
     /// Class AzureDevOpsAccountCollection.
     /// </summary>
     public class AzureDevOpsAccountCollection
     {
-        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Helpers.Models.AzureDevOpsAccountCollection"/> class.</summary>
-        public AzureDevOpsAccountCollection()
-        {
-        }
-
-        /// <summary>Initializes this instance.</summary>
-        public void Init()
-        {
-            this.Accounts.CollectionChanged += this.OnCollectionChanged;
-            this.PatTokens.CollectionChanged += this.OnCollectionChanged;
-        }
-
         /// <summary>
         /// Gets or sets the accounts.
         /// </summary>
@@ -58,7 +45,7 @@ namespace AzureDevOpsMgmt.Helpers.Models
         /// <param name="accountName">Name of the account.</param>
         public void AddAccount(string friendlyName, string accountName)
         {
-            var url = $"https://dev.azure.com/{accountName}/";
+            var url = $"https://dev.azure.com/{accountName}";
             var account = new AzureDevOpsAccount(friendlyName, accountName, url);
 
             this.Accounts.Add(account);
@@ -82,6 +69,94 @@ namespace AzureDevOpsMgmt.Helpers.Models
             return this.Accounts.Select(i => i.FriendlyName).ToArray();
         }
 
+        /// <summary>Initializes this instance.</summary>
+        public void Init()
+        {
+            this.Accounts.CollectionChanged += this.OnCollectionChanged;
+            this.PatTokens.CollectionChanged += this.OnCollectionChanged;
+        }
+
+        /// <summary>Links the pat token to account.</summary>
+        /// <param name="accountFriendlyName">Name of the account friendly.</param>
+        /// <param name="patTokenFriendlyName">Name of the pat token friendly.</param>
+        public void LinkPatTokenToAccount(string accountFriendlyName, string patTokenFriendlyName)
+        {
+            var patTokenId = this.PatTokens.First(i => i.FriendlyName == patTokenFriendlyName).Id;
+
+            var account = this.Accounts.First(i => i.FriendlyName == accountFriendlyName);
+            account.TokenId = patTokenId;
+
+            this.PerformAccountUpdate(i => i.FriendlyName == accountFriendlyName, account);
+
+        }
+
+        /// <summary>Performs the account transaction.</summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="updateData">The update data.</param>
+        /// <returns>
+        ///   <c>true</c> if operation succeed, <c>false</c> otherwise.
+        /// </returns>
+        public bool PerformAccountUpdate(Func<AzureDevOpsAccount, bool> selector, AzureDevOpsAccount updateData)
+        {
+            var tempItem = this.Accounts.First(selector);
+
+            try
+            {
+                this.Accounts.Remove(tempItem);
+                this.Accounts.Add(updateData);
+                return true;
+            }
+            catch (Exception)
+            {
+                // TODO: Add some logging here
+                if (this.Accounts.Contains(tempItem))
+                {
+                    this.Accounts.Remove(tempItem);
+                    this.Accounts.Add(tempItem);
+                }
+                else
+                {
+                    this.Accounts.Add(tempItem);
+                }
+
+                return false;
+            }
+        }
+
+        /// <summary>Performs the pat token transaction.</summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="updateData">The update data.</param>
+        /// <returns>
+        /// <c>true</c> if operation was successful, <c>false</c> otherwise.
+        /// </returns>
+        public bool PerformPatTokenUpdate(Func<AzureDevOpsPatToken, bool> selector, AzureDevOpsPatToken updateData)
+        {
+            var tempItem = this.PatTokens.First(selector);
+
+            try
+            {
+                this.PatTokens.Remove(tempItem);
+                this.PatTokens.Add(updateData);
+                return true;
+            }
+            catch (Exception)
+            {
+                // TODO: Add some logging here
+                if (this.PatTokens.Contains(tempItem))
+                {
+                    this.PatTokens.Remove(tempItem);
+                    this.PatTokens.Add(tempItem);
+                }
+                else
+                {
+                    this.PatTokens.Add(tempItem);
+                }
+
+                return false;
+            }
+        }
+
+
         /// <summary>Removes the account.</summary>
         /// <param name="friendlyName">Name of the friendly.</param>
         public void RemoveAccount(string friendlyName)
@@ -94,21 +169,6 @@ namespace AzureDevOpsMgmt.Helpers.Models
         public void RemovePatToken(string friendlyName)
         {
             this.PatTokens.Remove(this.PatTokens.First(i => i.FriendlyName == friendlyName));
-        }
-
-        /// <summary>Links the pat token to account.</summary>
-        /// <param name="accountFriendlyName">Name of the account friendly.</param>
-        /// <param name="patTokenFriendlyName">Name of the pat token friendly.</param>
-        public void LinkPatTokenToAccount(string accountFriendlyName, string patTokenFriendlyName)
-        {
-            Guid patTokenId = this.PatTokens.First(i => i.FriendlyName == patTokenFriendlyName).Id;
-
-            var account = this.Accounts.First(i => i.FriendlyName == accountFriendlyName);
-
-            // TODO: Make this an atomic transaction
-            this.Accounts.Remove(account);
-            account.TokenId = patTokenId;
-            this.Accounts.Add(account);
         }
 
         /// <summary>Handles the <see cref="E:CollectionChanged"/> event.</summary>

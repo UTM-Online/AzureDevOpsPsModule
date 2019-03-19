@@ -28,7 +28,6 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="AzureDevOpsMgmt.psd1" />
-    <Compile Include="AzureDevOpsMgmt.psm1" />
     <Compile Include="AzureDevOpsMgmt.Startup.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

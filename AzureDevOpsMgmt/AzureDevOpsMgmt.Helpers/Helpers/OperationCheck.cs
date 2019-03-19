@@ -11,11 +11,11 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-namespace AzureDevOpsMgmt.Helpers.Helpers
+namespace AzureDevOpsMgmt.Helpers
 {
     using System;
 
-    using AzureDevOpsMgmt.Helpers.Models;
+    using AzureDevOpsMgmt.Models;
 
     /// <summary>
     /// Class OperationCheck.
@@ -28,7 +28,7 @@ namespace AzureDevOpsMgmt.Helpers.Helpers
         /// <exception cref="InvalidOperationException">Is thrown when no Azure Dev Ops Account / Project Context is set for the modules execution</exception>
         public void ThrowIfConnectionNotSet()
         {
-            if (!AzureDevOpsConfiguration.ReadyForCommands)
+            if (!AzureDevOpsConfiguration.Config.ReadyForCommands)
             {
                 throw new InvalidOperationException("Please run the \"Set-AzureDevOpsAccount\" cmdlet to set the current account context");
             }

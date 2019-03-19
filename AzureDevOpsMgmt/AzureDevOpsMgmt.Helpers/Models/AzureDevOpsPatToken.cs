@@ -11,11 +11,11 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-namespace AzureDevOpsMgmt.Helpers.Models
+namespace AzureDevOpsMgmt.Models
 {
     using System;
 
-    using AzureDevOpsMgmt.Helpers.Resources;
+    using AzureDevOpsMgmt.Resources;
 
     using Meziantou.Framework.Win32;
 
@@ -34,7 +34,7 @@ namespace AzureDevOpsMgmt.Helpers.Models
             this.TokenValue = new Lazy<string>(() => CredentialManager.ReadCredential(this.CredentialManagerId).Password);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Helpers.Models.AzureDevOpsPatToken"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.AzureDevOpsPatToken"/> class.</summary>
         /// <param name="friendlyName">Name of the friendly.</param>
         /// <param name="tokenValue">The token value.</param>
         public AzureDevOpsPatToken(string friendlyName, string tokenValue)

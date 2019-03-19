@@ -6,11 +6,12 @@
 // Last Modified By : joirwi
 // Last Modified On : 03-18-2019
 // ***********************************************************************
-// <copyright file="AddPatToken.cs" company="Microsoft">
+// <copyright file="JoinAccountAndPatToken.cs" company="Microsoft">
 //     Copyright ©  2019
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Cmdlets.Accounts
 {
     using System.Diagnostics.CodeAnalysis;
@@ -19,34 +20,27 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
     using AzureDevOpsMgmt.Models;
 
     /// <summary>
-    /// Class AddPatToken.
+    /// Class JoinAccountAndPatToken.
     /// Implements the <see cref="System.Management.Automation.PSCmdlet" />
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
-    [Cmdlet(VerbsCommon.Add, "PatToken")]
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Required for Cmdlets")]
-    public class AddPatToken : PSCmdlet
+    [Cmdlet(VerbsCommon.Join, "AccountAndPatToken")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Required for PSCmdlet")]
+    public class JoinAccountAndPatToken : PSCmdlet
     {
         /// <summary>
-        /// Gets or sets the name of the friendly.
+        /// Gets or sets the name of the account friendly.
         /// </summary>
-        /// <value>The name of the friendly.</value>
+        /// <value>The name of the account friendly.</value>
         [Parameter]
-        public string FriendlyName { get; set; }
+        public string AccountFriendlyName { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the user.
+        /// Gets or sets the name of the pat token friendly.
         /// </summary>
-        /// <value>The name of the user.</value>
+        /// <value>The name of the pat token friendly.</value>
         [Parameter]
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the pat token.
-        /// </summary>
-        /// <value>The pat token.</value>
-        [Parameter]
-        public string PatToken { get; set; }
+        public string PatTokenFriendlyName { get; set; }
 
         /// <summary>
         /// When overridden in the derived class, performs execution
@@ -54,7 +48,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// </summary>
         protected override void ProcessRecord()
         {
-            AzureDevOpsConfiguration.Config.Accounts.AddPatToken(this.FriendlyName, this.UserName, this.PatToken);
+            AzureDevOpsConfiguration.Config.Accounts.LinkPatTokenToAccount(this.AccountFriendlyName, this.PatTokenFriendlyName);
         }
     }
 }

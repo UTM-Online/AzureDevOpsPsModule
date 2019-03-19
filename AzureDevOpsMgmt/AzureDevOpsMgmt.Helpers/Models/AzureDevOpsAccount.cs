@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-namespace AzureDevOpsMgmt.Helpers.Models
+namespace AzureDevOpsMgmt.Models
 {
     using System;
     using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace AzureDevOpsMgmt.Helpers.Models
     /// </summary>
     public class AzureDevOpsAccount
     {
-        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Helpers.Models.AzureDevOpsAccount"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.AzureDevOpsAccount"/> class.</summary>
         /// <param name="friendlyName">Name of the friendly.</param>
         /// <param name="accountName">Name of the account.</param>
         /// <param name="baseUrl">The base URL.</param>
@@ -35,7 +35,7 @@ namespace AzureDevOpsMgmt.Helpers.Models
             this.AccountProjects = new List<string>();
         }
 
-        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Helpers.Models.AzureDevOpsAccount"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.AzureDevOpsAccount"/> class.</summary>
         public AzureDevOpsAccount()
         {
         }
