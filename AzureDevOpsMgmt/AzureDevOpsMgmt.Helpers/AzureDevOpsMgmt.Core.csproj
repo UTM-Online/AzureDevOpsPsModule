@@ -110,6 +110,7 @@
     <Compile Include="Cmdlets\Accounts\RemoveAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\RemovePatToken.cs" />
     <Compile Include="Cmdlets\Accounts\SetAccount.cs" />
+    <Compile Include="Cmdlets\PSCmdletPrivateBase.cs" />
     <Compile Include="Cmdlets\Startup\LoadConfiguration.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
     <Compile Include="Helpers\CmdletHelpers.cs" />
