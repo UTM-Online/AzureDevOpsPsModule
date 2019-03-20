@@ -5,6 +5,7 @@
     using System.Reflection;
 
     using AzureDevOpsMgmt.Helpers;
+    using AzureDevOpsMgmt.Models;
 
     using RestSharp;
 
@@ -17,6 +18,11 @@
 
         protected override void BeginProcessing()
         {
+            if (!AzureDevOpsConfiguration.Config.ReadyForCommands)
+            {
+                this.ThrowTerminatingError(new ErrorRecord(new InvalidOperationException("Account context has not been set.  Please run \"Set-AzureDevOpsAccountContext\" before continuing."), "AzureDevOps.Cmdlet.Auth.AccountContextNotSetException", ErrorCategory.AuthenticationError, this));
+            }
+
             this.client = this.GetRestClient();
             AppDomain.CurrentDomain.AssemblyResolve += this.CurrentDomain_BindingRedirect;
         }

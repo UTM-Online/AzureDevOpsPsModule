@@ -110,11 +110,15 @@
     <Compile Include="Cmdlets\Accounts\RemoveAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\RemovePatToken.cs" />
     <Compile Include="Cmdlets\Accounts\SetAccount.cs" />
+    <Compile Include="Cmdlets\Assisstants\UpdateRemainingWork.cs" />
     <Compile Include="Cmdlets\PSCmdletPrivateBase.cs" />
     <Compile Include="Cmdlets\Startup\LoadConfiguration.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
+    <Compile Include="Cmdlets\WorkItems\GetWorkItemFields.cs" />
+    <Compile Include="Cmdlets\WorkItems\UpdateWorkItem.cs" />
     <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
+    <Compile Include="Helpers\JsonHelpers.cs" />
     <Compile Include="Helpers\JsonNetSerializer.cs" />
     <Compile Include="Helpers\OperationCheck.cs" />
     <Compile Include="Models\AzureDevOpsAccount.cs" />

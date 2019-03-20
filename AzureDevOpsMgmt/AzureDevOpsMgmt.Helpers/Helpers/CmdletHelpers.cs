@@ -14,6 +14,9 @@
 namespace AzureDevOpsMgmt.Helpers
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Management.Automation;
 
     using AzureDevOpsMgmt.Authenticators;
@@ -85,6 +88,36 @@ namespace AzureDevOpsMgmt.Helpers
             client.DefaultParameters.Add(new Parameter("ContentType", "application/json", ParameterType.HttpHeader));
             client.UseSerializer(() => new JsonNetSerializer());
             return client;
+        }
+
+        public static Collection<T> InvokePsCommand<T>(this PSCmdlet _, string commandName, IDictionary commandArgs = null)
+        {
+            using (var ps = PowerShell.Create(RunspaceMode.CurrentRunspace))
+            {
+                ps.AddCommand(commandName);
+
+                if (commandArgs != null)
+                {
+                    ps.AddParameters(commandArgs);
+                }
+
+                return ps.Invoke<T>();
+            }
+        }
+
+        public static void InvokePsCommand(this PSCmdlet _, string commandName, IDictionary commandArgs = null)
+        {
+            using (var ps = PowerShell.Create(RunspaceMode.CurrentRunspace))
+            {
+                ps.AddCommand(commandName);
+
+                if (commandArgs != null)
+                {
+                    ps.AddParameters(commandArgs);
+                }
+
+                ps.Invoke();
+            }
         }
     }
 }
