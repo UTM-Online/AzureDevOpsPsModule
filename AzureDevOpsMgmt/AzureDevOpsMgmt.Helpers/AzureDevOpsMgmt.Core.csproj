@@ -111,6 +111,7 @@
     <Compile Include="Cmdlets\Accounts\RemovePatToken.cs" />
     <Compile Include="Cmdlets\Accounts\SetAccount.cs" />
     <Compile Include="Cmdlets\Assisstants\UpdateRemainingWork.cs" />
+    <Compile Include="Cmdlets\Builds\GetBuild.cs" />
     <Compile Include="Cmdlets\PSCmdletPrivateBase.cs" />
     <Compile Include="Cmdlets\Startup\LoadConfiguration.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
