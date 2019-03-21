@@ -76,7 +76,9 @@ namespace AzureDevOpsMgmt.Serialization
             return new JsonSerializerSettings
                        {
                            FloatFormatHandling = FloatFormatHandling.DefaultValue,
-                           FloatParseHandling = FloatParseHandling.Double
+                           FloatParseHandling = FloatParseHandling.Double,
+                           ContractResolver = JsonPatchOperationContractResolver.Instance,
+                           NullValueHandling = NullValueHandling.Ignore
                        };
         }
     }

@@ -65,7 +65,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
             else
             {
                 this.WriteObject("Request Failed.  Review Request / Response Variables");
-                this.WriteVerbose($"BaseUri: {this.client.BaseUrl.OriginalString}");
+                this.WriteDebug($"BaseUri: {this.client.BaseUrl.OriginalString}");
                 this.SetPsVariable("WorkItemRequestBody", workItemRequest);
                 this.SetPsVariable("WorkItemResponseBody", workItemResponse);
             }

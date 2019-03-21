@@ -40,5 +40,15 @@
                     return null;
             }
         }
+
+        protected bool IsVerbose
+        {
+            get { return this.MyInvocation.BoundParameters.ContainsKey("Verbose"); }
+        }
+
+        protected bool IsDebug
+        {
+            get { return this.MyInvocation.BoundParameters.ContainsKey("Debug"); }
+        }
     }
 }

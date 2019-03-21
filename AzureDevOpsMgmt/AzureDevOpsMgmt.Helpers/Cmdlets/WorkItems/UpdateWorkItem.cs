@@ -63,12 +63,11 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         // ReSharper disable once StyleCop.SA1650
         protected override void ProcessRecord()
         {
-            var request = new RestRequest($"wit/workitems/{this.Id}", Method.PATCH);
-            request.AddOrUpdateParameter("Content-Type", "application/json-patch+json", ParameterType.HttpHeader);
+            var request = new RestRequest($"wit/workitems/{this.Id}");
 
             if (this.OriginalWorkItem == null)
             {
-                var getRequest = new RestRequest($"wit/workitems/{this.Id}", Method.GET);
+                var getRequest = new RestRequest($"wit/workitems/{this.Id}");
                 var getResponse = this.client.Execute<WorkItem>(getRequest);
 
                 if (getResponse.IsSuccessful)
@@ -83,8 +82,18 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 
             var patchDocument = JsonHelpers.CreatePatch(this.OriginalWorkItem, this.UpdatedWorkItem);
 
-            request.AddJsonBody(patchDocument);
-            this.client.Execute(request);
+            request.AddParameter(null, patchDocument, "application/json-patch+json", ParameterType.RequestBody);
+            var restResponse = this.client.Patch(request);
+
+            if (this.IsDebug)
+            {
+                this.SetPsVariable("UpdateRestResponse", restResponse);
+            }
+
+            if (!restResponse.IsSuccessful)
+            {
+                this.WriteError(new ErrorRecord(restResponse.ErrorException, "AzureDevOpsMgmt.Cmdlet.UpdateWorkItem.UnknownError", ErrorCategory.NotSpecified, request));
+            }
         }
     }
 }

@@ -36,13 +36,25 @@ namespace AzureDevOpsMgmt.Helpers
         /// <returns>The Patch Document.</returns>
         public static JsonPatchDocument CreatePatch(object originalObject, object modifiedObject)
         {
-            var original = JObject.FromObject(originalObject);
-            var modified = JObject.FromObject(modifiedObject);
+            var original = JObject.FromObject(originalObject, GetPrivateSerializer());
+            var modified = JObject.FromObject(modifiedObject, GetPrivateSerializer());
 
             var patch = new JsonPatchDocument();
             FillPatchForObject(original, modified, patch, "/");
 
             return patch;
+        }
+
+        private static JsonSerializer GetPrivateSerializer()
+        {
+            return JsonSerializer.Create(
+                                         new JsonSerializerSettings
+                                             {
+                                                 FloatParseHandling = FloatParseHandling.Double,
+                                                 FloatFormatHandling = FloatFormatHandling.DefaultValue,
+                                                 NullValueHandling = NullValueHandling.Include,
+                                                 Formatting = Formatting.Indented,
+                                             });
         }
 
         /// <summary>
@@ -91,7 +103,7 @@ namespace AzureDevOpsMgmt.Helpers
 
                 if (origProp.Value.Type != modProp.Value.Type)
                 {
-                    patch.Replace(path + modProp.Name, modProp.Value);
+                    patch.Replace(path + modProp.Name, modProp.Value.ToString());
                 }
                 else if (!string.Equals(
                                         origProp.Value.ToString(Formatting.None),
@@ -101,6 +113,10 @@ namespace AzureDevOpsMgmt.Helpers
                     {
                         // Recurse into objects
                         FillPatchForObject(origProp.Value as JObject, modProp.Value as JObject, patch, path + modProp.Name + "/");
+                    }
+                    else if (origProp.Value.Type == JTokenType.Float)
+                    {
+                        patch.Replace(path + modProp.Name, (double)modProp.Value);
                     }
                     else
                     {

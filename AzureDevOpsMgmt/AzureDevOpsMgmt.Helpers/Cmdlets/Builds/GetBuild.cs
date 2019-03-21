@@ -7,7 +7,7 @@
 
     using RestSharp;
 
-    [Cmdlet(VerbsCommon.Get, "Build")]
+    // [Cmdlet(VerbsCommon.Get, "Build")]
     public class GetBuild : PSCmdletPrivateBase
     {
         [Parameter]
