@@ -14,7 +14,9 @@
 
 namespace AzureDevOpsMgmt.Helpers
 {
+    using System;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     using Microsoft.VisualStudio.Services.WebApi.Patch;
     using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
@@ -28,6 +30,8 @@ namespace AzureDevOpsMgmt.Helpers
     // ReSharper disable once StyleCop.SA1650
     public static class JsonHelpers
     {
+        private static Regex fieldNameFixer = new Regex("/Fields/", RegexOptions.Compiled);
+
         /// <summary>
         /// Creates the patch.
         /// </summary>
@@ -65,7 +69,7 @@ namespace AzureDevOpsMgmt.Helpers
         /// <param name="value">The value.</param>
         private static void Add(this JsonPatchDocument patchDoc, string path, object value)
         {
-            var patch = new JsonPatchOperation { Operation = Operation.Add, Path = path, Value = value };
+            var patch = new JsonPatchOperation { Operation = Operation.Add, Path = SanitizePath(path), Value = value };
             patchDoc.Add(patch);
         }
 
@@ -114,14 +118,17 @@ namespace AzureDevOpsMgmt.Helpers
                         // Recurse into objects
                         FillPatchForObject(origProp.Value as JObject, modProp.Value as JObject, patch, path + modProp.Name + "/");
                     }
-                    else if (origProp.Value.Type == JTokenType.Float)
-                    {
-                        patch.Replace(path + modProp.Name, (double)modProp.Value);
-                    }
                     else
                     {
-                        // Replace values directly
-                        patch.Replace(path + modProp.Name, modProp.Value);
+                        if (origProp.Value.Type == JTokenType.Float)
+                        {
+                            patch.Replace(path + modProp.Name, (double)modProp.Value);
+                        }
+                        else
+                        {
+                            // Replace values directly
+                            patch.Replace(path + modProp.Name, modProp.Value);
+                        }
                     }
                 }
             }
@@ -134,7 +141,7 @@ namespace AzureDevOpsMgmt.Helpers
         /// <param name="path">The path.</param>
         private static void Remove(this JsonPatchDocument patchDoc, string path)
         {
-            var patch = new JsonPatchOperation { Operation = Operation.Remove, Path = path };
+            var patch = new JsonPatchOperation { Operation = Operation.Remove, Path = SanitizePath(path) };
             patchDoc.Add(patch);
         }
 
@@ -146,8 +153,18 @@ namespace AzureDevOpsMgmt.Helpers
         /// <param name="value">The value.</param>
         private static void Replace(this JsonPatchDocument patchDoc, string path, object value)
         {
-            var patch = new JsonPatchOperation { Operation = Operation.Replace, Path = path, Value = value };
+            var patch = new JsonPatchOperation { Operation = Operation.Replace, Path = SanitizePath(path), Value = value };
             patchDoc.Add(patch);
+        }
+
+        private static string SanitizePath(string path)
+        {
+            if (fieldNameFixer.IsMatch(path))
+            {
+                path = fieldNameFixer.Replace(path, "/fields/");
+            }
+
+            return path;
         }
     }
 }

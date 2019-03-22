@@ -3,6 +3,7 @@
     using System;
     using System.Reflection;
 
+    using Microsoft.VisualStudio.Services.WebApi.Patch;
     using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 
     using Newtonsoft.Json;
@@ -21,6 +22,28 @@
                 if (property.PropertyName.Equals("Operation", StringComparison.OrdinalIgnoreCase))
                 {
                     property.PropertyName = "op";
+                }
+                else
+                {
+                    property.PropertyName = property.PropertyName.ToLower();
+                }
+
+                if (property.PropertyName == "From")
+                {
+                    property.ShouldSerialize = instance =>
+                        {
+                            var op = (JsonPatchOperation)instance;
+                            return op.Operation == Operation.Copy || op.Operation == Operation.Move;
+                        };
+                }
+
+                if (property.PropertyName == "Value")
+                {
+                    property.ShouldSerialize = instance =>
+                        {
+                            var op = (JsonPatchOperation)instance;
+                            return op.Operation == Operation.Add || op.Operation == Operation.Replace;
+                        };
                 }
             }
 

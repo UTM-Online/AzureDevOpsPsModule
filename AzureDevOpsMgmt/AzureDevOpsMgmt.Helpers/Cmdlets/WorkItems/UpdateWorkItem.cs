@@ -65,6 +65,8 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         {
             var request = new RestRequest($"wit/workitems/{this.Id}");
 
+            // request.RequestFormat = DataFormat.Json;
+
             if (this.OriginalWorkItem == null)
             {
                 var getRequest = new RestRequest($"wit/workitems/{this.Id}");
@@ -82,7 +84,8 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 
             var patchDocument = JsonHelpers.CreatePatch(this.OriginalWorkItem, this.UpdatedWorkItem);
 
-            request.AddParameter(null, patchDocument, "application/json-patch+json", ParameterType.RequestBody);
+            request.AddJsonBody(patchDocument);
+            request.AddParameter("Content-Type", "application/json-patch+json", ParameterType.HttpHeader);
             var restResponse = this.client.Patch(request);
 
             if (this.IsDebug)
