@@ -19,6 +19,9 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
     using AzureDevOpsMgmt.Helpers;
 
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
+    using Microsoft.VisualStudio.Services.WebApi.Patch;
+
+    using Newtonsoft.Json;
 
     using RestSharp;
 
@@ -65,6 +68,8 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         {
             var request = new RestRequest($"wit/workitems/{this.Id}");
 
+            // request.RequestFormat = DataFormat.Json;
+
             if (this.OriginalWorkItem == null)
             {
                 var getRequest = new RestRequest($"wit/workitems/{this.Id}");
@@ -82,8 +87,10 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 
             var patchDocument = JsonHelpers.CreatePatch(this.OriginalWorkItem, this.UpdatedWorkItem);
 
-            request.AddParameter(null, patchDocument, "application/json-patch+json", ParameterType.RequestBody);
+            request.AddJsonBody(patchDocument);
+            request.AddParameter("Content-Type", "application/json-patch+json", ParameterType.HttpHeader);
             var restResponse = this.client.Patch(request);
+            var updateWorkItem = JsonConvert.DeserializeObject<WorkItem>(restResponse.Content);
 
             if (this.IsDebug)
             {
@@ -94,6 +101,12 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
             {
                 this.WriteError(new ErrorRecord(restResponse.ErrorException, "AzureDevOpsMgmt.Cmdlet.UpdateWorkItem.UnknownError", ErrorCategory.NotSpecified, request));
             }
+            else if (this.UpdatedWorkItem.Rev == updateWorkItem.Rev)
+            {
+                this.ThrowTerminatingError(new ErrorRecord(new PatchOperationFailedException("The update was not applied the selected work item"), "AzureDevOpsMgmt.Core.Cmdlet.UpdateWorkItem.RevisionNumberIsEqual", ErrorCategory.InvalidResult, request));
+            }
+
+            this.WriteObject("The operation has completed successfully");
         }
     }
 }

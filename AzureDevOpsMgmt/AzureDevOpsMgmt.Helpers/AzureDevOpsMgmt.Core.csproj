@@ -142,6 +142,14 @@
     <Compile Include="Serialization\JsonPatchOperationContractResolver.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\AzureDevOpsMgmt\AzureDevOpsMgmt.psd1">
+      <Link>AzureDevOpsMgmt.psd1</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\AzureDevOpsMgmt\AzureDevOpsMgmt.Startup.ps1">
+      <Link>AzureDevOpsMgmt.Startup.ps1</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="app.config" />
     <None Include="package.nuspec" />
     <None Include="packages.config" />
