@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!--*-->
+    <id>AzureDevOpsMgmt</id>
+    <!--*-->
+    <version>1.0.0.0</version>
+    <title>Azure Dev Ops Management Module</title>
+    <!--*-->
+    <authors>Josh Irwin</authors>
+    <owners>Josh Irwin</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--*-->
+    <description>A module for managing work items in Azure Dev Ops (Formerly known as Visual Studio Online)</description>
+    <!--*-->
+  </metadata>
+</package>
