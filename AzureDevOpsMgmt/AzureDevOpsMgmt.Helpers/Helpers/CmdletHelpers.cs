@@ -14,10 +14,15 @@
 namespace AzureDevOpsMgmt.Helpers
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Management.Automation;
 
     using AzureDevOpsMgmt.Authenticators;
     using AzureDevOpsMgmt.Models;
+    using AzureDevOpsMgmt.Serialization;
 
     using RestSharp;
     using RestSharp.Authenticators;
@@ -25,6 +30,7 @@ namespace AzureDevOpsMgmt.Helpers
     /// <summary>
     /// Class CmdletHelpers.
     /// </summary>
+    [SuppressMessage("ReSharper", "StyleCop.SA1650")]
     public static class CmdletHelpers
     {
         /// <summary>
@@ -85,6 +91,56 @@ namespace AzureDevOpsMgmt.Helpers
             client.DefaultParameters.Add(new Parameter("ContentType", "application/json", ParameterType.HttpHeader));
             client.UseSerializer(() => new JsonNetSerializer());
             return client;
+        }
+
+        public static Collection<T> InvokePsCommand<T>(this PSCmdlet _, string commandName, IDictionary commandArgs = null)
+        {
+            using (var ps = PowerShell.Create(RunspaceMode.CurrentRunspace))
+            {
+                ps.AddCommand(commandName);
+
+                if (commandArgs != null)
+                {
+                    ps.AddParameters(commandArgs);
+                }
+
+                return ps.Invoke<T>();
+            }
+        }
+
+        public static void InvokePsCommand(this PSCmdlet _, string commandName, IDictionary commandArgs = null)
+        {
+            using (var ps = PowerShell.Create(RunspaceMode.CurrentRunspace))
+            {
+                ps.AddCommand(commandName);
+
+                if (commandArgs != null)
+                {
+                    ps.AddParameters(commandArgs);
+                }
+
+                ps.Invoke();
+            }
+        }
+
+        /// <summary>Invokes the module cmdlet.</summary>
+        /// <typeparam name="T">The type to be returned to the calling cmdlet</typeparam>
+        /// <param name="cmdlet">The cmdlet.</param>
+        /// <param name="commandName">Name of the command.</param>
+        /// <param name="commandArgs">The command arguments.</param>
+        /// <returns>The Collection of T.</returns>
+        public static Collection<T> InvokeModuleCmdlet<T>(this PSCmdlet cmdlet, string commandName, IDictionary commandArgs = null)
+        {
+            return cmdlet.InvokePsCommand<T>($"AzureDevOpsMgmt\\{commandName}", commandArgs);
+        }
+
+        /// <summary>Invokes the module cmdlet.</summary>
+        /// <param name="cmdlet">The cmdlet.</param>
+        /// <param name="commandName">Name of the command.</param>
+        /// <param name="commandArgs">The command arguments.</param>
+        public static void InvokeModuleCmdlet(this PSCmdlet cmdlet, string commandName, IDictionary commandArgs = null)
+        {
+            cmdlet.InvokePsCommand($"AzureDevOpsMgmt\\{commandName}", commandArgs);
         }
     }
 }

@@ -14,6 +14,7 @@
 namespace AzureDevOpsMgmt.Serialization
 {
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
 
     using RestSharp;
     using RestSharp.Serialization;
@@ -40,7 +41,7 @@ namespace AzureDevOpsMgmt.Serialization
         /// <param name="response">The response.</param>
         /// <returns>T.</returns>
         public T Deserialize<T>(IRestResponse response) =>
-            JsonConvert.DeserializeObject<T>(response.Content);
+            JsonConvert.DeserializeObject<T>(response.Content, this.GetSettings());
 
         /// <summary>
         /// Serializes the specified parameter.
@@ -48,7 +49,7 @@ namespace AzureDevOpsMgmt.Serialization
         /// <param name="parameter">The parameter.</param>
         /// <returns>System.String.</returns>
         public string Serialize(Parameter parameter) =>
-            JsonConvert.SerializeObject(parameter.Value);
+            JsonConvert.SerializeObject(parameter.Value, this.GetSettings());
 
         /// <summary>
         /// Gets the supported content types.
@@ -73,11 +74,17 @@ namespace AzureDevOpsMgmt.Serialization
 
         private JsonSerializerSettings GetSettings()
         {
-            return new JsonSerializerSettings
+            var settings = new JsonSerializerSettings
                        {
                            FloatFormatHandling = FloatFormatHandling.DefaultValue,
-                           FloatParseHandling = FloatParseHandling.Double
+                           FloatParseHandling = FloatParseHandling.Double,
+                           ContractResolver = JsonPatchOperationContractResolver.Instance,
+                           NullValueHandling = NullValueHandling.Ignore,
                        };
+
+            settings.Converters.Add(new StringEnumConverter { AllowIntegerValues = false });
+
+            return settings;
         }
     }
 }

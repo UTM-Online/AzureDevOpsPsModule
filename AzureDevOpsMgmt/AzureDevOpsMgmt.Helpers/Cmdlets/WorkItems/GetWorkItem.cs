@@ -14,6 +14,7 @@
 
 namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Management.Automation;
 
     using AzureDevOpsMgmt.Helpers;
@@ -28,29 +29,14 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
     [Cmdlet(VerbsCommon.Get, "WorkItem")]
-    public class GetWorkItem : PSCmdlet
+    public class GetWorkItem : PSCmdletPrivateBase
     {
-        /// <summary>
-        /// The client
-        /// </summary>
-        private RestClient client;
-
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
         [Parameter]
         public long Id { get; set; }
-
-        /// <summary>
-        /// When overridden in the derived class, performs initialization
-        /// of command execution.
-        /// Default implementation in the base class just returns.
-        /// </summary>
-        protected override void BeginProcessing()
-        {
-            this.client = this.GetRestClient();
-        }
 
         /// <summary>
         /// When overridden in the derived class, performs execution
@@ -61,6 +47,12 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         ///             The Cmdlet should generally just allow PipelineStoppedException
         ///             to percolate up to the caller of ProcessRecord etc.
         /// </exception>
+        /// <exception cref="T:System.Management.Automation.SessionStateUnauthorizedAccessException">If the variable is read-only or constant.</exception>
+        /// <exception cref="T:System.Management.Automation.ProviderInvocationException">If the provider threw an exception.</exception>
+        /// <exception cref="T:System.Management.Automation.DriveNotFoundException">If the <paramref name="name" /> refers to a drive that could not be found.</exception>
+        /// <exception cref="T:System.Management.Automation.ProviderNotFoundException">If the <paramref name="name" /> refers to a provider that could not be found.</exception>
+        /// <exception cref="T:System.Management.Automation.SessionStateOverflowException">If the maximum number of variables has been reached for this scope.</exception>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         protected override void ProcessRecord()
         {
             var workItemRequest = new RestRequest($"wit/workitems/{this.Id}", Method.GET);
@@ -73,7 +65,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
             else
             {
                 this.WriteObject("Request Failed.  Review Request / Response Variables");
-                this.WriteVerbose($"BaseUri: {this.client.BaseUrl.OriginalString}");
+                this.WriteDebug($"BaseUri: {this.client.BaseUrl.OriginalString}");
                 this.SetPsVariable("WorkItemRequestBody", workItemRequest);
                 this.SetPsVariable("WorkItemResponseBody", workItemResponse);
             }
