@@ -9,6 +9,8 @@ Have a suggestion on improvements or changes to make this module more useful? Op
 
 Build / Release Status: [![Build status](https://utmo.visualstudio.com/RemotePowerShell/_apis/build/status/AzureDevOps%20PS%20Module%20Build%20&%20Publish)](https://utmo.visualstudio.com/RemotePowerShell/_build/latest?definitionId=50)
 
+[See the Module on PowerShell Gallery](https://www.powershellgallery.com/packages/AzureDevOpsMgmt)
+
 <table>
         <thead>
             <tr>
