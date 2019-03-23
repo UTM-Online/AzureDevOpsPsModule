@@ -168,7 +168,9 @@ namespace AzureDevOpsMgmt.Models
         /// <param name="friendlyName">Name of the friendly.</param>
         public void RemovePatToken(string friendlyName)
         {
-            this.PatTokens.Remove(this.PatTokens.First(i => i.FriendlyName == friendlyName));
+            var token = this.PatTokens.First(i => i.FriendlyName == friendlyName);
+            token.DeleteToken();
+            this.PatTokens.Remove(token);
         }
 
         /// <summary>Handles the <see cref="E:CollectionChanged"/> event.</summary>
