@@ -114,10 +114,13 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
         {
             this.WriteDebug("Loading required field values from work item");
             this.originalWorkItem.Fields.TryGetValue("Microsoft.VSTS.Scheduling.RemainingWork", out var rawRemainingWork);
+
             this.WriteDebug($"Remaining Work field value is {rawRemainingWork ?? "Unspecified"}");
             this.originalWorkItem.Fields.TryGetValue("Microsoft.VSTS.Scheduling.OriginalEstimate", out var rawOriginalEstimate);
+
             this.WriteDebug($"Original Estimate field value is {rawOriginalEstimate ?? "Unspecified"}");
             this.originalWorkItem.Fields.TryGetValue("Microsoft.VSTS.Scheduling.CompletedWork", out var rawCompletedWork);
+
             this.WriteDebug($"Completed Work field value is {rawCompletedWork ?? "Unspecified"}");
             this.WriteDebug("Beginning Work Time Calculations");
 
