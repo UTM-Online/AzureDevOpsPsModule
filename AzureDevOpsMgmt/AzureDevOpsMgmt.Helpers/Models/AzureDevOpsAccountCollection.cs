@@ -20,6 +20,7 @@ namespace AzureDevOpsMgmt.Models
     using System.Linq;
     using System.Text;
 
+    using AzureDevOpsMgmt.Exceptions;
     using AzureDevOpsMgmt.Helpers;
     using AzureDevOpsMgmt.Resources;
 
@@ -43,8 +44,19 @@ namespace AzureDevOpsMgmt.Models
         /// <summary>Adds the account.</summary>
         /// <param name="friendlyName">Name of the friendly.</param>
         /// <param name="accountName">Name of the account.</param>
+        /// <exception cref="T:AzureDevOpsMgmt.Exceptions.ObjectExistsException">
+        ///     This exception is thrown if the user attempts to add an account and an existing account with that name or friendly name is found in the
+        ///     repository.
+        /// </exception>
         public void AddAccount(string friendlyName, string accountName)
         {
+            if (this.Accounts.Any(
+                                  a => a.AccountName.Equals(accountName, StringComparison.OrdinalIgnoreCase)
+                                     | a.FriendlyName.Equals(friendlyName, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new ObjectExistsException("Account");
+            }
+
             var url = $"https://dev.azure.com/{accountName}";
             var account = new AzureDevOpsAccount(friendlyName, accountName, url);
 
