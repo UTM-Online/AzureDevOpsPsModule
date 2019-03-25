@@ -139,7 +139,17 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
                 remainingWorkTs = TimeSpan.FromHours((double)rawOriginalEstimate);
             }
 
-            var newRemainingWork = Math.Round((remainingWorkTs - completedWork).TotalHours, 4, MidpointRounding.ToEven);
+            double newRemainingWork;
+
+            if (remainingWorkTs.TotalHours < 0)
+            {
+                newRemainingWork = 0;
+            }
+            else
+            {
+                newRemainingWork = Math.Round((remainingWorkTs - completedWork).TotalHours, 4, MidpointRounding.ToEven);
+            }
+
             double newCompletedWorkHours;
 
             if (rawCompletedWork != null)
