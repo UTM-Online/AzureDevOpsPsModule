@@ -49,7 +49,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         {
             var account = AzureDevOpsConfiguration.Config.Accounts.Accounts.First(i => i.FriendlyName.Equals(this.AccountFriendlyName, StringComparison.OrdinalIgnoreCase));
 
-            account.AccountProjects.Remove(this.ProjectName);
+            account.RemoveProject(this.ProjectName);
 
             AzureDevOpsConfiguration.Config.Accounts.PerformAccountUpdate(i => i.FriendlyName.Equals(this.AccountFriendlyName, StringComparison.OrdinalIgnoreCase), account);
         }
