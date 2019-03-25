@@ -16,15 +16,12 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Management.Automation;
 
     using AzureDevOpsMgmt.Helpers;
 
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
-
-    using RestSharp.Extensions;
 
     /// <summary>
     /// Class UpdateRemainingWork.
@@ -68,6 +65,11 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
         /// of command execution.
         /// Default implementation in the base class just returns.
         /// </summary>
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
+        ///             during the execution of this method.
+        ///             The Cmdlet should generally just allow PipelineStoppedException
+        ///             to percolate up to the caller of ProcessRecord etc.
+        /// </exception>
         protected override void BeginProcessing()
         {
             this.WriteDebug($"Loading data for work item {this.Id}");
@@ -81,10 +83,21 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
         /// after the command execution.
         /// Default implementation in the base class just returns.
         /// </summary>
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
+        ///             during the execution of this method.
+        ///             The Cmdlet should generally just allow PipelineStoppedException
+        ///             to percolate up to the caller of ProcessRecord etc.
+        /// </exception>
+        /// <exception cref="T:System.Management.Automation.SessionStateOverflowException">If the maximum number of variables has been reached for this scope.</exception>
+        /// <exception cref="T:System.Management.Automation.ProviderNotFoundException">If the variable refers to a provider that could not be found.</exception>
+        /// <exception cref="T:System.Management.Automation.DriveNotFoundException">If the variable refers to a drive that could not be found.</exception>
+        /// <exception cref="T:System.Management.Automation.ProviderInvocationException">If the provider threw an exception.</exception>
+        /// <exception cref="T:System.Management.Automation.SessionStateUnauthorizedAccessException">If the variable is read-only or constant.</exception>
         protected override void EndProcessing()
         {
             this.WriteDebug("Creating command invocation dictionary");
-            var invocationDictionary = new Dictionary<string, object> { { "Id", this.Id }, { "UpdatedWorkItem", this.updateWorkItem }, { "OriginalWorkItem", this.originalWorkItem} };
+            var invocationDictionary =
+                new Dictionary<string, object> { { "Id", this.Id }, { "UpdatedWorkItem", this.updateWorkItem }, { "OriginalWorkItem", this.originalWorkItem } };
 
             if (this.MyInvocation.BoundParameters.ContainsKey("Debug"))
             {
@@ -110,6 +123,11 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
         /// </summary>
         /// <exception cref="T:System.OverflowException">Represents a number that is less than <see cref="F:System.TimeSpan.MinValue" /> or greater than <see cref="F:System.TimeSpan.MaxValue" />.-or- At least one of the days, hours, minutes, or seconds components is outside its valid range.</exception>
         /// <exception cref="T:System.ArgumentNullException">Argument is <see langword="null" />.</exception>
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
+        ///             during the execution of this method.
+        ///             The Cmdlet should generally just allow PipelineStoppedException
+        ///             to percolate up to the caller of ProcessRecord etc.
+        /// </exception>
         protected override void ProcessRecord()
         {
             this.WriteDebug("Loading required field values from work item");
@@ -131,11 +149,11 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
                 completedWork += TimeSpan.Parse(ts);
             }
 
-            TimeSpan remainingWorkTs = new TimeSpan();
+            var remainingWorkTs = new TimeSpan();
 
             if (rawRemainingWork != null)
             {
-                 remainingWorkTs = TimeSpan.FromHours((double)rawRemainingWork);
+                remainingWorkTs = TimeSpan.FromHours((double)rawRemainingWork);
             }
             else if (rawOriginalEstimate != null)
             {
@@ -157,7 +175,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
 
             if (rawCompletedWork != null)
             {
-                TimeSpan existingCompletedWorkHoursTs = TimeSpan.FromHours((double)rawCompletedWork);
+                var existingCompletedWorkHoursTs = TimeSpan.FromHours((double)rawCompletedWork);
                 newCompletedWorkHours = (completedWork + existingCompletedWorkHoursTs).TotalHours;
                 newCompletedWorkHours = Math.Round(newCompletedWorkHours, 4, MidpointRounding.ToEven);
             }

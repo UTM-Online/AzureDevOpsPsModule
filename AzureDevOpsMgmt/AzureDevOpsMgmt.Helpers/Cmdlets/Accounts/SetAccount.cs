@@ -94,7 +94,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         protected override void BeginProcessing()
         {
             var foundAccounts =
-                AzureDevOpsConfiguration.Config.Accounts.Accounts.FirstOrDefault(i => i.FriendlyName.Equals(this.GetPsBoundParameter<string>("AccountName")));
+                AzureDevOpsConfiguration.Config.Accounts.Accounts.FirstOrDefault(i => i.FriendlyName.Equals(this.GetPsBoundParameter<string>("AccountName"), StringComparison.OrdinalIgnoreCase));
 
             if ((foundAccounts == null) | (foundAccounts == default(AzureDevOpsAccount)))
             {
@@ -138,7 +138,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// </summary>
         protected override void ProcessRecord()
         {
-            var newCurrentAccount = AzureDevOpsConfiguration.Config.Accounts.Accounts.First(i => i.FriendlyName.Equals(this.GetPsBoundParameter<string>("AccountName")));
+            var newCurrentAccount = AzureDevOpsConfiguration.Config.Accounts.Accounts.First(i => i.FriendlyName.Equals(this.GetPsBoundParameter<string>("AccountName"), StringComparison.OrdinalIgnoreCase));
             var newPatToken = AzureDevOpsConfiguration.Config.Accounts.PatTokens.First(i => i.Id == newCurrentAccount.TokenId);
 
             AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(newCurrentAccount, newPatToken, this.ProjectName);
