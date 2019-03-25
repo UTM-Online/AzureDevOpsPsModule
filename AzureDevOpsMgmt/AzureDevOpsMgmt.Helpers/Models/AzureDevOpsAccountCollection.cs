@@ -102,12 +102,12 @@ namespace AzureDevOpsMgmt.Models
         /// <param name="patTokenFriendlyName">Name of the pat token friendly.</param>
         public void LinkPatTokenToAccount(string accountFriendlyName, string patTokenFriendlyName)
         {
-            var patTokenId = this.PatTokens.First(i => i.FriendlyName == patTokenFriendlyName).Id;
+            var patTokenId = this.PatTokens.First(i => i.FriendlyName.Equals(patTokenFriendlyName, StringComparison.OrdinalIgnoreCase)).Id;
 
-            var account = this.Accounts.First(i => i.FriendlyName == accountFriendlyName);
+            var account = this.Accounts.First(i => i.FriendlyName.Equals(accountFriendlyName, StringComparison.OrdinalIgnoreCase));
             account.TokenId = patTokenId;
 
-            this.PerformAccountUpdate(i => i.FriendlyName == accountFriendlyName, account);
+            this.PerformAccountUpdate(i => i.FriendlyName == account.FriendlyName, account);
 
         }
 
