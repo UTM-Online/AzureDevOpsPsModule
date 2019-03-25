@@ -6,7 +6,7 @@
 // Last Modified By : joirwi
 // Last Modified On : 03-19-2019
 // ***********************************************************************
-// <copyright file="LoadConfiguration.cs" company="Microsoft">
+// <copyright file="ImportConfiguration.cs" company="Microsoft">
 //     Copyright ©  2019
 // </copyright>
 // <summary></summary>
@@ -22,12 +22,12 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
     using AzureDevOpsMgmt.Resources;
 
     /// <summary>
-    /// Class LoadConfiguration.
+    /// Class ImportConfiguration.
     /// Implements the <see cref="System.Management.Automation.PSCmdlet" />
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
-    [Cmdlet("Load", "Configuration")]
-    public class LoadConfiguration : PSCmdlet
+    [Cmdlet(VerbsData.Import, "Configuration")]
+    public class ImportConfiguration : PSCmdlet
     {
         /// <summary>
         /// When overridden in the derived class, performs execution

@@ -1,3 +1,3 @@
-$cmdlet = Get-Command -Name Load-AzureDevOpsConfiguration -Module AzureDevOpsMgmt
+$cmdlet = Get-Command -Name Import-AzureDevOpsConfiguration -Module AzureDevOpsMgmt
 $cmdlet.Visibility = "Private"
-AzureDevOpsMgmt\Load-Configuration
+AzureDevOpsMgmt\Import-Configuration
