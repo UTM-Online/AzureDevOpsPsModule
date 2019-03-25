@@ -67,8 +67,17 @@ namespace AzureDevOpsMgmt.Models
         /// <param name="friendlyName">Name of the friendly.</param>
         /// <param name="userName">Name of the user.</param>
         /// <param name="patToken">The pat token.</param>
+        /// <exception cref="T:AzureDevOpsMgmt.Exceptions.ObjectExistsException">
+        ///     This exception is thrown if the user attempts to add a Pat Token and an existing Token with that friendly name is found in the
+        ///     repository.
+        /// </exception>
         public void AddPatToken(string friendlyName, string userName, string patToken)
         {
+            if (this.PatTokens.Any(p => p.FriendlyName.Equals(friendlyName, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new ObjectExistsException("Pat Token");
+            }
+
             var protoToken = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{userName}:{patToken}"));
             var item = new AzureDevOpsPatToken(friendlyName, protoToken);
             this.PatTokens.Add(item);
