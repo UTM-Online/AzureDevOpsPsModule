@@ -11,10 +11,16 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+
+    using AzureDevOpsMgmt.Exceptions;
+
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Class AzureDevOpsAccount.
@@ -41,12 +47,6 @@ namespace AzureDevOpsMgmt.Models
         }
 
         /// <summary>
-        /// Gets or sets the name of the friendly.
-        /// </summary>
-        /// <value>The name of the friendly.</value>
-        public string FriendlyName { get; set; }
-
-        /// <summary>
         /// Gets or sets the name of the account.
         /// </summary>
         /// <value>The name of the account.</value>
@@ -54,7 +54,18 @@ namespace AzureDevOpsMgmt.Models
 
         /// <summary>Gets or sets the account projects.</summary>
         /// <value>The account projects.</value>
-        public List<string> AccountProjects { get; set; }
+        [JsonIgnore]
+        public IReadOnlyList<string> AccountProjects { get; set; }
+
+        /// <summary>Gets or sets the base URL.</summary>
+        /// <value>The base URL.</value>
+        public string BaseUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the friendly.
+        /// </summary>
+        /// <value>The name of the friendly.</value>
+        public string FriendlyName { get; set; }
 
         /// <summary>
         /// Gets or sets the token identifier.
@@ -62,8 +73,31 @@ namespace AzureDevOpsMgmt.Models
         /// <value>The token identifier.</value>
         public Guid? TokenId { get; set; }
 
-        /// <summary>Gets or sets the base URL.</summary>
-        /// <value>The base URL.</value>
-        public string BaseUrl { get; set; }
+        /// <summary>Gets or sets the internal projects list.</summary>
+        /// <value>The internal projects list.</value>
+        [JsonProperty(PropertyName = "AccountProjects")]
+        private List<string> InternalProjectsList { get; set; }
+
+        /// <summary>Adds the project to the account.</summary>
+        /// <param name="name">The project name.</param>
+        /// <exception cref="T:AzureDevOpsMgmt.Exceptions.ObjectExistsException">
+        ///     This exception is thrown if the user tries to add a project that already exists in the account object.
+        /// </exception>
+        public void AddProject(string name)
+        {
+            if (this.InternalProjectsList.Any(p => p.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new ObjectExistsException("Account Project");
+            }
+
+            this.InternalProjectsList.Add(name);
+        }
+
+        /// <summary>Removes the project from the account.</summary>
+        /// <param name="name">The name.</param>
+        public void RemoveProject(string name)
+        {
+            this.InternalProjectsList.Remove(name);
+        }
     }
 }
