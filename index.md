@@ -1,3 +1,8 @@
+---
+title: Home
+layout: default
+---
+
 # The Azure DevOps PowerShell Module
 A PowerShell Module for interacting with Azure Dev Ops REST API.
 
