@@ -2,6 +2,9 @@
 {
     using System.Management.Automation;
 
+    using AzureDevOpsMgmt.Helpers;
+    using AzureDevOpsMgmt.Models;
+
     using Microsoft.VisualStudio.Services.ReleaseManagement.WebApi;
 
     using RestSharp;
@@ -32,7 +35,7 @@
             }
             else
             {
-                this.WriteError(new ErrorRecord(response.ErrorException, "AzureDevOpsMgmt.Cmdlet.Release.RejectionFailedError", ErrorCategory.NotSpecified, request));
+                this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Release), ErrorCategory.NotSpecified, this);
             }
         }
     }
