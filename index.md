@@ -7,7 +7,10 @@ This project was born out of my own laziness when it came to calculating and upd
 
 To get people started and make some value out right the module is designed to be scripted around to meet your own needs.  Have a specific workflow involving updating tasks you want to script or automate? Use the `Get-AzureDevOpsWorkItem` cmdlet to pull down the work item in its native form, make your updates and use the `Update-AzureDevOpsWorkItem` cmdlet to push your changes to your project.
 
-Have a suggestion on improvements or changes to make this module more useful? Open an issue and mark it as an enhancement and I'll evaluate incorporating your request.  Feel like making the improvements your self?  Fork the repository and when you're finished open a PR to the dev/main branch.
+Want to install the module? Just run:
+```powershell
+Install-Module -Name AzureDevOpsMgmt -Repository PSGallery -Scope:CurrentUser
+```
 
 Build / Release Status: [![Build status](https://utmo.visualstudio.com/RemotePowerShell/_apis/build/status/AzureDevOps%20PS%20Module%20Build%20&%20Publish)](https://utmo.visualstudio.com/RemotePowerShell/_build/latest?definitionId=50)
 
