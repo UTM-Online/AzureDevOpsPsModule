@@ -1,5 +1,9 @@
 theme: jekyll-theme-leap-day
 
+site:
+  title: The Azure DevOps PowerShell Module
+  description: A PowerShell Module for interacting with Azure Dev Ops REST API
+
 plugins:
   - jekyll-sitemap
 
