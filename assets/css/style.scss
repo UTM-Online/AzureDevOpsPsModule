@@ -2,3 +2,9 @@
 ---
 
 @import 'jekyll-theme-hacker';
+
+#nav {
+    float: left;
+}
+
+#nav ul { list-style-type: none }
