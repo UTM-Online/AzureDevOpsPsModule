@@ -162,7 +162,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
 
             double newRemainingWork;
 
-            if (remainingWorkTs.TotalHours < 0)
+            if (remainingWorkTs.TotalHours <= 0)
             {
                 newRemainingWork = 0;
             }
