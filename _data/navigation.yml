@@ -1,5 +1,4 @@
 - title: Home
   link: /
-- title: Getting Started
-  docs:
-    link: /docs/GettingStarted/
+- title: Docs
+  link: /docs
