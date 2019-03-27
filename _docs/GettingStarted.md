@@ -1,6 +1,8 @@
 ---
 title: Getting Started
 layout: default
+redirect_from:
+    - /docs
 ---
 
 # How to get started using the Azure DevOps Management PowerShell Module
