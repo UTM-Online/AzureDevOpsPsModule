@@ -1,2 +1,4 @@
-- name: Home
-  link: /AzureDevOpsPsModule
+- title: Home
+  link: /
+- title: Getting Started
+  link: /docs/GettingStarted

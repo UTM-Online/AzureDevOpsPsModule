@@ -3,6 +3,16 @@ theme: jekyll-theme-leap-day
 title: The Azure DevOps PowerShell Module
 description: PowerShell Module for interacting with Azure Dev Ops
 
+collections:
+  docs:
+    permalink: "/:collection/:path/"
+    output: true
+
+default:
+  - scope:
+      path: _docs
+      type: docs
+
 plugins:
   - jekyll-sitemap
 
