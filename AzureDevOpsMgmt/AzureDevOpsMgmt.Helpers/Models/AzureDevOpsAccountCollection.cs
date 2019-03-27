@@ -100,7 +100,7 @@ namespace AzureDevOpsMgmt.Models
         /// <summary>Links the pat token to account.</summary>
         /// <param name="accountFriendlyName">Name of the account friendly.</param>
         /// <param name="patTokenFriendlyName">Name of the pat token friendly.</param>
-        public void LinkPatTokenToAccount(string accountFriendlyName, string patTokenFriendlyName)
+        internal void LinkPatTokenToAccount(string accountFriendlyName, string patTokenFriendlyName)
         {
             var patTokenId = this.PatTokens.First(i => i.FriendlyName.Equals(patTokenFriendlyName, StringComparison.OrdinalIgnoreCase)).Id;
 
@@ -117,7 +117,7 @@ namespace AzureDevOpsMgmt.Models
         /// <returns>
         ///   <c>true</c> if operation succeed, <c>false</c> otherwise.
         /// </returns>
-        public bool PerformAccountUpdate(Func<AzureDevOpsAccount, bool> selector, AzureDevOpsAccount updateData)
+        internal bool PerformAccountUpdate(Func<AzureDevOpsAccount, bool> selector, AzureDevOpsAccount updateData)
         {
             var tempItem = this.Accounts.First(selector);
 
@@ -150,7 +150,7 @@ namespace AzureDevOpsMgmt.Models
         /// <returns>
         /// <c>true</c> if operation was successful, <c>false</c> otherwise.
         /// </returns>
-        public bool PerformPatTokenUpdate(Func<AzureDevOpsPatToken, bool> selector, AzureDevOpsPatToken updateData)
+        internal bool PerformPatTokenUpdate(Func<AzureDevOpsPatToken, bool> selector, AzureDevOpsPatToken updateData)
         {
             var tempItem = this.PatTokens.First(selector);
 
@@ -180,14 +180,14 @@ namespace AzureDevOpsMgmt.Models
 
         /// <summary>Removes the account.</summary>
         /// <param name="friendlyName">Name of the friendly.</param>
-        public void RemoveAccount(string friendlyName)
+        internal void RemoveAccount(string friendlyName)
         {
             this.Accounts.Remove(this.Accounts.First(i => i.FriendlyName == friendlyName));
         }
 
         /// <summary>Removes the pat token.</summary>
         /// <param name="friendlyName">Name of the friendly.</param>
-        public void RemovePatToken(string friendlyName)
+        internal void RemovePatToken(string friendlyName)
         {
             var token = this.PatTokens.First(i => i.FriendlyName == friendlyName);
             token.DeleteToken();
