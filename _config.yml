@@ -1,4 +1,4 @@
-theme: jekyll-theme-leap-day
+theme: jekyll-theme-hacker
 
 title: The Azure DevOps PowerShell Module
 description: PowerShell Module for interacting with Azure Dev Ops
