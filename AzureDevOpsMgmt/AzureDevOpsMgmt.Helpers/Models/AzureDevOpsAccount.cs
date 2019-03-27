@@ -38,7 +38,7 @@ namespace AzureDevOpsMgmt.Models
             this.AccountName = accountName;
             this.TokenId = tokenId;
             this.BaseUrl = baseUrl;
-            this.AccountProjects = new List<string>();
+            this.InternalProjectsList = new List<string>();
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.AzureDevOpsAccount"/> class.</summary>
@@ -55,7 +55,7 @@ namespace AzureDevOpsMgmt.Models
         /// <summary>Gets or sets the account projects.</summary>
         /// <value>The account projects.</value>
         [JsonIgnore]
-        public IReadOnlyList<string> AccountProjects { get; set; }
+        public IReadOnlyList<string> AccountProjects => this.InternalProjectsList;
 
         /// <summary>Gets or sets the base URL.</summary>
         /// <value>The base URL.</value>
