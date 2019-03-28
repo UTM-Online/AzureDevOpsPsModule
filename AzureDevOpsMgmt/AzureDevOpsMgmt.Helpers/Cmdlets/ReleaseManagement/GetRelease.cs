@@ -49,14 +49,7 @@
 
             var response = this.client.Get<Release>(request);
 
-            if (response.IsSuccessful)
-            {
-                this.WriteObject(response.Data);
-            }
-            else
-            {
-                this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Release), ErrorCategory.NotSpecified, this);
-            }
+            this.WriteObject(response, DevOpsModelTarget.Release, ErrorCategory.NotSpecified, this);
         }
 
         private void ListAllReleasesForDefinition()
@@ -66,14 +59,7 @@
 
             var response = this.client.Get<List<Release>>(request);
 
-            if (response.IsSuccessful)
-            {
-                this.WriteObject(response.Data);
-            }
-            else
-            {
-                this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Release), ErrorCategory.NotSpecified, this);
-            }
+            this.WriteObject(response, DevOpsModelTarget.Release, ErrorCategory.NotSpecified, this);
         }
     }
 }
