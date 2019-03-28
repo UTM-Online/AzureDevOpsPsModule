@@ -41,6 +41,18 @@
             }
         }
 
+        public void WriteObject<T>(IRestResponse<T> response, DevOpsModelTarget onErrorTarget, ErrorCategory onErrorCategory, object onErrorTargetObject, string onErrorReason = null)
+        {
+            if (response.IsSuccessful)
+            {
+                this.WriteObject(response.Data);
+            }
+            else
+            {
+                this.WriteError(response.ErrorException, this.BuildStandardErrorId(onErrorTarget, onErrorReason), onErrorCategory, onErrorTargetObject);
+            }
+        }
+
         protected bool IsVerbose
         {
             get { return this.MyInvocation.BoundParameters.ContainsKey("Verbose"); }
