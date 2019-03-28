@@ -121,6 +121,7 @@
     <Compile Include="Cmdlets\PSCmdletPrivateBase.cs" />
     <Compile Include="Cmdlets\ReleaseManagement\ApproveReleaseStep.cs" />
     <Compile Include="Cmdlets\ReleaseManagement\DenyReleaseStep.cs" />
+    <Compile Include="Cmdlets\ReleaseManagement\GetRelease.cs" />
     <Compile Include="Cmdlets\Startup\ImportConfiguration.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItemFields.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
+    <Compile Include="Models\DevOpsModelTarget.cs" />
     <Compile Include="Serialization\JsonNetSerializer.cs" />
     <Compile Include="Helpers\OperationCheck.cs" />
     <Compile Include="Helpers\WorkItemHelpers.cs" />
