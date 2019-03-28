@@ -10,7 +10,7 @@
             {% else %}
                 {% if page.url contains p.url %}current{% endif %}
             {% endif %}">
-                <a href="{{ p.url }}">
+                <a href="{{ p.url | relative_url }}">
                 {% if p.menu_name %}
                     {{ p.menu_name }}
                 {% else %}
