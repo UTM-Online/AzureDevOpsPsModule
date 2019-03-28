@@ -1,7 +1,9 @@
 ---
 title: Add-AzureDevOpsAccountProject
 layout: docs
-permalink: /docs/cmdlets/addaccountproject/
+permalink: /docs/cmdlets/core/addaccountproject/
+redirect_from:
+    - /docs/cmdlets/addaccountproject/
 ---
 
 ## Syntax

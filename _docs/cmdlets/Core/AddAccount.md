@@ -1,7 +1,9 @@
 ---
 title: Add-AzureDevOpsAccount
 layout: docs
-permalink: /docs/cmdlets/addaccount/
+permalink: /docs/cmdlets/core/addaccount/
+redirect_from:
+    - /docs/cmdlets/addaccount/
 ---
 
 ## Syntax
@@ -10,6 +12,7 @@ Add-AzureDevOpsAccount
   [-AccountName <string>]
   [-FriendlyName <string>]
 ```
+
 <br>
 ## Description
 Adds an Azure Dev Ops Account to the configuration repository

@@ -1,7 +1,9 @@
 ---
 title: Get-AzureDevOpsPatToken
 layout: docs
-permalink: /docs/cmdlets/getpattoken/
+permalink: /docs/cmdlets/core/getpattoken/
+redirect_from:
+    - /docs/cmdlets/getpattoken/
 ---
 
 ## Syntax

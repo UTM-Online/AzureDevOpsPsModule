@@ -2,11 +2,15 @@
   docs:
     - link: /docs/
     - link: /docs/cmdletlist/
-- title: Cmdlets
+- title: Core Cmdlets
   docs:
-    - link: /docs/cmdlets/addaccount/
-    - link: /docs/cmdlets/addaccountproject/
-    - link: /docs/cmdlets/addpattoken/
-    - link: /docs/cmdlets/getaccount/
-    - link: /docs/cmdlets/getpattoken/
-    - link: /docs/cmdlets/joinaccountandpattoken/
+    - link: /docs/cmdlets/core/addaccount/
+    - link: /docs/cmdlets/core/addaccountproject/
+    - link: /docs/cmdlets/core/addpattoken/
+    - link: /docs/cmdlets/core/getaccount/
+    - link: /docs/cmdlets/core/getpattoken/
+    - link: /docs/cmdlets/core/joinaccountandpattoken/
+    - link: /docs/cmdlets/core/removeaccount/
+    - link: /docs/cmdlets/core/removeaccountproject/
+    - link: /docs/cmdlets/core/removepattoken/
+    - link: /docs/cmdlets/core/setaccountcontext/

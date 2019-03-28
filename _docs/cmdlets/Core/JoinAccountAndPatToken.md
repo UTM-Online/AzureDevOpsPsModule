@@ -1,7 +1,9 @@
 ---
 title: Join-AzureDevOpsAccountAndPatToken
 layout: docs
-permalink: /docs/cmdlets/joinaccountandpattoken/
+permalink: /docs/cmdlets/core/joinaccountandpattoken/
+redirect_from:
+    - /docs/cmdlets/joinaccountandpattoken/
 ---
 
 ## Syntax

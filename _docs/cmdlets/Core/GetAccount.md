@@ -1,7 +1,9 @@
 ---
 title: Get-AzureDevOpsAccount
 layout: docs
-permalink: /docs/cmdlets/getaccount/
+permalink: /docs/cmdlets/core/getaccount/
+redirect_from:
+    - /docs/cmdlets/getaccount/
 ---
 
 ## Syntax

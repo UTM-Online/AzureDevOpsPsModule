@@ -1,7 +1,9 @@
 ---
 title: Add-AzureDevOpsPatToken
 layout: docs
-permalink: /docs/cmdlets/addpattoken/
+permalink: /docs/cmdlets/core/addpattoken/
+redirect_from:
+    - /docs/cmdlets/addpattoken/
 ---
 
 ## Syntax
