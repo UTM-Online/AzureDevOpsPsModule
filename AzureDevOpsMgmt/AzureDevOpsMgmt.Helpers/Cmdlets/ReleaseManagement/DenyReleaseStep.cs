@@ -10,7 +10,7 @@
     using RestSharp;
 
     [Cmdlet(VerbsLifecycle.Deny, "ReleaseStep")]
-    public class DenyReleaseStep : PSCmdletPrivateBase
+    public class DenyReleaseStep : ApiCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [Alias("id")]

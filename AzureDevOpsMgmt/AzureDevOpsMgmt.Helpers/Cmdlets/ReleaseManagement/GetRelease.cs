@@ -12,7 +12,7 @@
     using RestSharp;
 
     [Cmdlet(VerbsCommon.Get, "Release")]
-    public class GetRelease : PSCmdletPrivateBase
+    public class GetRelease : ApiCmdlet
     {
         [Parameter(ParameterSetName = "UserInput")]
         public int Id { get; set; }

@@ -27,11 +27,11 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 
     /// <summary>
     /// Class UpdateWorkItem.
-    /// Implements the <see cref="AzureDevOpsMgmt.Cmdlets.PSCmdletPrivateBase" />
+    /// Implements the <see cref="ApiCmdlet" />
     /// </summary>
-    /// <seealso cref="AzureDevOpsMgmt.Cmdlets.PSCmdletPrivateBase" />
+    /// <seealso cref="ApiCmdlet" />
     [Cmdlet(VerbsData.Update, "WorkItem")]
-    public class UpdateWorkItem : PSCmdletPrivateBase
+    public class UpdateWorkItem : ApiCmdlet
     {
         /// <summary>
         /// Gets or sets the identifier.

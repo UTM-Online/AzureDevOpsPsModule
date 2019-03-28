@@ -8,7 +8,7 @@
     using RestSharp;
 
     // [Cmdlet(VerbsCommon.Get, "Build")]
-    public class GetBuild : PSCmdletPrivateBase
+    public class GetBuild : ApiCmdlet
     {
         [Parameter]
         public int BuildDefinitionId { get; set; }

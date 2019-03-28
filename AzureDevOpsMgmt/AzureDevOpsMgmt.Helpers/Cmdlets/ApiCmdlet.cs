@@ -9,7 +9,7 @@
 
     using RestSharp;
 
-    public abstract class PSCmdletPrivateBase : PSCmdlet
+    public abstract class ApiCmdlet : PSCmdlet
     {
         /// <summary>
         /// The client

@@ -10,7 +10,7 @@
     using RestSharp;
 
     [Cmdlet(VerbsLifecycle.Approve, "ReleaseStep")]
-    public class ApproveReleaseStep : PSCmdletPrivateBase
+    public class ApproveReleaseStep : ApiCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [Alias("id")]
