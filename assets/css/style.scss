@@ -2,8 +2,16 @@
 ---
 
 @import 'jekyll-theme-hacker';
+@import "mixins";
+@import "normalize";
+@import "gridism";
+@import "pygments";
+@import "font-awesome";
+@import "fonts";
+@import "docsearch";
+@import "style";
 
-.nav-primary {
-    float: left;
-    padding-left: 2%
+small.cmdlet {
+    font-size: smaller;
+    white-space: nowrap; 
 }
