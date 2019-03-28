@@ -14,3 +14,9 @@
     - link: /docs/cmdlets/core/removeaccountproject/
     - link: /docs/cmdlets/core/removepattoken/
     - link: /docs/cmdlets/core/setaccountcontext/
+- title: Api Cmdlets
+  docs:
+    - link: /docs/cmdlets/api/getworkitem/
+    - link: /docs/cmdlets/api/getworkitemfields/
+    - link: /docs/cmdlets/api/updateworkitem/
+    - link: /docs/cmdlets/core/updateremainingwork/
