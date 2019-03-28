@@ -2,7 +2,7 @@
     <aside>
         {% for section in site.data.docs_navigation %}
         <h4>{{ section.title }}</h4>
-        <ul>
+        <ul class="docsmenu">
             {% for item in section.docs %}
             {% assign p = site.documents | where: "url", item.link | first %}
             <li class="{% if p.url == '/docs/' %}
