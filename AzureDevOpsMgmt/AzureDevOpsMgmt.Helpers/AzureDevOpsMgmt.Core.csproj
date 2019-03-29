@@ -112,7 +112,7 @@
     <Compile Include="Cmdlets\Accounts\AddAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\AddPatToken.cs" />
     <Compile Include="Cmdlets\Accounts\GetAccount.cs" />
-    <Compile Include="Cmdlets\Accounts\GetDefaultAccount.cs" />
+    <Compile Include="Cmdlets\Accounts\GetStartUpAccount.cs" />
     <Compile Include="Cmdlets\Accounts\GetPatToken.cs" />
     <Compile Include="Cmdlets\Accounts\JoinAccountAndPatToken.cs" />
     <Compile Include="Cmdlets\Accounts\RemoveAccount.cs" />
