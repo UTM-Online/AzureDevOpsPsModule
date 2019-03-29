@@ -142,5 +142,36 @@ namespace AzureDevOpsMgmt.Helpers
         {
             cmdlet.InvokePsCommand($"AzureDevOpsMgmt\\{commandName}", commandArgs);
         }
+
+        /// <summary>Use this method to build a standardized ID for error records returned to the user.</summary>
+        /// <param name="cmdlet">The cmdlet executing at the time the error was encountered.</param>
+        /// <param name="resourceTarget">The type of resources being operated on at the time the error occured</param>
+        /// <param name="errorReason">The Reason the error occured.  If no reason is provided then "UnknownError" will be used instead.</param>
+        /// <returns>The standard error ID</returns>
+        /// <remarks>The standard ID will be formatted as such: "AzureDevOpsMgmt.Cmdlet.{Resource Target Type}.{Cmdlet Class Name}.{Failure Reason}</remarks>
+        public static string BuildStandardErrorId(this PSCmdlet cmdlet, DevOpsModelTarget resourceTarget, string errorReason = "UnknownError")
+        {
+            return BuildStandardErrorIdInternal($"{resourceTarget.ToString()}.{cmdlet.GetType().Name}.{errorReason}");
+        }
+
+        /// <summary>Writes the error.</summary>
+        /// <param name="cmdlet">The cmdlet.</param>
+        /// <param name="exception">The exception.</param>
+        /// <param name="errorId">The error identifier.</param>
+        /// <param name="category">The category.</param>
+        /// <param name="target">The target.</param>
+        public static void WriteError(this PSCmdlet cmdlet, Exception exception, string errorId, ErrorCategory category, object target)
+        {
+            var er = new ErrorRecord(exception, errorId, category, target);
+            cmdlet.WriteError(er);
+        }
+
+        /// <summary>Builds the standard error identifier internal.</summary>
+        /// <param name="resourceErrorString">The resource error string.</param>
+        /// <returns>  The standard base string plus the variable components.</returns>
+        private static string BuildStandardErrorIdInternal(string resourceErrorString)
+        {
+            return $"AzureDevOpsMgmt.Cmdlet.{resourceErrorString}";
+        }
     }
 }

@@ -12,7 +12,7 @@
     using RestSharp;
 
     [Cmdlet(VerbsCommon.Get, "WorkItemFields")]
-    public class GetWorkItemFields : PSCmdletPrivateBase
+    public class GetWorkItemFields : ApiCmdlet
     {
         [Parameter]
         public string FieldName { get; set; }

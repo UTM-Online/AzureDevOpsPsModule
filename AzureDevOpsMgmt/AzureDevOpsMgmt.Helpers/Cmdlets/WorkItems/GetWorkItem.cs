@@ -29,7 +29,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
     [Cmdlet(VerbsCommon.Get, "WorkItem")]
-    public class GetWorkItem : PSCmdletPrivateBase
+    public class GetWorkItem : ApiCmdlet
     {
         /// <summary>
         /// Gets or sets the identifier.

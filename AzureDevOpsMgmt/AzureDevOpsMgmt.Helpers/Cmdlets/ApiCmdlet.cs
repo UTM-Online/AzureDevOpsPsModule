@@ -9,14 +9,14 @@
 
     using RestSharp;
 
-    public abstract class PSCmdletPrivateBase : PSCmdlet
+    public abstract class ApiCmdlet : PSCmdlet
     {
         /// <summary>
         /// The client
         /// </summary>
         protected RestClient client;
 
-        protected override void BeginProcessing()
+        protected sealed override void BeginProcessing()
         {
             if (!AzureDevOpsConfiguration.Config.ReadyForCommands)
             {
@@ -25,6 +25,12 @@
 
             this.client = this.GetRestClient();
             AppDomain.CurrentDomain.AssemblyResolve += this.CurrentDomain_BindingRedirect;
+
+            this.BeginProcessingCmdlet();
+        }
+
+        protected virtual void BeginProcessingCmdlet()
+        {
         }
 
         private Assembly CurrentDomain_BindingRedirect(object sender, ResolveEventArgs args)
@@ -38,6 +44,18 @@
 
                 default:
                     return null;
+            }
+        }
+
+        public void WriteObject<T>(IRestResponse<T> response, DevOpsModelTarget onErrorTarget, ErrorCategory onErrorCategory, object onErrorTargetObject, string onErrorReason = null)
+        {
+            if (response.IsSuccessful)
+            {
+                this.WriteObject(response.Data);
+            }
+            else
+            {
+                this.WriteError(response.ErrorException, this.BuildStandardErrorId(onErrorTarget, onErrorReason), onErrorCategory, onErrorTargetObject);
             }
         }
 

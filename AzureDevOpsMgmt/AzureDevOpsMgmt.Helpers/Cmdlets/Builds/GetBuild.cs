@@ -3,26 +3,43 @@
     using System.Collections.Generic;
     using System.Management.Automation;
 
+    using AzureDevOpsMgmt.Models;
+
     using Microsoft.TeamFoundation.Build.WebApi;
 
     using RestSharp;
 
-    // [Cmdlet(VerbsCommon.Get, "Build")]
-    public class GetBuild : PSCmdletPrivateBase
+    [Cmdlet(VerbsCommon.Get, "Build", DefaultParameterSetName = "BuildDefinitionList")]
+    public class GetBuild : ApiCmdlet
     {
-        [Parameter]
-        public int BuildDefinitionId { get; set; }
+        [Parameter(ParameterSetName = "SingleBuild")]
+        public int BuildId { get; set; }
+
+        [Parameter(ParameterSetName = "BuildDefinitionList")]
+        public int[] BuildDefinitionId { get; set; }
 
         protected override void ProcessRecord()
         {
             var request = new RestRequest("build/builds", Method.GET);
 
-            if (this.BuildDefinitionId != null)
+            IRestResponse<List<Build>> result;
+
+            if (this.ParameterSetName == "BuildDefinitionList" && this.BuildDefinitionId == null)
+            {
+                result = this.client.Get<List<Build>>(request);
+            }
+            else if (this.ParameterSetName == "BuildDefinitionList")
             {
                 request.AddParameter("definitions", this.BuildDefinitionId, ParameterType.QueryString);
+                result = this.client.Get<List<Build>>(request);
+            }
+            else
+            {
+                request.Resource += $"/{this.BuildId}";
+                result = this.client.Get<List<Build>>(request);
             }
 
-            var result = this.client.Execute<List<BuildDefinition>>(request);
+            this.WriteObject(result, DevOpsModelTarget.Build, ErrorCategory.NotSpecified, this);
         }
     }
 }

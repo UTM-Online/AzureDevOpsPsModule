@@ -73,6 +73,9 @@
     <Reference Include="Microsoft.VisualStudio.Services.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.VisualStudio.Services.Client.15.131.1\lib\net45\Microsoft.VisualStudio.Services.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.Services.ReleaseManagement.WebApi, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Services.Release.Client.15.131.1\lib\net45\Microsoft.VisualStudio.Services.ReleaseManagement.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.Services.WebApi, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.VisualStudio.Services.Client.15.131.1\lib\net45\Microsoft.VisualStudio.Services.WebApi.dll</HintPath>
     </Reference>
@@ -91,6 +94,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -112,7 +118,10 @@
     <Compile Include="Cmdlets\Accounts\SetAccount.cs" />
     <Compile Include="Cmdlets\Assisstants\UpdateRemainingWork.cs" />
     <Compile Include="Cmdlets\Builds\GetBuild.cs" />
-    <Compile Include="Cmdlets\PSCmdletPrivateBase.cs" />
+    <Compile Include="Cmdlets\ApiCmdlet.cs" />
+    <Compile Include="Cmdlets\ReleaseManagement\ApproveReleaseStep.cs" />
+    <Compile Include="Cmdlets\ReleaseManagement\DenyReleaseStep.cs" />
+    <Compile Include="Cmdlets\ReleaseManagement\GetRelease.cs" />
     <Compile Include="Cmdlets\Startup\ImportConfiguration.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItemFields.cs" />
@@ -121,6 +130,7 @@
     <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
+    <Compile Include="Models\DevOpsModelTarget.cs" />
     <Compile Include="Serialization\JsonNetSerializer.cs" />
     <Compile Include="Helpers\OperationCheck.cs" />
     <Compile Include="Helpers\WorkItemHelpers.cs" />
