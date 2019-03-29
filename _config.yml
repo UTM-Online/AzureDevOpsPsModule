@@ -10,10 +10,12 @@ collections:
     permalink: "/:collection/:path/"
     output: true
 
-default:
+defaults:
   - scope:
       path: _docs
       type: docs
+    values:
+      layout: docs
 
 plugins:
   - jekyll-sitemap
