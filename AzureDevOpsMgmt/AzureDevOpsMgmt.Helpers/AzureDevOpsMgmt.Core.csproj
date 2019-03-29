@@ -112,12 +112,14 @@
     <Compile Include="Cmdlets\Accounts\AddAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\AddPatToken.cs" />
     <Compile Include="Cmdlets\Accounts\GetAccount.cs" />
+    <Compile Include="Cmdlets\Accounts\GetDefaultAccount.cs" />
     <Compile Include="Cmdlets\Accounts\GetPatToken.cs" />
     <Compile Include="Cmdlets\Accounts\JoinAccountAndPatToken.cs" />
     <Compile Include="Cmdlets\Accounts\RemoveAccount.cs" />
     <Compile Include="Cmdlets\Accounts\RemoveAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\RemovePatToken.cs" />
     <Compile Include="Cmdlets\Accounts\SetAccountContext.cs" />
+    <Compile Include="Cmdlets\Accounts\SetDefaultAccount.cs" />
     <Compile Include="Cmdlets\Assisstants\UpdateRemainingWork.cs" />
     <Compile Include="Cmdlets\Builds\GetBuild.cs" />
     <Compile Include="Cmdlets\ApiCmdlet.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Helpers\JsonHelpers.cs" />
     <Compile Include="Models\DevOpsModelTarget.cs" />
     <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Models\UserConfiguration.cs" />
     <Compile Include="Serialization\JsonNetSerializer.cs" />
     <Compile Include="Helpers\OperationCheck.cs" />
     <Compile Include="Helpers\WorkItemHelpers.cs" />

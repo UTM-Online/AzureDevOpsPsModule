@@ -120,4 +120,7 @@
   <data name="AccountData" xml:space="preserve">
     <value>AccountData.json</value>
   </data>
+  <data name="UserData" xml:space="preserve">
+    <value>UserConfiguration.json</value>
+  </data>
 </root>

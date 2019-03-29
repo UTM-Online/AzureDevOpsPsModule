@@ -68,5 +68,14 @@ namespace AzureDevOpsMgmt.Resources {
                 return ResourceManager.GetString("AccountData", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserConfiguration.json.
+        /// </summary>
+        internal static string UserData {
+            get {
+                return ResourceManager.GetString("UserData", resourceCulture);
+            }
+        }
     }
 }

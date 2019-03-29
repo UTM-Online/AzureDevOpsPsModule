@@ -40,6 +40,10 @@ namespace AzureDevOpsMgmt.Models
         /// <value>The accounts.</value>
         public AzureDevOpsAccountCollection Accounts { get; set; }
 
+        /// <summary>Gets or sets the configuration.</summary>
+        /// <value>The configuration.</value>
+        public UserConfiguration Configuration { get; set; }
+
         /// <summary>
         /// Gets or sets the current connection.
         /// </summary>
