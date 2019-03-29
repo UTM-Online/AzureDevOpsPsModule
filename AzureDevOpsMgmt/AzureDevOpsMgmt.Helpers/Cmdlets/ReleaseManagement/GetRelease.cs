@@ -23,7 +23,7 @@
         [Parameter(ParameterSetName = "PipelineInput", DontShow = true, ValueFromPipeline = true)]
         public ReleaseDefinition PipelineInput { get; set; }
 
-        protected override void BeginProcessing()
+        protected override void BeginProcessingCmdlet()
         {
             if (this.PipelineInput != null)
             {

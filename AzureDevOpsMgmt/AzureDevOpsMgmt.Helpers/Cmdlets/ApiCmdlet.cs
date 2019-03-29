@@ -16,7 +16,7 @@
         /// </summary>
         protected RestClient client;
 
-        protected override void BeginProcessing()
+        protected sealed override void BeginProcessing()
         {
             if (!AzureDevOpsConfiguration.Config.ReadyForCommands)
             {
@@ -25,6 +25,12 @@
 
             this.client = this.GetRestClient();
             AppDomain.CurrentDomain.AssemblyResolve += this.CurrentDomain_BindingRedirect;
+
+            this.BeginProcessingCmdlet();
+        }
+
+        protected virtual void BeginProcessingCmdlet()
+        {
         }
 
         private Assembly CurrentDomain_BindingRedirect(object sender, ResolveEventArgs args)
