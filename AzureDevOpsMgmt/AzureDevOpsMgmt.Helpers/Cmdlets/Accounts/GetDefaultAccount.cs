@@ -4,6 +4,7 @@
 
     using AzureDevOpsMgmt.Models;
 
+    [Cmdlet(VerbsCommon.Get, "DefaultAccount")]
     public class GetDefaultAccount : PSCmdlet
     {
         protected override void ProcessRecord()
