@@ -19,4 +19,6 @@
     - link: /docs/cmdlets/api/getworkitem/
     - link: /docs/cmdlets/api/getworkitemfields/
     - link: /docs/cmdlets/api/updateworkitem/
-    - link: /docs/cmdlets/core/updateremainingwork/
+- title: Assistants Cmdlets
+  docs:
+    - link: /docs/cmdlets/assistants/updateremainingwork/

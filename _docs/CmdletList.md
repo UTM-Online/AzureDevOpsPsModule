@@ -26,4 +26,9 @@ permalink: /docs/cmdletlist/
 | [<small class="cmdlet">Get-AzureDevOpsWorkItem</small>](/docs/cmdlets/api/getworkitem/) | Retrieves a single work item from the Project / Account |
 | [<small class="cmdlet">Get-AzureDevOpsWorkItemFields</small>](/docs/cmdlets/api/getworkitemfields/) | Retrieves a list of all fields in the project used in **All** work item types |
 | [<small class="cmdlet">Update-AzureDevOpsWorkItem</small>](/docs/cmdlets/api/updateworkitem/) | Takes a work item as input, compares it to the work item on the server, generates, and sends a patch file to update all changed properties of the work item provided. |
-| [<small class="cmdlet">Update-AzureDevOpsRemainingWork</small>](/docs/cmdlets/core/updateremainingwork/) | Takes a time span string as input (the amount of time spent on a task), performs some calculations, and updates the work item with new values for completed and remaining work. |
+
+## Cmdlets that help automate common tasks
+
+| Cmdlet Name | Description |
+| :---: | :---: |
+| [<small class="cmdlet">Update-AzureDevOpsRemainingWork</small>](/docs/cmdlets/assistants/updateremainingwork/) | Takes a time span string as input (the amount of time spent on a task), performs some calculations, and updates the work item with new values for completed and remaining work. |

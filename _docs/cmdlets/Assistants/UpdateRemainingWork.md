@@ -1,7 +1,7 @@
 ---
 title: Update-AzureDevOpsRemainingWork
 layout: docs
-permalink: /docs/cmdlets/core/updateremainingwork/
+permalink: /docs/cmdlets/assistants/updateremainingwork/
 ---
 
 ## Syntax
