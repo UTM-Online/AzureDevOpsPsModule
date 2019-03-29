@@ -119,7 +119,7 @@
     <Compile Include="Cmdlets\Accounts\RemoveAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\RemovePatToken.cs" />
     <Compile Include="Cmdlets\Accounts\SetAccountContext.cs" />
-    <Compile Include="Cmdlets\Accounts\SetDefaultAccount.cs" />
+    <Compile Include="Cmdlets\Accounts\SetStartUpAccount.cs" />
     <Compile Include="Cmdlets\Assisstants\UpdateRemainingWork.cs" />
     <Compile Include="Cmdlets\Builds\GetBuild.cs" />
     <Compile Include="Cmdlets\ApiCmdlet.cs" />
