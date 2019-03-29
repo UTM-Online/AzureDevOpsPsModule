@@ -52,9 +52,13 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
 
             AzureDevOpsConfiguration.Config.Accounts = accountData;
             AzureDevOpsConfiguration.Config.Configuration = configuration;
-            var defaultAccount = accountData.Accounts.First(a => a.FriendlyName == configuration.DefaultAccount);
-            var defaultPatToken = accountData.PatTokens.First(a => a.Id == defaultAccount.TokenId);
-            AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(defaultAccount, defaultPatToken, configuration.DefaultProject);
+
+            if (configuration.DefaultAccount != null & configuration.DefaultProject != null)
+            {
+                var defaultAccount = accountData.Accounts.First(a => a.FriendlyName == configuration.DefaultAccount);
+                var defaultPatToken = accountData.PatTokens.First(a => a.Id == defaultAccount.TokenId);
+                AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(defaultAccount, defaultPatToken, configuration.DefaultProject);
+            }
 
             this.SetPsVariable("AzureDevOpsConfiguration", AzureDevOpsConfiguration.Config);
         }
