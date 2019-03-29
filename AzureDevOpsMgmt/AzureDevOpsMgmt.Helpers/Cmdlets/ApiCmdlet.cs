@@ -49,7 +49,7 @@
             }
         }
 
-        public void WriteObject<T>(IRestResponse<T> response, DevOpsModelTarget onErrorTarget, ErrorCategory onErrorCategory, object onErrorTargetObject, string onErrorReason = null)
+        public void WriteObject<T>(IRestResponse<T> response, DevOpsModelTarget onErrorTarget, ErrorCategory onErrorCategory, object onErrorTargetObject, string onErrorReason = null, bool useExceptionTypeChecking = true)
         {
             if (response.IsSuccessful)
             {
@@ -57,32 +57,49 @@
             }
             else
             {
-                switch (response.ErrorException)
+                if (useExceptionTypeChecking)
                 {
-                    case JsonSerializationException jse:
-                        {
-                            this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Build, "ObjectDeserializationFailed"), ErrorCategory.ReadError, onErrorTargetObject);
-                            break;
-                        }
-                    default:
-                        {
-                            string errorId;
-
-                            if (string.IsNullOrWhiteSpace(onErrorReason))
+                    switch (response.ErrorException)
+                    {
+                        case JsonSerializationException jse:
                             {
-                                errorId = this.BuildStandardErrorId(onErrorTarget);
+                                this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Build, "ObjectDeserializationFailed"), ErrorCategory.ReadError, onErrorTargetObject);
+                                break;
                             }
-                            else
+                        default:
                             {
-                                errorId = this.BuildStandardErrorId(onErrorTarget, onErrorReason);
+                                this.WriteErrorInternal(response, onErrorTarget, onErrorCategory, onErrorTargetObject, onErrorReason);
+
+                                break;
                             }
-
-                            this.WriteError(response.ErrorException, errorId, onErrorCategory, onErrorTargetObject);
-
-                            break;
-                        }
+                    }
+                }
+                else
+                {
+                    this.WriteErrorInternal(response, onErrorTarget, onErrorCategory, onErrorTargetObject, onErrorReason);
                 }
             }
+        }
+
+        private void WriteErrorInternal<T>(
+            IRestResponse<T> response,
+            DevOpsModelTarget onErrorTarget,
+            ErrorCategory onErrorCategory,
+            object onErrorTargetObject,
+            string onErrorReason)
+        {
+            string errorId;
+
+            if (string.IsNullOrWhiteSpace(onErrorReason))
+            {
+                errorId = this.BuildStandardErrorId(onErrorTarget);
+            }
+            else
+            {
+                errorId = this.BuildStandardErrorId(onErrorTarget, onErrorReason);
+            }
+
+            this.WriteError(response.ErrorException, errorId, onErrorCategory, onErrorTargetObject);
         }
 
         protected bool IsVerbose
