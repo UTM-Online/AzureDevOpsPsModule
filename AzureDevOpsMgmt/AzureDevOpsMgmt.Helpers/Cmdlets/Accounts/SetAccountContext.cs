@@ -6,7 +6,7 @@
 // Last Modified By : joirwi
 // Last Modified On : 03-18-2019
 // ***********************************************************************
-// <copyright file="SetAccount.cs" company="Microsoft">
+// <copyright file="SetAccountContext.cs" company="Microsoft">
 //     Copyright ©  2019
 // </copyright>
 // <summary></summary>
@@ -22,14 +22,14 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
     using AzureDevOpsMgmt.Models;
 
     /// <summary>
-    /// Class SetAccount.
+    /// Class SetAccountContext.
     /// Implements the <see cref="System.Management.Automation.PSCmdlet" />
     /// Implements the <see cref="System.Management.Automation.IDynamicParameters" />
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
     /// <seealso cref="System.Management.Automation.IDynamicParameters" />
     [Cmdlet(VerbsCommon.Set, "AccountContext")]
-    public class SetAccount : PSCmdlet, IDynamicParameters
+    public class SetAccountContext : PSCmdlet, IDynamicParameters
     {
         /// <summary>
         /// Gets or sets the name of the project.
@@ -101,7 +101,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
                 this.WriteError(
                                 new ErrorRecord(
                                                 new InvalidOperationException("The specified account was not found"),
-                                                "AzureDevOpsMgmt.Accounts.SetAccount.AccountNotFoundException",
+                                                "AzureDevOpsMgmt.Accounts.SetAccountContext.AccountNotFoundException",
                                                 ErrorCategory.InvalidArgument,
                                                 this.GetPsBoundParameter<string>("AccountName")));
             }
@@ -110,7 +110,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
                 this.WriteError(
                                 new ErrorRecord(
                                                 new InvalidOperationException("The specified project was not found"),
-                                                "AzureDevOpsMgmt.Accounts.SetAccount.ProjectNotFoundException",
+                                                "AzureDevOpsMgmt.Accounts.SetAccountContext.ProjectNotFoundException",
                                                 ErrorCategory.InvalidArgument,
                                                 this.ProjectName));
             }
