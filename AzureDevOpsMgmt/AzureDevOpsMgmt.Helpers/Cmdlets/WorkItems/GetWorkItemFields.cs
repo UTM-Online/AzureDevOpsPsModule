@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Management.Automation;
 
+    using AzureDevOpsMgmt.Models;
+
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
     using Microsoft.VisualStudio.Services.WebApi.Jwt;
 
@@ -20,20 +22,9 @@
         protected override void ProcessRecord()
         {
             var request = new RestRequest($"wit/fields/{this.FieldName ?? string.Empty}", Method.GET);
-            var response = this.client.Execute(request);
+            var response = this.client.Execute<ResponseModel<WorkItemField>>(request);
 
-            if (response.IsSuccessful)
-            {
-                var jtoken = JToken.Parse(response.Content);
-
-                var workItemFields = JsonConvert.DeserializeObject<List<WorkItemField>>(jtoken["value"].ToString());
-
-                this.WriteObject(workItemFields);
-            }
-            else
-            {
-                this.WriteError(new ErrorRecord(response.ErrorException, "AzureDevOps.Cmdlets.GetAllWorkItemFields.UnknownError", ErrorCategory.NotSpecified, request));
-            }
+            this.WriteObject(response, DevOpsModelTarget.WorkItem, ErrorCategory.NotSpecified, this);
         }
     }
 }
