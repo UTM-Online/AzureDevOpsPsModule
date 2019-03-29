@@ -29,14 +29,7 @@
 
             var response = this.client.Patch<ReleaseApproval>(request);
 
-            if (response.IsSuccessful)
-            {
-                this.WriteObject(response.Data);
-            }
-            else
-            {
-                this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Release), ErrorCategory.NotSpecified, this);
-            }
+            this.WriteObject(response, DevOpsModelTarget.Release, ErrorCategory.NotSpecified, this);
         }
     }
 }
