@@ -1,6 +1,5 @@
 ---
 title: Add-AzureDevOpsAccount
-layout: docs
 permalink: /docs/cmdlets/core/addaccount/
 redirect_from:
     - /docs/cmdlets/addaccount/
