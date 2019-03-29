@@ -141,7 +141,20 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
             var newCurrentAccount = AzureDevOpsConfiguration.Config.Accounts.Accounts.First(i => i.FriendlyName.Equals(this.GetPsBoundParameter<string>("AccountName"), StringComparison.OrdinalIgnoreCase));
             var newPatToken = AzureDevOpsConfiguration.Config.Accounts.PatTokens.First(i => i.Id == newCurrentAccount.TokenId);
 
-            AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(newCurrentAccount, newPatToken, this.ProjectName);
+            if (AzureDevOpsConfiguration.Config.CurrentConnection == null)
+            {
+                AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(newCurrentAccount, newPatToken, this.ProjectName);
+            }
+            else
+            {
+                var connection = AzureDevOpsConfiguration.Config.CurrentConnection;
+
+                connection.Account = newCurrentAccount;
+                connection.ProjectName = this.ProjectName;
+                connection.Token = newPatToken;
+
+                AzureDevOpsConfiguration.Config.CurrentConnection = connection;
+            }
         }
     }
 }
