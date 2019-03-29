@@ -18,6 +18,8 @@ permalink: /docs/cmdletlist/
 | [<small class="cmdlet">Remove-AzureDevOpsAccountProject</small>](/docs/cmdlets/core/removeaccountproject/) | Remove the Project from the specified Account in the configuration repository |
 | [<small class="cmdlet">Remove-AzureDevOpsPatToken</small>](/docs/cmdlets/core/removepattoken/) | Removes the Token meta-data from the configuration repository as well as the associated Token from the Windows Credential manager |
 | [<small class="cmdlet">Set-AzureDevOpsAccountContext</small>](/docs/cmdlets/core/setaccountcontext/) | Sets the Account and project that future cmdlets will be executing against. **This must be run prior to the execution of any cmdlets that interact with the Azure Dev Ops Rest API** |
+| [<small class="cmdlet">Get-AzureDevOpsStartUpAccount</small>](/docs/cmdlets/core/getdefaultaccount/) | Displays your configured start up account.  I.E. the account that is set as the current account context when the module is imported. |
+
 
 ## Cmdlets that execute against the Azure Dev Ops Rest API
 
