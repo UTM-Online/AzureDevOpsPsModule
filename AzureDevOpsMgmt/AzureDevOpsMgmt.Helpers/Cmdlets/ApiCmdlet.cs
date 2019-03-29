@@ -63,8 +63,15 @@
                     {
                         case JsonSerializationException jse:
                             {
-                                this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Build, "ObjectDeserializationFailed"), ErrorCategory.ReadError, onErrorTargetObject);
-                                break;
+                                if (jse.Message.StartsWith("Cannot deserialize the current JSON object"))
+                                {
+                                    this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Build, "ObjectDeserializationFailed"), ErrorCategory.ReadError, onErrorTargetObject);
+                                    break;
+                                }
+                                else
+                                {
+                                    goto default;
+                                }
                             }
                         default:
                             {
