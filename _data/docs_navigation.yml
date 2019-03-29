@@ -15,6 +15,7 @@
     - link: /docs/cmdlets/core/removeaccountproject/
     - link: /docs/cmdlets/core/removepattoken/
     - link: /docs/cmdlets/core/setaccountcontext/
+    - link: /docs/cmdlets/core/setdefaultaccount/
 - title: Api Cmdlets
   docs:
     - link: /docs/cmdlets/api/getworkitem/
