@@ -1,5 +1,6 @@
 ---
 title: Get-AzureDevOpsWorkItem
+permalink: /docs/cmdlets/api/getworkitem/
 ---
 
 ## Syntax
