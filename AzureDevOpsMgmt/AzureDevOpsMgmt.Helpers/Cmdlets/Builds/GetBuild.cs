@@ -22,21 +22,21 @@
         {
             var request = new RestRequest("build/builds", Method.GET);
 
-            IRestResponse<List<Build>> result;
+            IRestResponse<ResponseModel<Build>> result;
 
             if (this.ParameterSetName == "BuildDefinitionList" && this.BuildDefinitionId == null)
             {
-                result = this.client.Get<List<Build>>(request);
+                result = this.client.Get<ResponseModel<Build>>(request);
             }
             else if (this.ParameterSetName == "BuildDefinitionList")
             {
                 request.AddParameter("definitions", this.BuildDefinitionId, ParameterType.QueryString);
-                result = this.client.Get<List<Build>>(request);
+                result = this.client.Get<ResponseModel<Build>>(request);
             }
             else
             {
                 request.Resource += $"/{this.BuildId}";
-                result = this.client.Get<List<Build>>(request);
+                result = this.client.Get<ResponseModel<Build>>(request);
             }
 
             this.WriteObject(result, DevOpsModelTarget.Build, ErrorCategory.NotSpecified, this);

@@ -10,6 +10,7 @@
     using Newtonsoft.Json;
 
     using RestSharp;
+    using RestSharp.Extensions;
 
     public abstract class ApiCmdlet : PSCmdlet
     {
@@ -53,7 +54,16 @@
         {
             if (response.IsSuccessful)
             {
-                this.WriteObject(response.Data);
+                var responseType = response.Data.GetType();
+                if (responseType.IsGenericType && responseType.GetGenericTypeDefinition() == typeof(ResponseModel<>))
+                {
+                    var responseObject = responseType.GetProperty("Value").GetValue(response.Data);
+                    this.WriteObject(responseObject, true);
+                }
+                else
+                {
+                    this.WriteObject(response.Data);
+                }
             }
             else
             {
