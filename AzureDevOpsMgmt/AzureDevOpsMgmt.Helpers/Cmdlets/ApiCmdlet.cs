@@ -7,6 +7,8 @@
     using AzureDevOpsMgmt.Helpers;
     using AzureDevOpsMgmt.Models;
 
+    using Newtonsoft.Json;
+
     using RestSharp;
 
     public abstract class ApiCmdlet : PSCmdlet
@@ -55,7 +57,31 @@
             }
             else
             {
-                this.WriteError(response.ErrorException, this.BuildStandardErrorId(onErrorTarget, onErrorReason), onErrorCategory, onErrorTargetObject);
+                switch (response.ErrorException)
+                {
+                    case JsonSerializationException jse:
+                        {
+                            this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Build, "ObjectDeserializationFailed"), ErrorCategory.ReadError, onErrorTargetObject);
+                            break;
+                        }
+                    default:
+                        {
+                            string errorId;
+
+                            if (string.IsNullOrWhiteSpace(onErrorReason))
+                            {
+                                errorId = this.BuildStandardErrorId(onErrorTarget);
+                            }
+                            else
+                            {
+                                errorId = this.BuildStandardErrorId(onErrorTarget, onErrorReason);
+                            }
+
+                            this.WriteError(response.ErrorException, errorId, onErrorCategory, onErrorTargetObject);
+
+                            break;
+                        }
+                }
             }
         }
 
