@@ -57,6 +57,11 @@
             }
             else
             {
+                if (this.IsDebug)
+                {
+                    this.SetPsVariable("ResponseBody", response);
+                }
+
                 if (useExceptionTypeChecking)
                 {
                     switch (response.ErrorException)
