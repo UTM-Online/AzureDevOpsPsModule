@@ -120,7 +120,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AzureDevOpsMgmt.Helpers\AzureDevOpsMgmt.Core.csproj">
+    <ProjectReference Include="..\AzureDevOpsMgmt.Core\AzureDevOpsMgmt.Core.csproj">
       <Project>{68245A33-6D14-4A75-8013-B100B182A39F}</Project>
       <Name>AzureDevOpsMgmt.Core</Name>
     </ProjectReference>
