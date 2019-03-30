@@ -30,6 +30,7 @@ permalink: /docs/cmdletlist/
 | [<small class="cmdlet">Get-AzureDevOpsWorkItemFields</small>](/docs/cmdlets/api/getworkitemfields/) | Retrieves a list of all fields in the project used in **All** work item types |
 | [<small class="cmdlet">Update-AzureDevOpsWorkItem</small>](/docs/cmdlets/api/updateworkitem/) | Takes a work item as input, compares it to the work item on the server, generates, and sends a patch file to update all changed properties of the work item provided. |
 | [<small class="cmdlet">Get-AzureDevOpsRelease</small>](/docs/cmdlets/api/getrelease/) | Gets a release from the release pipeline using a combination of DefinitionId and Id (if specified). |
+| [<small class="cmdlet">Get-AzureDevOpsBuild</small>](/docs/cmdlets/api/getbuild/) | Gets a single build by specifying BuildId or get all builds for one or multiple build definitions by specifying the BuildDefinitionIds. |
 
 ## Cmdlets that help automate common tasks
 
