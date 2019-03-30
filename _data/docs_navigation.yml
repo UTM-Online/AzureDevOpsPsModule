@@ -23,6 +23,7 @@
     - link: /docs/cmdlets/api/updateworkitem/
     - link: /docs/cmdlets/api/getrelease/
     - link: /docs/cmdlets/api/getbuild/
+    - link: /docs/cmdlets/api/approverelease/
 - title: Assistants Cmdlets
   docs:
     - link: /docs/cmdlets/assistants/updateremainingwork/
