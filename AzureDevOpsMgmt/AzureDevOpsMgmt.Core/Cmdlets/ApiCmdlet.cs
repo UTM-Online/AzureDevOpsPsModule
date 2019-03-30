@@ -52,6 +52,11 @@
 
         public void WriteObject<T>(IRestResponse<T> response, DevOpsModelTarget onErrorTarget, ErrorCategory onErrorCategory, object onErrorTargetObject, string onErrorReason = null, bool useExceptionTypeChecking = true)
         {
+            if (this.IsDebug)
+            {
+                this.SetPsVariable("ResponseBody", response);
+            }
+
             if (response.IsSuccessful)
             {
                 var responseType = response.Data.GetType();
@@ -67,11 +72,6 @@
             }
             else
             {
-                if (this.IsDebug)
-                {
-                    this.SetPsVariable("ResponseBody", response);
-                }
-
                 if (useExceptionTypeChecking)
                 {
                     switch (response.ErrorException)
