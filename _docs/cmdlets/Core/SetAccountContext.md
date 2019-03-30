@@ -38,7 +38,7 @@ Accept Wildcard Characters: | False
 
 <br>
 ### -ProjectName
-The name of the project you want to with
+The name of the project you want to work with
 
 <br>
 

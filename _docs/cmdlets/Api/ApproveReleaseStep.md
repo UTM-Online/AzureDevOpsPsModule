@@ -1,6 +1,8 @@
 ---
 title: Approve-AzureDevOpsReleaseStep
-permalink: /docs/cmdlets/api/approverelease/
+permalink: /docs/cmdlets/api/approvereleasestep/
+redirect_from:
+    - /docs/cmdlets/api/approverelease/
 ---
 
 ## Syntax

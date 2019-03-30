@@ -1,6 +1,8 @@
 ---
 title: Set-AzureDevOpsStartUpAccount
-permalink: /docs/cmdlets/core/setdefaultaccount/
+permalink: /docs/cmdlets/core/setstartupaccount/
+redirect_for:
+    - /docs/cmdlets/core/setdefaultaccount/
 ---
 
 ## Syntax

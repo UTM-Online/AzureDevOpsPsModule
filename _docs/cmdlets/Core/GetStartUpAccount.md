@@ -1,6 +1,8 @@
 ---
 title: Get-AzureDevOpsStartUpAccount
-permalink: /docs/cmdlets/core/getdefaultaccount/
+permalink: /docs/cmdlets/core/getstartupaccount/
+redirect_from:
+    - /docs/cmdlets/core/getdefaultaccount/
 ---
 
 ## Syntax
