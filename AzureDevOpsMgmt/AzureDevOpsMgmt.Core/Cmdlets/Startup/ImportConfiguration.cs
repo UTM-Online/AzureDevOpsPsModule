@@ -15,6 +15,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
 {
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Linq;
     using System.Management.Automation;
 
     using AzureDevOpsMgmt.Helpers;
@@ -46,6 +47,53 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
         /// <exception cref="T:System.Management.Automation.SessionStateOverflowException">If the maximum number of variables has been reached for this scope.</exception>
         protected override void ProcessRecord()
         {
+            var accountData = this.LoadAccountData();
+            var configuration = this.LoadUserConfiguration();
+
+            AzureDevOpsConfiguration.Config.Accounts = accountData;
+            AzureDevOpsConfiguration.Config.Configuration = configuration;
+
+            if (configuration.DefaultAccount != null & configuration.DefaultProject != null)
+            {
+                var defaultAccount = accountData.Accounts.First(a => a.FriendlyName == configuration.DefaultAccount);
+                var defaultPatToken = accountData.PatTokens.First(a => a.Id == defaultAccount.TokenId);
+                AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(defaultAccount, defaultPatToken, configuration.DefaultProject);
+            }
+
+            this.SetPsVariable("AzureDevOpsConfiguration", AzureDevOpsConfiguration.Config);
+        }
+
+        private UserConfiguration LoadUserConfiguration()
+        {
+            UserConfiguration configuration;
+
+            var filePath = FileHelpers.GetConfigFilePath(FileNames.UserData);
+
+            if (!File.Exists(filePath))
+            {
+                var dirinfo = new DirectoryInfo(filePath);
+
+                if (dirinfo.Parent != null && !dirinfo.Parent.Exists)
+                {
+                    dirinfo.Parent.Create();
+                }
+
+                configuration = new UserConfiguration();
+
+                FileHelpers.WriteFileJson(FileNames.UserData, configuration);
+            }
+            else
+            {
+                configuration = FileHelpers.ReadFileJson<UserConfiguration>(FileNames.AccountData);
+            }
+
+            return configuration;
+        }
+
+        /// <summary>Loads the account data.</summary>
+        /// <returns>Account configuration collection.</returns>
+        private AzureDevOpsAccountCollection LoadAccountData()
+        {
             AzureDevOpsAccountCollection accountData;
 
             if (!File.Exists(FileHelpers.GetConfigFilePath(FileNames.AccountData)))
@@ -58,10 +106,10 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
                 }
 
                 accountData = new AzureDevOpsAccountCollection()
-                {
-                    Accounts = new ObservableCollection<AzureDevOpsAccount>(),
-                    PatTokens = new ObservableCollection<AzureDevOpsPatToken>()
-                };
+                                  {
+                                      Accounts = new ObservableCollection<AzureDevOpsAccount>(),
+                                      PatTokens = new ObservableCollection<AzureDevOpsPatToken>()
+                                  };
 
                 accountData.Init();
 
@@ -73,9 +121,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
                 accountData.Init();
             }
 
-            AzureDevOpsConfiguration.Config.Accounts = accountData;
-
-            this.SetPsVariable("AzureDevOpsConfiguration", AzureDevOpsConfiguration.Config);
+            return accountData;
         }
     }
 }

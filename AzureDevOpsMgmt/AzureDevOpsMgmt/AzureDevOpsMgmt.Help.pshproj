@@ -1,0 +1,1251 @@
+<?xml version="1.0"?>
+<ModuleObject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" fVersion="1.1" type="Binary" mclass="Module" useSupports="false">
+  <Name>AzureDevOpsMgmt</Name>
+  <Version>0.3.1903.27</Version>
+  <Description>A module to quickly and easly manage repetative interactions with VSTS</Description>
+  <HasManifest>true</HasManifest>
+  <OverridePostCount>false</OverridePostCount>
+  <FetchPostCount xsi:nil="true" />
+  <Cmdlets>
+    <CmdletObject verb="Add" noun="AzureDevOpsAccount">
+      <Name>Add-AzureDevOpsAccount</Name>
+      <Syntax>
+        <string>Add-AzureDevOpsAccount [-AccountName &lt;String&gt;] [-FriendlyName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Adds an Azure Dev Ops Account to the configuration repository</Synopsis>
+        <Description />
+        <Notes />
+        <InputType>System.string</InputType>
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType>void</ReturnType>
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="AccountName FriendlyName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>AccountName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This is the name of your account when you created it in Azure Dev Ops or Visual Studio Team Services.  It can be found by looking at the URL you go to to access your projects and repositories `&lt;AccountName&gt;.visualstudio.com` or `dev.azure.com/&lt;AccountName&gt;`.</Description>
+          <DefaultValue>N/A</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>FriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This is a name that will be easy for you to remember, you can use the name of the account if that's what works for you.</Description>
+          <DefaultValue>N/A</DefaultValue>
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Default Usage</Name>
+          <Cmd>Add-AzureDevOpsAccount -AccountName ContosoDev -FriendlyName MainAccount</Cmd>
+          <Description>Adding account to the configuration repository.</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/addaccount/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="true" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Add" noun="AzureDevOpsAccountProject">
+      <Name>Add-AzureDevOpsAccountProject</Name>
+      <Syntax>
+        <string>Add-AzureDevOpsAccountProject [-AccountFriendlyName &lt;String&gt;] [-ProjectName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Adds an individual project from the account to the account object in the configuration repository</Synopsis>
+        <Description />
+        <Notes />
+        <InputType>System.string</InputType>
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType>void</ReturnType>
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="AccountFriendlyName ProjectName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>AccountFriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This is the friendly name for the account that you created using `Add-AzureDevOpsAccount`.  This parameter supports tab compleation.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>ProjectName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This is the name of the project as it's displayed in the projects main page by navigating to `https://&lt;Your Account&gt;.visualstudio.com/&lt;Your Project Name&gt;`.  The project name will be displayed at the top of the project page.  Don't add your project name using the URL encoded value, i.e. if your project name has spaces then the url will be something like `Your%20Project%20Name`.  Currently this paramter does not perform a check for decoding the URL string so make sure you don't try and add a project name that looks like that.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Default Usage</Name>
+          <Cmd>Add-AzureDevOpsAccountProject -AccountFriendlyName MainAccount -ProjectName "The Big Project"</Cmd>
+          <Description>Adding a project to the selected account</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/addaccountproject/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Add" noun="AzureDevOpsPatToken">
+      <Name>Add-AzureDevOpsPatToken</Name>
+      <Syntax>
+        <string>Add-AzureDevOpsPatToken [-FriendlyName &lt;String&gt;] [-UserName &lt;String&gt;] [-PatToken &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Adds your PAT token to the windows credential manager and stores the tokens GUID, generated by the module, and its friendly name in the configuration repository.</Synopsis>
+        <Description />
+        <Notes>The actual token is stored by Windows and the module uses a GUID it generates as it's way of retrieving that credential value from the operating system.
+
+Additionally this value, and other pat tokens are not loaded in to memory by the module until you make the first call to the Azure Dev Ops Rest API.</Notes>
+        <InputType>System.string</InputType>
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType>void</ReturnType>
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FriendlyName UserName PatToken Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>FriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This is the easy to remember name you assign to this token.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>UserName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This is the user name that you use to login to azure dev ops, usualy in the form of a UPN. Example: `ExampleUser@contoso.com`.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>PatToken</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This is the pat token given to you by Azure Dev Ops at your request in the security section of your profile.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Default usage</Name>
+          <Cmd>Add-AzureDevOpsPatToken -FriendlyName MainToken -UserName ExampleUser@contoso.com -PatToken "abcdefghijklmnopqrstuvwxyz0123456789"</Cmd>
+          <Description>Adding a pat token for user ExampleUser@contoso.com</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/addpattoken/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Approve" noun="AzureDevOpsReleaseStep">
+      <Name>Approve-AzureDevOpsReleaseStep</Name>
+      <Syntax>
+        <string>Approve-AzureDevOpsReleaseStep -ApprovalId &lt;Int32&gt; -Reason &lt;String&gt;</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Marks a release step as approved for continued processing.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="ApprovalId Reason Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="Int32" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="false" pos="named" globbing="false">
+          <Name>ApprovalId</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>id</string>
+          </Aliases>
+          <Description>The ID for the current step in the release pipleine.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Reason</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The reason message that will be included with the approval that is provided.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Default Usage</Name>
+          <Cmd>Approve-AzureDevOpsReleaseStep -ApprovalId 123456789 -Reason "Continued Release has been approved"</Cmd>
+          <Description>Approving Release 123456789 with comment</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/api/approvereleasestep/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Deny" noun="AzureDevOpsReleaseStep">
+      <Name>Deny-AzureDevOpsReleaseStep</Name>
+      <Syntax>
+        <string>Deny-AzureDevOpsReleaseStep -ApprovalId &lt;Int32&gt; -Reason &lt;String&gt;</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Marks a release step as being denied for continued processing.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="ApprovalId Reason Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="Int32" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="false" pos="named" globbing="false">
+          <Name>ApprovalId</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>id</string>
+          </Aliases>
+          <Description>The ID for the current step in the release pipleine.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Reason</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The reason message that will be included with the denial that is provided.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Default Usage</Name>
+          <Cmd>Deny-AzureDevOpsReleaseStep -ApprovalId 123456789 -Reason "Continued release has been denied due to user acceptance tests failing"</Cmd>
+          <Description>Rejecting a release with explanation</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/api/denyreleasestep/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="AzureDevOpsAccount">
+      <Name>Get-AzureDevOpsAccount</Name>
+      <Syntax>
+        <string>Get-AzureDevOpsAccount [-FriendlyName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Gets all the accounts registered in the modules configuration repository.</Synopsis>
+        <Description />
+        <Notes>If the `-FriendlyName` switch isn't provided then it gets all the accounts.  If a value is provided then it returns only the account specified.</Notes>
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FriendlyName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>FriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The friendly name for the account that you specified when you added it using the `Add-AzureDevOpsAccount` cmdlet.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Get-AzureDevOpsAccount</Cmd>
+          <Description>Get all accounts</Description>
+          <Output>AccountName     : ContosoDevMain
+AccountProjects : {RemotePowerShell}
+BaseUrl         : https://dev.azure.com/ContosoDevMain
+FriendlyName    : main
+TokenId         : 88b61c24-4c58-4f15-9181-17c415d8f6cb
+
+AccountName     : TailSpinToysMain
+AccountProjects : {SuchWebSite}
+BaseUrl         : https://dev.azure.com/TailSpinToysMain
+FriendlyName    : CustomerMain
+TokenId         : a5e67047-e3de-4714-b004-8588974866cb</Output>
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>Get-AzureDevOpsAccount -FriendlyName main</Cmd>
+          <Description>Getting the account named "main"</Description>
+          <Output>AccountName     : ContosoDevMain
+AccountProjects : {RemotePowerShell}
+BaseUrl         : https://dev.azure.com/ContosoDevMain
+FriendlyName    : main
+TokenId         : 88b61c24-4c58-4f15-9181-17c415d8f6cb</Output>
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/getaccount/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="AzureDevOpsBuild">
+      <Name>Get-AzureDevOpsBuild</Name>
+      <Syntax>
+        <string>Get-AzureDevOpsBuild [-BuildDefinitionId &lt;Int32[]&gt;]</string>
+        <string>Get-AzureDevOpsBuild [-BuildId &lt;Int32&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Gets a single build by specifying BuildId or get all builds for one or multiple build definitions by specifying the BuildDefinitionIds.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="BuildDefinitionList" Params="BuildDefinitionId Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="SingleBuild" Params="BuildId Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="Int32[]" varLen="true" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>BuildDefinitionId</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The Id number(s) for the build definition(s) you want to get all builds for.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>BuildId</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The Id number of the specific build you want to get.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Get-AzureDevOpsBuild -BuildDefinitionId 123</Cmd>
+          <Description>Getting all builds for build definition 123</Description>
+          <Output />
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>Get-AzureDevOpsBuild -BuildDefinitionId 123,456,789</Cmd>
+          <Description>Getting all builds for definitions 123, 456, and 789</Description>
+          <Output />
+        </Example>
+        <Example>
+          <Name>Example 3</Name>
+          <Cmd>Get-AzureDevOpsBuild -BuildId 456</Cmd>
+          <Description>Getting build 456</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/api/getbuild/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="AzureDevOpsPatToken">
+      <Name>Get-AzureDevOpsPatToken</Name>
+      <Syntax>
+        <string>Get-AzureDevOpsPatToken [-FriendlyName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Display a list of PAT Tokens currently stored in the configuration repository</Synopsis>
+        <Description />
+        <Notes>If the `-FriendlyName` switch isn't provided then it gets all the tokens.  If a value is provided then it returns only the token specified.</Notes>
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FriendlyName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>FriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The friendly name for the token that you specified when you added it using the `Add-AzureDevOpsPatToken` cmdlet.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Get-AzureDevOpsPatToken</Cmd>
+          <Description>Getting all Pat Tokens</Description>
+          <Output />
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>Get-AzureDevOpsPatToken -FriendlyName MyMainToken</Cmd>
+          <Description>Getting the token named "MyMainToken"</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/getpattoken/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="AzureDevOpsRelease">
+      <Name>Get-AzureDevOpsRelease</Name>
+      <Syntax>
+        <string>Get-AzureDevOpsRelease [-Id &lt;Int32&gt;] -DefinitionId &lt;Int32&gt;</string>
+        <string>Get-AzureDevOpsRelease [-PipelineInput &lt;ReleaseDefinition&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Gets a release from the release pipeline using a combination of DefinitionId and Id (if specified).</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="UserInput" Params="Id DefinitionId Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="PipelineInput" Params="PipelineInput Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Id</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The Id of the release you want to fetch.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="Int32" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>DefinitionId</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The Id for the Release definition you want to fetch releases from.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ReleaseDefinition" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>PipelineInput</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Reserved for future use.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Get-AzureDevOpsRelease -DefinitionId 123456</Cmd>
+          <Description>Getting all releases for definition 123456</Description>
+          <Output />
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>Get-AzureDevOpsRelease -DefinitionId 123456 -Id 123</Cmd>
+          <Description>Getting release 123 for definition 123456</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/api/getrelease/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="AzureDevOpsStartUpAccount">
+      <Name>Get-AzureDevOpsStartUpAccount</Name>
+      <Syntax>
+        <string>Get-AzureDevOpsStartUpAccount</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Displays your configured start up account.  I.E. the account that is set as the current account context when the module is imported.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters />
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Get-AzureDevOpsStartUpAccount</Cmd>
+          <Description>Getting the startup account currnetly configured.</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/getstartupaccount/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="AzureDevOpsWorkItem">
+      <Name>Get-AzureDevOpsWorkItem</Name>
+      <Syntax>
+        <string>Get-AzureDevOpsWorkItem [-Id &lt;Int64&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Retrieves a single work item from the Project / Account</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Id Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="Int64" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Id</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The Id of the work item you want to retrieve from the project.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Get-AzureDevOpsWorkItem -Id 123456</Cmd>
+          <Description>Getting work item 123456</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/api/getworkitem/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="AzureDevOpsWorkItemFields">
+      <Name>Get-AzureDevOpsWorkItemFields</Name>
+      <Syntax>
+        <string>Get-AzureDevOpsWorkItemFields [-FieldName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Retrieves a list of all fields in the project used in **All** work item types.</Synopsis>
+        <Description />
+        <Notes>This cmdlet is really useful for writing your own scripts that wrap arround the cmdlets in this moduel for workflow automation.  It will provide you all the information you need on properly addressing fields with regards to work items in ADO.</Notes>
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FieldName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>FieldName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The fields name as it appears in the UI or its reference type.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Get-AzureDevOpsWorkItemFields</Cmd>
+          <Description>Getting all fields</Description>
+          <Output>Name                : Time Criticality
+ReferenceName       : Microsoft.VSTS.Common.TimeCriticality
+Description         : How does the business value decay over time. Higher values make the epic more time critical
+Type                : Double
+Usage               : WorkItem
+ReadOnly            : False
+SupportedOperations : {=, &lt;&gt;, &gt;, &lt;...}
+IsIdentity          : False
+IsPicklist          : False
+IsPicklistSuggested : False
+Links               :
+Url                 : https://dev.azure.com/Contoso/9f6950a2-1436-4a39-9199-32c1d592cec7/_apis/wit/fields/Microsoft.VSTS.Common.TimeCriticality
+NamespaceId         : 00000000-0000-0000-0000-000000000000
+RequiredPermissions : 0
+
+Name                : Title
+ReferenceName       : System.Title
+Description         : Stories affected and how
+Type                : String
+Usage               : WorkItem
+ReadOnly            : False
+SupportedOperations : {=, &lt;&gt;, &gt;, &lt;...}
+IsIdentity          : False
+IsPicklist          : False
+IsPicklistSuggested : False
+Links               :
+Url                 : https://dev.azure.com/Contoso/9f6950a2-1436-4a39-9199-32c1d592cec7/_apis/wit/fields/System.Title
+NamespaceId         : 00000000-0000-0000-0000-000000000000
+RequiredPermissions : 0
+
+Name                : Value Area
+ReferenceName       : Microsoft.VSTS.Common.ValueArea
+Description         : The type should be set to Business primarily to represent customer-facing issues. Work to change the architecture should be added as a User Story
+Type                : String
+Usage               : WorkItem
+ReadOnly            : False
+SupportedOperations : {=, &lt;&gt;, &gt;, &lt;...}
+IsIdentity          : False
+IsPicklist          : False
+IsPicklistSuggested : False
+Links               :
+Url                 : https://dev.azure.com/Contoso/9f6950a2-1436-4a39-9199-32c1d592cec7/_apis/wit/fields/Microsoft.VSTS.Common.ValueArea
+NamespaceId         : 00000000-0000-0000-0000-000000000000
+RequiredPermissions : 0</Output>
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>Get-AzureDevOpsWorkItemFields -FieldName "System.Watermark"</Cmd>
+          <Description>Getting field data for the System.Watermark field</Description>
+          <Output>Name                : Watermark
+ReferenceName       : System.Watermark
+Description         :
+Type                : Integer
+Usage               : WorkItem
+ReadOnly            : True
+SupportedOperations : {=, &lt;&gt;, &gt;, &lt;...}
+IsIdentity          : False
+IsPicklist          : False
+IsPicklistSuggested : False
+Links               :
+Url                 : https://dev.azure.com/Contoso/9f6950a2-1436-4a39-9199-32c1d592cec7/_apis/wit/fields/System.Watermark
+NamespaceId         : 00000000-0000-0000-0000-000000000000
+RequiredPermissions : 0</Output>
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodules.utmonline.net/docs/cmdlets/api/getworkitemfields/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Import" noun="AzureDevOpsConfiguration">
+      <Name>Import-AzureDevOpsConfiguration</Name>
+      <Syntax>
+        <string>Import-AzureDevOpsConfiguration</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>If you can see this cmdlet something has gone wrong during the loading process of the module and you should probably file a bug report.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters />
+      <Examples />
+      <RelatedLinks />
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Join" noun="AzureDevOpsAccountAndPatToken">
+      <Name>Join-AzureDevOpsAccountAndPatToken</Name>
+      <Syntax>
+        <string>Join-AzureDevOpsAccountAndPatToken [-AccountFriendlyName &lt;String&gt;] [-PatTokenFriendlyName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Links an account in the configuration repository to a PAT token in the configuration repository.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="AccountFriendlyName PatTokenFriendlyName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>AccountFriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The friendly name of the account you specified when you added it to the configuration repository.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>PatTokenFriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The friendly name of the Pat token that you specified when you added it to the configuration repository.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Join-AzureDevOpsAccountAndPatToken -AccountFriendlyName MainAccount -PatTokenFriendlyName MainToken</Cmd>
+          <Description>Linking the MainAccount to the MainToken</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/joinaccountandpattoken/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Remove" noun="AzureDevOpsAccount">
+      <Name>Remove-AzureDevOpsAccount</Name>
+      <Syntax>
+        <string>Remove-AzureDevOpsAccount [-FriendlyName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Removes the specified account from the configuration repository</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FriendlyName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>FriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This is the friendly name you set on the account when you created it.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Remove-AzureDevOpsAccount -FriendlyName MainAccount</Cmd>
+          <Description>Removing the main account</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/removedevopsaccount/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Remove" noun="AzureDevOpsAccountProject">
+      <Name>Remove-AzureDevOpsAccountProject</Name>
+      <Syntax>
+        <string>Remove-AzureDevOpsAccountProject [-AccountFriendlyName &lt;String&gt;] [-ProjectName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Remove the Project from the specified Account in the configuration repository.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="AccountFriendlyName ProjectName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>AccountFriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This is the friendly name of the account where the project resides that you want to remove.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>ProjectName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The name of the project you added to the account that you want to remove.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Remove-AzureDevOpsAccountProject -AccountFriendlyName MainAccount -ProjectName "The Big Project"</Cmd>
+          <Description>Removing "The Big Project" from the MainAccount</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/removeaccountproject/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Remove" noun="AzureDevOpsPatToken">
+      <Name>Remove-AzureDevOpsPatToken</Name>
+      <Syntax>
+        <string>Remove-AzureDevOpsPatToken [-FriendlyName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Removes the Token meta-data from the configuration repository as well as the associated Token from the Windows Credential manager</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FriendlyName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>FriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The friendly name of the pat token you wish to perform the remove operation on.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Remove-AzureDevOpsPatToken -FriendlyName "My Pat Token Friendly Name"</Cmd>
+          <Description>Removing a pat token from the repository</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/removepattoken/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Set" noun="AzureDevOpsAccountContext">
+      <Name>Set-AzureDevOpsAccountContext</Name>
+      <Syntax>
+        <string>Set-AzureDevOpsAccountContext [-ProjectName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Sets the Account and project that future cmdlets will be executing against.</Synopsis>
+        <Description />
+        <Notes>[b][u][i]IMPORTANT:[/i] This must be run prior to the execution of any cmdlets that interact with the Azure Dev Ops Rest API[/u][/b]</Notes>
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="ProjectName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>ProjectName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The name of the project you want to work with</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Set-AzureDevOpsAccountContext -AccountName MainAccount -ProjectName "The Big Project"</Cmd>
+          <Description>Configuring The MainAccount and The Big Project to be the current execution context for rest api calls.</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/setaccountcontext/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Set" noun="AzureDevOpsStartUpAccount">
+      <Name>Set-AzureDevOpsStartUpAccount</Name>
+      <Syntax>
+        <string>Set-AzureDevOpsStartUpAccount -AccountFriendlyName &lt;String&gt; -ProjectName &lt;String&gt;</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>This cmdlet allows you set configure a default account that you want to have set as the current context when the module loads.</Synopsis>
+        <Description />
+        <Notes> Basically it runs `Set-AzureDevOpsAccountContext` on your behalf when the module loads with the account and project that you specify.</Notes>
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="AccountFriendlyName ProjectName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>AccountFriendlyName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The friendly name of the account that you specified when it was added to the configuration repository.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>ProjectName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The name project name you want to have loaded automatically when the module is loaded.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Set-AzureDevOpsStartUpAccount -AccountFriendlyName MainAccount -ProjectName "The Big Project"</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/core/setstartupaccount/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Update" noun="AzureDevOpsRemainingWork">
+      <Name>Update-AzureDevOpsRemainingWork</Name>
+      <Syntax>
+        <string>Update-AzureDevOpsRemainingWork [[-Description] &lt;String&gt;] [-Id] &lt;Int64&gt; [-WorkCompletedThisSession] &lt;String[]&gt;</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Takes a time span string as input (the amount of time spent on a task), performs some calculations, and updates the work item with new values for completed and remaining work.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Description Id WorkCompletedThisSession Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
+          <Name>Description</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A description of the work you performed.  What you supply here will be added as a comment on the work item.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="Int64" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="1" globbing="false">
+          <Name>Id</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The Id number of the work item you want to update your remaining work value on.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>WorkCompletedThisSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This parameter accepts an array of strings that are formatted in the string representation of a time span.  Where the first two numbers represent hours, followed by a colon, the second two numbers represent minutes, followed by a colon, and the last two numbers represent seconds.  Making this example &amp;nbsp;`01:25:30`&amp;nbsp; represent one hour twenty five minutes and thirty seconds.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>Update-AzureDevOpsRemainingWork -Id 123456 -WorkCompletedThisSession "00:30:00"</Cmd>
+          <Description>Adding 30 minutes of compleated work to work item 123456</Description>
+          <Output />
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>Update-AzureDevOpsRemainingWork -Id 123456 -WorkCompletedThisSession "00:30:00","01:15:00","04:03:00"</Cmd>
+          <Description>Updating the compleated work and remaining work fields for task 123456 to include an additional 5 hours and 48 minutes of work.</Description>
+          <Output />
+        </Example>
+        <Example>
+          <Name>Example 3</Name>
+          <Cmd>Update-AzureDevOpsRemainingWork -Id 123456 -WorkCompletedThisSession "00:30:00","01:15:00","04:03:00" -Description "Fixing bug# 132456"</Cmd>
+          <Description>Updating the compleated work and remaining work fields for task 123456 to include an additional 5 hours and 48 minutes of work and including a comment.</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/assistants/updateremainingwork/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Update" noun="AzureDevOpsWorkItem">
+      <Name>Update-AzureDevOpsWorkItem</Name>
+      <Syntax>
+        <string>Update-AzureDevOpsWorkItem -Id &lt;Int64&gt; -UpdatedWorkItem &lt;WorkItem&gt; [-OriginalWorkItem &lt;WorkItem&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Takes a work item as input, compares it to the work item on the server, generates, and sends a patch file to update all changed properties of the work item provided.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Id UpdatedWorkItem OriginalWorkItem Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="Int64" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Id</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The Id of the workitem in the project your currently working on.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="WorkItem" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>UpdatedWorkItem</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The updated version of the work item that you want to save in Azure Dev Ops</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="WorkItem" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>OriginalWorkItem</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The work item in its current state in Azure Dev Ops.  [b]This must be unmodified from the version stored in Azure or the update may not go as planned[/b]</Description>
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>$wi = Get-AzureDevOpsWorkItem -Id 123456
+$wi.fields."Microsoft.VSTS.Common.Priority" = 3
+Update-AzureDevOpsWorkItem -Id $wi.Id -UpdateWorkItem $wi</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>$wi = Get-AzureDevOpsWorkItem -Id 123456
+$origionalwi = Get-AzureDevOpsWorkItem -Id 123456
+$wi.fields."Microsoft.VSTS.Common.Priority" = 3
+Update-AzureDevOpsWorkItem -Id $wi.Id -UpdateWorkItem $wi -OriginalWorkItem $origionalwi</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Online Documentation</LinkText>
+          <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/api/updateworkitem/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+  </Cmdlets>
+</ModuleObject>

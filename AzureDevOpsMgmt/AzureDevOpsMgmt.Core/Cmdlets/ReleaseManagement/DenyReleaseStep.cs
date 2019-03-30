@@ -9,8 +9,8 @@
 
     using RestSharp;
 
-    [Cmdlet(VerbsLifecycle.Approve, "ReleaseStep")]
-    public class ApproveReleaseStep : ApiCmdlet
+    [Cmdlet(VerbsLifecycle.Deny, "ReleaseStep")]
+    public class DenyReleaseStep : ApiCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [Alias("id")]
@@ -23,20 +23,13 @@
         {
             var request = new RestRequest($"release/approvals/{this.ApprovalId}");
 
-            var requestBody = new { status = "approved", comments = this.Reason };
+            var requestBody = new { status = "rejected", comments = this.Reason };
 
             request.AddJsonBody(requestBody);
 
             var response = this.client.Patch<ReleaseApproval>(request);
 
-            if (response.IsSuccessful)
-            {
-                this.WriteObject(response.Data);
-            }
-            else
-            {
-                this.WriteError(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.Release), ErrorCategory.NotSpecified, this);
-            }
+            this.WriteObject(response, DevOpsModelTarget.Release, ErrorCategory.NotSpecified, this);
         }
     }
 }

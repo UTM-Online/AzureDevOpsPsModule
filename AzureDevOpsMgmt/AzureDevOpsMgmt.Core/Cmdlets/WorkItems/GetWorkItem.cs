@@ -18,6 +18,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
     using System.Management.Automation;
 
     using AzureDevOpsMgmt.Helpers;
+    using AzureDevOpsMgmt.Models;
 
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 
@@ -58,17 +59,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
             var workItemRequest = new RestRequest($"wit/workitems/{this.Id}", Method.GET);
             var workItemResponse = this.client.Execute<WorkItem>(workItemRequest);
 
-            if (workItemResponse.IsSuccessful)
-            {
-                this.WriteObject(workItemResponse.Data);
-            }
-            else
-            {
-                this.WriteObject("Request Failed.  Review Request / Response Variables");
-                this.WriteDebug($"BaseUri: {this.client.BaseUrl.OriginalString}");
-                this.SetPsVariable("WorkItemRequestBody", workItemRequest);
-                this.SetPsVariable("WorkItemResponseBody", workItemResponse);
-            }
+            this.WriteObject(workItemResponse, DevOpsModelTarget.WorkItem, ErrorCategory.NotSpecified, this);
         }
     }
 }
