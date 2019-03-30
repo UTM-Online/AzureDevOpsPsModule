@@ -5,6 +5,9 @@ description: PowerShell Module for interacting with Azure Dev Ops
 
 url: https://utm-online.github.io/AzureDevOpsPsModule/
 
+applicationinsights:
+  - key: 25995bcf-c72f-4d77-836b-88a3a185b7ea
+
 collections:
   docs:
     permalink: "/:collection/:path/"
