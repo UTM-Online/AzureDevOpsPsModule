@@ -14,3 +14,5 @@ Have a suggestion on improvements or changes to make this module more useful? Op
 [See the Module on PowerShell Gallery](https://www.powershellgallery.com/packages/AzureDevOpsMgmt)
 
 [Documentation Avalible on Pages](http://devopsmodule.utmonline.net)
+
+[Project Work & Dashboard](https://dev.azure.com/utmo-public/PowerShellModules/_dashboards/dashboard/6379813e-ebd2-4c81-a3c1-63426adc1f07)
