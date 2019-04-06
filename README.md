@@ -3,7 +3,7 @@ A PowerShell Module for interacting with Azure Dev Ops REST API.
 
 | Master Branch Build / Release Status |
 | :--: |
-| [![Build status](https://utmo.visualstudio.com/RemotePowerShell/_apis/build/status/AzureDevOps%20PS%20Module%20Build%20&%20Publish)](https://utmo.visualstudio.com/RemotePowerShell/_build/latest?definitionId=50) |
+| [![Build status](https://dev.azure.com/utmo-public/PowerShellModules/_apis/build/status/AzureDevOps%20PS%20Module%20Build%20%26%20Publish-import)](https://dev.azure.com/utmo-public/PowerShellModules/_build/latest?definitionId=2) |
 
 This project was born out of my own laziness when it came to calculating and updating my tasks in Azure Dev Ops.  Which is why it's started out with a very lite set of cmdlets.  But I plan on expanding the available cmdlets to mange work items but builds, releases, and various other aspects of the day to day life of a person who works primarily out of the Azure Dev Ops environment.
 
