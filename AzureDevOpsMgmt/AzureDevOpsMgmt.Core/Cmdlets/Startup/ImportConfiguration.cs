@@ -84,7 +84,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             }
             else
             {
-                configuration = FileHelpers.ReadFileJson<UserConfiguration>(FileNames.AccountData);
+                configuration = FileHelpers.ReadFileJson<UserConfiguration>(FileNames.UserData);
             }
 
             return configuration;
