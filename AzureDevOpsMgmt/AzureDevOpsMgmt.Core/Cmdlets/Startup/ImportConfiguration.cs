@@ -58,6 +58,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
                 var defaultAccount = accountData.Accounts.First(a => a.FriendlyName == configuration.DefaultAccount);
                 var defaultPatToken = accountData.PatTokens.First(a => a.Id == defaultAccount.TokenId);
                 AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(defaultAccount, defaultPatToken, configuration.DefaultProject);
+                this.WriteObject($"Default Account Settings Loaded Successfully.\r\nAccount Name: {configuration.DefaultAccount}\r\nProject Name: {configuration.DefaultProject}");
             }
 
             this.SetPsVariable("AzureDevOpsConfiguration", AzureDevOpsConfiguration.Config);
