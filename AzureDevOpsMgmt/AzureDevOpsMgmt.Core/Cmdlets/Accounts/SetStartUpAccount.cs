@@ -34,6 +34,8 @@
 
             AzureDevOpsConfiguration.Config.Configuration.DefaultAccount = accountObject.FriendlyName;
             AzureDevOpsConfiguration.Config.Configuration.DefaultProject = projectName;
+
+            AzureDevOpsConfiguration.Config.Configuration.Save();
         }
     }
 }
