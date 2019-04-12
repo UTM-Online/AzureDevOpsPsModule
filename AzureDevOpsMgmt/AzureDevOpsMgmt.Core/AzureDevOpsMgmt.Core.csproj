@@ -130,6 +130,7 @@
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItemFields.cs" />
     <Compile Include="Cmdlets\WorkItems\UpdateWorkItem.cs" />
+    <Compile Include="Exceptions\NoPatTokenLinkedException.cs" />
     <Compile Include="Exceptions\ObjectExistsException.cs" />
     <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />

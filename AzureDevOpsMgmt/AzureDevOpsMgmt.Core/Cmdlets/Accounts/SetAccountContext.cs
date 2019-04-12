@@ -18,6 +18,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
     using System.Linq;
     using System.Management.Automation;
 
+    using AzureDevOpsMgmt.Exceptions;
     using AzureDevOpsMgmt.Helpers;
     using AzureDevOpsMgmt.Models;
 
@@ -93,10 +94,10 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// </exception>
         protected override void BeginProcessing()
         {
-            var foundAccounts =
+            AzureDevOpsAccount account =
                 AzureDevOpsConfiguration.Config.Accounts.Accounts.FirstOrDefault(i => i.FriendlyName.Equals(this.GetPsBoundParameter<string>("AccountName"), StringComparison.OrdinalIgnoreCase));
 
-            if ((foundAccounts == null) | (foundAccounts == default(AzureDevOpsAccount)))
+            if ((account == null) | (account == default(AzureDevOpsAccount)))
             {
                 this.WriteError(
                                 new ErrorRecord(
@@ -105,7 +106,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
                                                 ErrorCategory.InvalidArgument,
                                                 this.GetPsBoundParameter<string>("AccountName")));
             }
-            else if (!foundAccounts.AccountProjects.Contains(this.ProjectName, StringComparer.OrdinalIgnoreCase))
+            else if (!account.AccountProjects.Contains(this.ProjectName, StringComparer.OrdinalIgnoreCase))
             {
                 this.WriteError(
                                 new ErrorRecord(
@@ -113,6 +114,14 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
                                                 "AzureDevOpsMgmt.Accounts.SetAccountContext.ProjectNotFoundException",
                                                 ErrorCategory.InvalidArgument,
                                                 this.ProjectName));
+            }
+            else if (account.TokenId == null)
+            {
+                this.WriteError(
+                                new NoPatTokenLinkedException(account.FriendlyName),
+                                this.BuildStandardErrorId(DevOpsModelTarget.InternalOperation, "PatTokenNotLinked"),
+                                ErrorCategory.InvalidOperation,
+                                this);
             }
         }
 
