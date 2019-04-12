@@ -1,6 +1,8 @@
 # The Azure DevOps PowerShell Module
 A PowerShell Module for interacting with Azure Dev Ops REST API.
 
+[![Board Status](https://dev.azure.com/utmo-public/49d97751-6a82-4abe-95eb-10c5d5d655ec/a98a395b-009a-4e58-8e6b-8b8cf403bd0f/_apis/work/boardbadge/18a77344-3edd-4bca-9a87-6b8c57a60e5e?columnOptions=1)](https://dev.azure.com/utmo-public/49d97751-6a82-4abe-95eb-10c5d5d655ec/_boards/board/t/a98a395b-009a-4e58-8e6b-8b8cf403bd0f/Microsoft.RequirementCategory)
+
 | Master Branch Build / Release Status |
 | :--: |
 | [![Build status](https://dev.azure.com/utmo-public/PowerShellModules/_apis/build/status/AzureDevOps%20PS%20Module%20Build%20%26%20Publish-import)](https://dev.azure.com/utmo-public/PowerShellModules/_build/latest?definitionId=2) |
