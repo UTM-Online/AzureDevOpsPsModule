@@ -5,7 +5,7 @@ A PowerShell Module for interacting with Azure Dev Ops REST API.
 
 | Master Branch Build / Release Status |
 | :--: |
-| [![Build status](https://dev.azure.com/utmo-public/PowerShellModules/_apis/build/status/AzureDevOps%20PS%20Module%20Build%20%26%20Publish-import)](https://dev.azure.com/utmo-public/PowerShellModules/_build/latest?definitionId=2) |
+| [![Build status](https://dev.azure.com/utmo-public/PowerShellModules/_apis/build/status/AzureDevOps%20PS%20Module%20Build%20%26%20Publish-import)](https://dev.azure.com/utmo-public/PowerShellModules/_build/latest?definitionId=2) / [![Release Status](https://vsrm.dev.azure.com/utmo-public/_apis/public/Release/badge/49d97751-6a82-4abe-95eb-10c5d5d655ec/1/1)](https://dev.azure.com/utmo-public/PowerShellModules/_release?definitionId=1&_a=releases&view=all) |
 
 [See the Module on PowerShell Gallery](https://www.powershellgallery.com/packages/AzureDevOpsMgmt) | [Documentation Avalible on Pages](http://devopsmodule.utmonline.net)
 
