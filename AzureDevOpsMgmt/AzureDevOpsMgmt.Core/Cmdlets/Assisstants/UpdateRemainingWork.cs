@@ -16,6 +16,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Management.Automation;
 
@@ -29,6 +30,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
     [Cmdlet(VerbsData.Update, "RemainingWork")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Public properties must be public to be visible in shell")]
     public class UpdateRemainingWork : PSCmdlet
     {
         /// <summary>
@@ -40,25 +42,25 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
         private WorkItem updateWorkItem;
 
         /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>The description.</value>
-        [Parameter(Position = 3)]
-        public string Description { get; set; }
-
-        /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        [Parameter(Mandatory = true, Position = 1)]
+        [Parameter(Mandatory = true)]
         public long Id { get; set; }
 
         /// <summary>
         /// Gets or sets the work completed this session.
         /// </summary>
         /// <value>The work completed this session.</value>
-        [Parameter(Mandatory = true, Position = 2)]
+        [Parameter(Mandatory = true)]
         public string[] WorkCompletedThisSession { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>The description.</value>
+        [Parameter]
+        public string Description { get; set; }
 
         /// <summary>
         /// When overridden in the derived class, performs initialization
