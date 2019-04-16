@@ -130,6 +130,7 @@
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItemFields.cs" />
     <Compile Include="Cmdlets\WorkItems\UpdateWorkItem.cs" />
+    <Compile Include="Exceptions\NoPatTokenLinkedException.cs" />
     <Compile Include="Exceptions\ObjectExistsException.cs" />
     <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Models\DevOpsModelTarget.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
+    <Compile Include="Resources\MoveOption.cs" />
     <Compile Include="Serialization\JsonNetSerializer.cs" />
     <Compile Include="Helpers\OperationCheck.cs" />
     <Compile Include="Helpers\WorkItemHelpers.cs" />
