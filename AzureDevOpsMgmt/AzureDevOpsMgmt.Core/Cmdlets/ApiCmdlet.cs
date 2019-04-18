@@ -1,4 +1,6 @@
-﻿namespace AzureDevOpsMgmt.Cmdlets
+﻿using Powershell5.Helpers.CmdletBase;
+
+namespace AzureDevOpsMgmt.Cmdlets
 {
     using System;
     using System.Management.Automation;
@@ -12,11 +14,12 @@
     using RestSharp;
     using RestSharp.Extensions;
 
-    public abstract class ApiCmdlet : PSCmdlet
+    public abstract class ApiCmdlet : AbstractBaseCmdlet
     {
         /// <summary>
         /// The client
         /// </summary>
+        [ShouldInject]
         protected RestClient client;
 
         protected virtual string OverrideApiPath { get; set; }
