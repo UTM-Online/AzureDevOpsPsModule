@@ -120,6 +120,7 @@
     <Compile Include="Cmdlets\Accounts\RemovePatToken.cs" />
     <Compile Include="Cmdlets\Accounts\SetAccountContext.cs" />
     <Compile Include="Cmdlets\Accounts\SetStartUpAccount.cs" />
+    <Compile Include="Cmdlets\Assisstants\MoveRemainingWorkToNextSprint.cs" />
     <Compile Include="Cmdlets\Assisstants\UpdateRemainingWork.cs" />
     <Compile Include="Cmdlets\Builds\GetBuild.cs" />
     <Compile Include="Cmdlets\ApiCmdlet.cs" />
@@ -139,6 +140,11 @@
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
     <Compile Include="Resources\MoveOption.cs" />
+    <Compile Include="Resources\WorkItemQueries.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkItemQueries.resx</DependentUpon>
+    </Compile>
     <Compile Include="Serialization\JsonNetSerializer.cs" />
     <Compile Include="Helpers\OperationCheck.cs" />
     <Compile Include="Helpers\WorkItemHelpers.cs" />
@@ -180,6 +186,10 @@
     <EmbeddedResource Include="Resources\StaticStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StaticStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\WorkItemQueries.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WorkItemQueries.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
