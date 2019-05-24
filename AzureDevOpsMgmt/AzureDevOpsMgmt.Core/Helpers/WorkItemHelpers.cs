@@ -13,7 +13,6 @@
 // ***********************************************************************
 namespace AzureDevOpsMgmt.Helpers
 {
-    using System;
     using System.Collections.Generic;
 
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
@@ -41,33 +40,36 @@ namespace AzureDevOpsMgmt.Helpers
                            Url = wi.Url
                        };
 
-            if (newWorkItem.Fields != null && wi.Fields.Count > 0)
+            if (newWorkItem.Fields != null && wi.Fields?.Count > 0)
             {
                 foreach (var item in wi.Fields)
                 {
                     newWorkItem.Fields.Add(item.Key, item.Value);
-                } 
+                }
             }
 
-            if (newWorkItem.Links != null && wi.Links.Links != null && wi.Links.Links.Count > 0)
+            if (newWorkItem.Links != null && wi.Links?.Links != null && wi.Links.Links.Count > 0)
             {
                 foreach (var item in wi.Links.Links)
                 {
                     newWorkItem.Links.AddLink(item.Key, ((ReferenceLink)item.Value).Href);
-                } 
+                }
             }
 
-            if (newWorkItem.Relations != null && wi.Relations.Count > 0)
+            if (newWorkItem.Relations != null && wi.Relations?.Count > 0)
             {
                 foreach (var item in wi.Relations)
                 {
                     newWorkItem.Relations.Add(item.DeepCopy());
-                } 
+                }
             }
 
             return newWorkItem;
         }
 
+        /// <summary>Deeps the copy.</summary>
+        /// <param name="wir">The Work Item Relationship</param>
+        /// <returns> A clone of the input work item relationship</returns>
         private static WorkItemRelation DeepCopy(this WorkItemRelation wir)
         {
             var newWorkItemRelation = new WorkItemRelation
@@ -78,12 +80,12 @@ namespace AzureDevOpsMgmt.Helpers
                                               Url = wir.Url
                                           };
 
-            if (wir.Attributes != null && wir.Attributes.Count > 0)
+            if (wir.Attributes != null && wir.Attributes?.Count > 0)
             {
                 foreach (var item in wir.Attributes)
                 {
                     newWorkItemRelation.Attributes.Add(item.Key, item.Value);
-                } 
+                }
             }
 
             return newWorkItemRelation;
