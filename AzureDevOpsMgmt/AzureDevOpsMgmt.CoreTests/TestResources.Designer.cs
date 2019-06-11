@@ -19,7 +19,7 @@ namespace AzureDevOpsMgmt.CoreTests {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class TestResources {
@@ -97,6 +97,31 @@ namespace AzureDevOpsMgmt.CoreTests {
         internal static string JsonPatchTestSideA {
             get {
                 return ResourceManager.GetString("JsonPatchTestSideA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///    &quot;Accounts&quot;: [
+        ///        {
+        ///            &quot;AccountName&quot;: &quot;TestConnection&quot;,
+        ///            &quot;BaseUrl&quot;: &quot;https://dev.azure.com/TestConnection&quot;,
+        ///            &quot;FriendlyName&quot;: &quot;Test Account&quot;,
+        ///            &quot;TokenId&quot;: &quot;8c09b891-b84b-41c9-b298-cf19f2135082&quot;,
+        ///            &quot;AccountProjects&quot;: [
+        ///                &quot;Test Project&quot;
+        ///            ]
+        ///        }
+        ///    ],
+        ///    &quot;PatTokens&quot;: [
+        ///        {
+        ///            &quot;CreatedOnMachine&quot;: &quot;c45ed5db-c0b5-4962-9f9d-95e757c57d23&quot;,
+        ///            &quot;FriendlyName&quot;: &quot;Test-Token&quot;,
+        ///            &quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestConfigFile {
+            get {
+                return ResourceManager.GetString("TestConfigFile", resourceCulture);
             }
         }
     }

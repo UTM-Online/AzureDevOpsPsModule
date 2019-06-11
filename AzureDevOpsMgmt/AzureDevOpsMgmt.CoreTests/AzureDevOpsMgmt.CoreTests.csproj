@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Helpers\JsonHelpersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\ConfigLoadingTests.cs" />
     <Compile Include="TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -133,9 +134,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\JsonPatchTestSideA.txt" />
+    <None Include="Resources\JsonPatchSideB.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\JsonPatchSideB.txt" />
+    <None Include="Resources\TestConfigFile.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
