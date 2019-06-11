@@ -139,6 +139,11 @@
     <Compile Include="Models\DevOpsModelTarget.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
+    <Compile Include="Resources\EventMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\MoveOption.cs" />
     <Compile Include="Resources\WorkItemQueries.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -179,6 +184,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\EventMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EventMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\FileNames.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>FileNames.Designer.cs</LastGenOutput>
