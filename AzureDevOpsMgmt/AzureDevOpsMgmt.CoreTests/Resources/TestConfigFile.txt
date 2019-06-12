@@ -12,7 +12,7 @@
     ],
     "PatTokens": [
         {
-            "CreatedOnMachine": "c45ed5db-c0b5-4962-9f9d-95e757c57d23",
+            "HostMachineId": "c45ed5db-c0b5-4962-9f9d-95e757c57d23",
             "FriendlyName": "Test-Token",
             "Id": "8c09b891-b84b-41c9-b298-cf19f2135082"
         }
