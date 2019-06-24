@@ -20,7 +20,7 @@
         /// The client
         /// </summary>
         [ShouldInject]
-        protected RestClient client;
+        protected RestClient client { get; set; }
 
         protected virtual string OverrideApiPath { get; set; }
 

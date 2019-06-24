@@ -19,7 +19,7 @@
         [Parameter]
         public string FieldName { get; set; }
 
-        protected override void ProcessRecord()
+        protected override void ProcessCmdletRecord()
         {
             if (this.FieldName != null)
             {

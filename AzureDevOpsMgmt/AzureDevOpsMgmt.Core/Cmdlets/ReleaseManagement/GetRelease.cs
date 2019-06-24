@@ -31,7 +31,7 @@
             }
         }
 
-        protected override void ProcessRecord()
+        protected override void ProcessCmdletRecord()
         {
             if (this.Id != default(int))
             {

@@ -19,7 +19,7 @@
         [Parameter(Mandatory = true)]
         public string Reason { get; set; }
 
-        protected override void ProcessRecord()
+        protected override void ProcessCmdletRecord()
         {
             var request = new RestRequest($"release/approvals/{this.ApprovalId}");
 
