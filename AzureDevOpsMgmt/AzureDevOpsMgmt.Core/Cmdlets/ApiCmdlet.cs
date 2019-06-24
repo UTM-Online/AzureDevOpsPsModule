@@ -20,7 +20,7 @@
         /// The client
         /// </summary>
         [ShouldInject]
-        protected RestClient client { get; set; }
+        protected IRestClient client { get; set; }
 
         protected virtual string OverrideApiPath { get; set; }
 
@@ -30,8 +30,6 @@
             {
                 this.ThrowTerminatingError(new ErrorRecord(new InvalidOperationException("Account context has not been set.  Please run \"Set-AzureDevOpsAccountContext\" before continuing."), "AzureDevOps.Cmdlet.Auth.AccountContextNotSetException", ErrorCategory.AuthenticationError, this));
             }
-
-            this.client = this.GetRestClient();
 
             if (this.OverrideApiPath != null)
             {

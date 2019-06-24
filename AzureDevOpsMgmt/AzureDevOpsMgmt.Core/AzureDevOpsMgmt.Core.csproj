@@ -77,6 +77,7 @@
     <Compile Include="Models\DevOpsModelTarget.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
+    <Compile Include="Resources\DependencyContainer.cs" />
     <Compile Include="Resources\MoveOption.cs" />
     <Compile Include="Resources\WorkItemQueries.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -152,7 +153,7 @@
       <Version>5.5.0</Version>
     </PackageReference>
     <PackageReference Include="UTMO.PowerShell5.DI.Unity">
-      <Version>1.0.5</Version>
+      <Version>1.0.25</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
