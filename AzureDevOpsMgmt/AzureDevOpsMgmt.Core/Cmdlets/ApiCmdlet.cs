@@ -1,6 +1,4 @@
-﻿using Powershell5.Helpers.CmdletBase;
-
-namespace AzureDevOpsMgmt.Cmdlets
+﻿namespace AzureDevOpsMgmt.Cmdlets
 {
     using System;
     using System.Management.Automation;
@@ -14,7 +12,9 @@ namespace AzureDevOpsMgmt.Cmdlets
     using RestSharp;
     using RestSharp.Extensions;
 
-    public abstract class ApiCmdlet : AbstractBaseCmdlet
+    using UTMO.Powershell5.DI.CmdletBase;
+
+    public abstract class ApiCmdlet : DiBasePsCmdlet
     {
         /// <summary>
         /// The client
@@ -24,7 +24,7 @@ namespace AzureDevOpsMgmt.Cmdlets
 
         protected virtual string OverrideApiPath { get; set; }
 
-        protected sealed override void BeginProcessing()
+        protected sealed override void BeginCmdletProcessing()
         {
             if (!AzureDevOpsConfiguration.Config.ReadyForCommands)
             {
