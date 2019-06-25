@@ -55,7 +55,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Cmdlets\BaseCmdletTests.cs" />
     <Compile Include="Helpers\JsonHelpersTests.cs" />
+    <Compile Include="Models\TestCmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
