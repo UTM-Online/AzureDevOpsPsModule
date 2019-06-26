@@ -72,6 +72,8 @@ namespace AzureDevOpsMgmt.Serialization
         /// <value>The data format.</value>
         public DataFormat DataFormat { get; } = DataFormat.Json;
 
+        /// <summary>Gets the settings.</summary>
+        /// <returns>The Json Serializer Settings.</returns>
         private JsonSerializerSettings GetSettings()
         {
             var settings = new JsonSerializerSettings

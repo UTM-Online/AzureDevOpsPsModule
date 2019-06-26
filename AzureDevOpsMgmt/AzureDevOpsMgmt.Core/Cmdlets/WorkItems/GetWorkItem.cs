@@ -54,7 +54,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         /// <exception cref="T:System.Management.Automation.ProviderNotFoundException">If the <paramref name="name" /> refers to a provider that could not be found.</exception>
         /// <exception cref="T:System.Management.Automation.SessionStateOverflowException">If the maximum number of variables has been reached for this scope.</exception>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        protected override void ProcessRecord()
+        protected override void ProcessCmdletRecord()
         {
             var workItemRequest = new RestRequest($"wit/workitems/{this.Id}", Method.GET);
             var workItemResponse = this.client.Execute<WorkItem>(workItemRequest);

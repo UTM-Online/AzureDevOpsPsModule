@@ -12,23 +12,24 @@
     using RestSharp;
     using RestSharp.Extensions;
 
-    public abstract class ApiCmdlet : PSCmdlet
+    using UTMO.Powershell5.DI.CmdletBase;
+
+    public abstract class ApiCmdlet : DiBasePsCmdlet
     {
         /// <summary>
         /// The client
         /// </summary>
-        protected RestClient client;
+        [ShouldInject]
+        protected IRestClient client { get; set; }
 
         protected virtual string OverrideApiPath { get; set; }
 
-        protected sealed override void BeginProcessing()
+        protected sealed override void BeginCmdletProcessing()
         {
             if (!AzureDevOpsConfiguration.Config.ReadyForCommands)
             {
                 this.ThrowTerminatingError(new ErrorRecord(new InvalidOperationException("Account context has not been set.  Please run \"Set-AzureDevOpsAccountContext\" before continuing."), "AzureDevOps.Cmdlet.Auth.AccountContextNotSetException", ErrorCategory.AuthenticationError, this));
             }
-
-            this.client = this.GetRestClient();
 
             if (this.OverrideApiPath != null)
             {

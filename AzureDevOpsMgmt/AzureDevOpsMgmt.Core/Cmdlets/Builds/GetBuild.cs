@@ -18,7 +18,7 @@
         [Parameter(ParameterSetName = "BuildDefinitionList")]
         public int[] BuildDefinitionId { get; set; }
 
-        protected override void ProcessRecord()
+        protected override void ProcessCmdletRecord()
         {
             var request = new RestRequest("build/builds", Method.GET);
 

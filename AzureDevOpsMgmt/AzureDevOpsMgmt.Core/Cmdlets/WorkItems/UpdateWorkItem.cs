@@ -64,7 +64,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         ///             to percolate up to the caller of ProcessRecord etc.
         /// </exception>
         // ReSharper disable once StyleCop.SA1650
-        protected override void ProcessRecord()
+        protected override void ProcessCmdletRecord()
         {
             var request = new RestRequest($"wit/workitems/{this.Id}");
 
