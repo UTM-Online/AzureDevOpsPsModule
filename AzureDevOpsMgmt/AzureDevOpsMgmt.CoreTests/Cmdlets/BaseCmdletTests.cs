@@ -5,7 +5,10 @@ namespace AzureDevOpsMgmt.CoreTests.Cmdlets
 {
     using System.Linq;
     using System.Management.Automation;
+    using System.Management.Automation.Runspaces;
+    using System.Reflection;
 
+    using AzureDevOpsMgmt.Cmdlets;
     using AzureDevOpsMgmt.CoreTests.Models;
 
     using RestSharp;
@@ -16,9 +19,19 @@ namespace AzureDevOpsMgmt.CoreTests.Cmdlets
         [TestMethod]
         public void VerifyDiFunctionTest()
         {
-            Cmdlet testCmdlet = new TestCmdlet();
+            IRestClient results = null;
 
-            var results = testCmdlet.Invoke<IRestClient>()?.First();
+            var moduleBaseAssembly = Assembly.GetAssembly(typeof(ApiCmdlet));
+            var testBaseAssembly = Assembly.GetAssembly(typeof(BaseCmdletTests));
+
+            using (var ps = PowerShell.Create(RunspaceMode.NewRunspace))
+            {
+                using (var importBaseModule = ps.CreateNestedPowerShell())
+                {
+                    importBaseModule.AddCommand("Import-Module");
+                    importBaseModule.AddParameter("Assembly", moduleBaseAssembly);
+                }
+            }
 
             Assert.IsNotNull(results);
         }
