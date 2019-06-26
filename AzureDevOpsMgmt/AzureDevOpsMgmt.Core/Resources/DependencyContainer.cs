@@ -1,4 +1,13 @@
-﻿namespace AzureDevOpsMgmt.Resources
+﻿// ***********************************************************************
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 06-24-2019
+// ***********************************************************************
+// <copyright file="DependencyContainer.cs" company="UTM Online">
+//     Copyright ©  2019
+// </copyright>
+// ***********************************************************************
+namespace AzureDevOpsMgmt.Resources
 {
     using System;
 
@@ -10,13 +19,25 @@
 
     using UTMO.PowerShell5.DI.Unity;
 
+    /// <summary>
+    /// Class DependencyContainer.
+    /// Implements the <see cref="UTMO.PowerShell5.DI.Unity.PsUnityContainer" />
+    /// </summary>
+    /// <seealso cref="UTMO.PowerShell5.DI.Unity.PsUnityContainer" />
     public class DependencyContainer : PsUnityContainer
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
+        /// </summary>
         public DependencyContainer()
         {
             this.RegisterFactory<IRestClient, RestClient>(i => this.RestClientFactory());
         }
 
+        /// <summary>
+        /// Rests the client factory.
+        /// </summary>
+        /// <returns>A RestClient.</returns>
         private RestClient RestClientFactory()
         {
             var currentAccount = AzureDevOpsConfiguration.Config.CurrentConnection;

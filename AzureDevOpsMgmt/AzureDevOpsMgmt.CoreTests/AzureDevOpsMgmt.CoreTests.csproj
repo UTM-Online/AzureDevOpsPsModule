@@ -55,9 +55,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Cmdlets\BaseCmdletTests.cs" />
     <Compile Include="Helpers\JsonHelpersTests.cs" />
-    <Compile Include="Models\TestCmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -105,6 +103,9 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt">
       <Version>5.5.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
