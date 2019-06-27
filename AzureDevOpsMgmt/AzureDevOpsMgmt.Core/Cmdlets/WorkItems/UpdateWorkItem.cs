@@ -68,12 +68,12 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         {
             var request = new RestRequest($"wit/workitems/{this.Id}");
 
-            // request.RequestFormat = DataFormat.Json;
+            //// request.RequestFormat = DataFormat.Json;
 
             if (this.OriginalWorkItem == null)
             {
                 var getRequest = new RestRequest($"wit/workitems/{this.Id}");
-                var getResponse = this.client.Execute<WorkItem>(getRequest);
+                var getResponse = this.Client.Execute<WorkItem>(getRequest);
 
                 if (getResponse.IsSuccessful)
                 {
@@ -89,11 +89,12 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 
             request.AddJsonBody(patchDocument);
             request.AddParameter("Content-Type", "application/json-patch+json", ParameterType.HttpHeader);
-            var restResponse = this.client.Patch(request);
+            var restResponse = this.Client.Patch(request);
             var updateWorkItem = JsonConvert.DeserializeObject<WorkItem>(restResponse.Content);
 
             if (this.IsDebug)
             {
+                // ReSharper disable once ExceptionNotDocumented
                 this.SetPsVariable("UpdateRestResponse", restResponse);
             }
 

@@ -11,63 +11,66 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Helpers
 {
-    using System;
     using System.Collections.Generic;
 
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
     using Microsoft.VisualStudio.Services.WebApi;
 
     /// <summary>
-    /// Class WorkItemHelpers.
+    ///     Class WorkItemHelpers.
     /// </summary>
     public static class WorkItemHelpers
     {
         /// <summary>
-        /// Deeps the copy.
+        ///     Deeps the copy.
         /// </summary>
         /// <param name="wi">The wi.</param>
         /// <returns>A clone of the original WorkItem.</returns>
         public static WorkItem DeepCopy(this WorkItem wi)
         {
             var newWorkItem = new WorkItem
-                       {
-                           Id = wi.Id,
-                           Rev = wi.Rev,
-                           Fields = wi.Fields == null ? null : new Dictionary<string, object>(),
-                           Links = wi.Links == null ? null : new ReferenceLinks(),
-                           Relations = wi.Relations == null ? null : new List<WorkItemRelation>(),
-                           Url = wi.Url
-                       };
+                                  {
+                                      Id = wi.Id,
+                                      Rev = wi.Rev,
+                                      Fields = wi.Fields == null ? null : new Dictionary<string, object>(),
+                                      Links = wi.Links == null ? null : new ReferenceLinks(),
+                                      Relations = wi.Relations == null ? null : new List<WorkItemRelation>(),
+                                      Url = wi.Url
+                                  };
 
-            if (newWorkItem.Fields != null && wi.Fields.Count > 0)
+            if (newWorkItem.Fields != null && wi.Fields?.Count > 0)
             {
                 foreach (var item in wi.Fields)
                 {
                     newWorkItem.Fields.Add(item.Key, item.Value);
-                } 
+                }
             }
 
-            if (newWorkItem.Links != null && wi.Links.Links != null && wi.Links.Links.Count > 0)
+            if (newWorkItem.Links != null && wi.Links?.Links != null && wi.Links.Links.Count > 0)
             {
                 foreach (var item in wi.Links.Links)
                 {
                     newWorkItem.Links.AddLink(item.Key, ((ReferenceLink)item.Value).Href);
-                } 
+                }
             }
 
-            if (newWorkItem.Relations != null && wi.Relations.Count > 0)
+            if (newWorkItem.Relations != null && wi.Relations?.Count > 0)
             {
                 foreach (var item in wi.Relations)
                 {
                     newWorkItem.Relations.Add(item.DeepCopy());
-                } 
+                }
             }
 
             return newWorkItem;
         }
 
+        /// <summary>  Performs a deep copy of the source object</summary>
+        /// <param name="wir">The Work Item Relationship</param>
+        /// <returns>A WorkItemRelation.</returns>
         private static WorkItemRelation DeepCopy(this WorkItemRelation wir)
         {
             var newWorkItemRelation = new WorkItemRelation
@@ -83,7 +86,7 @@ namespace AzureDevOpsMgmt.Helpers
                 foreach (var item in wir.Attributes)
                 {
                     newWorkItemRelation.Attributes.Add(item.Key, item.Value);
-                } 
+                }
             }
 
             return newWorkItemRelation;

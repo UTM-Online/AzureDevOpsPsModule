@@ -37,7 +37,6 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// </summary>
         /// <value>The name of the project.</value>
         [Parameter]
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public string ProjectName { get; set; }
 
         /// <summary>

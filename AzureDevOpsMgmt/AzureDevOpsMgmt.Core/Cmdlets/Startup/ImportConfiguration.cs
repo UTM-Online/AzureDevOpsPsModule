@@ -34,17 +34,17 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
         /// When overridden in the derived class, performs execution
         /// of the command.
         /// </summary>
-        /// <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
-        /// <exception cref="T:System.IO.IOException">The directory cannot be created.</exception>
-        /// <exception cref="T:System.UnauthorizedAccessException">The caller does not have the required permission.</exception>
-        /// <exception cref="T:System.IO.DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive).</exception>
-        /// <exception cref="T:System.IO.FileNotFoundException">The configuration file specified was not found.</exception>
-        /// <exception cref="T:System.OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
         /// <exception cref="T:System.Management.Automation.ProviderNotFoundException">If the Configuration refers to a provider that could not be found.</exception>
         /// <exception cref="T:System.Management.Automation.DriveNotFoundException">If the Configuration refers to a drive that could not be found.</exception>
         /// <exception cref="T:System.Management.Automation.ProviderInvocationException">If the provider threw an exception.</exception>
         /// <exception cref="T:System.Management.Automation.SessionStateUnauthorizedAccessException">If the variable is read-only or constant.</exception>
         /// <exception cref="T:System.Management.Automation.SessionStateOverflowException">If the maximum number of variables has been reached for this scope.</exception>
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">
+        /// The pipeline has already been terminated, or was terminated
+        ///             during the execution of this method.
+        ///             The Cmdlet should generally just allow PipelineStoppedException
+        ///             to percolate up to the caller of ProcessRecord etc.
+        /// </exception>
         protected override void ProcessRecord()
         {
             var accountData = this.LoadAccountData();
@@ -64,6 +64,8 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             this.SetPsVariable("AzureDevOpsConfiguration", AzureDevOpsConfiguration.Config);
         }
 
+        /// <summary>Loads the user configuration.</summary>
+        /// <returns>The UserConfiguration.</returns>
         private UserConfiguration LoadUserConfiguration()
         {
             UserConfiguration configuration;
