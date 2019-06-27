@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.489
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "AzureDevOpsMgmt", "AzureDevOpsMgmt\AzureDevOpsMgmt.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDevOpsMgmt.Core", "AzureDevOpsMgmt.Core\AzureDevOpsMgmt.Core.csproj", "{68245A33-6D14-4A75-8013-B100B182A39F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDevOpsMgmt.CoreTests", "AzureDevOpsMgmt.CoreTests\AzureDevOpsMgmt.CoreTests.csproj", "{AD3EAD7F-DCF8-4C5C-BD91-57124CC566C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevSettings", "DevSettings", "{BAB68BA5-3C4E-4340-BA73-39FF9EBBCF71}"
+	ProjectSection(SolutionItems) = preProject
+		settings.StyleCop = settings.StyleCop
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
