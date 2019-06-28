@@ -134,8 +134,10 @@
     <Compile Include="Exceptions\NoPatTokenLinkedException.cs" />
     <Compile Include="Exceptions\ObjectExistsException.cs" />
     <Compile Include="Helpers\CmdletHelpers.cs" />
+    <Compile Include="Helpers\ConfigurationHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
+    <Compile Include="Models\Contracts\IPortable.cs" />
     <Compile Include="Models\DevOpsModelTarget.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
