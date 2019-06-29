@@ -1,0 +1,11 @@
+﻿<StyleCopSettings Version="105">
+  <GlobalSettings>
+    <CollectionProperty Name="RecognizedWords">
+      <Value>Json</Value>
+      <Value>parameterless</Value>
+      <Value>Cmdlet</Value>
+      <Value>Api</Value>
+      <Value>Dev</Value>
+    </CollectionProperty>
+  </GlobalSettings>
+</StyleCopSettings>
