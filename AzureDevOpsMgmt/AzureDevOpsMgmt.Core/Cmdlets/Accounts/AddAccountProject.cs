@@ -45,6 +45,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// When overridden in the derived class, performs execution
         /// of the command.
         /// </summary>
+        /// <exception cref="T:AzureDevOpsMgmt.Exceptions.ObjectExistsException">This exception is thrown if the user tries to add a project that already exists in the account object.</exception>
         protected override void ProcessRecord()
         {
             var account = AzureDevOpsConfiguration.Config.Accounts.Accounts.First(i => i.FriendlyName.Equals(this.AccountFriendlyName, StringComparison.OrdinalIgnoreCase));

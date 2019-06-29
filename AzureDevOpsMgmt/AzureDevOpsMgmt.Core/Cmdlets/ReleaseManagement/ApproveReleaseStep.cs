@@ -1,25 +1,49 @@
-﻿namespace AzureDevOpsMgmt.Cmdlets.ReleaseManagement
+﻿// ***********************************************************************
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 06-26-2019
+// ***********************************************************************
+// <copyright file="ApproveReleaseStep.cs" company="UTM Online">
+//     Copyright ©  2019
+// </copyright>
+// ***********************************************************************
+namespace AzureDevOpsMgmt.Cmdlets.ReleaseManagement
 {
     using System.Management.Automation;
 
-    using AzureDevOpsMgmt.Helpers;
     using AzureDevOpsMgmt.Models;
 
     using Microsoft.VisualStudio.Services.ReleaseManagement.WebApi;
 
     using RestSharp;
 
+    /// <summary>
+    /// Class ApproveReleaseStep.
+    /// Implements the <see cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
+    /// </summary>
+    /// <seealso cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
     [Cmdlet(VerbsLifecycle.Approve, "ReleaseStep")]
     public class ApproveReleaseStep : ApiCmdlet
     {
+        /// <summary>
+        /// Gets or sets the approval identifier.
+        /// </summary>
+        /// <value>The approval identifier.</value>
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [Alias("id")]
         public int ApprovalId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the reason.
+        /// </summary>
+        /// <value>The reason.</value>
         [Parameter(Mandatory = true)]
         public string Reason { get; set; }
 
-        protected override void ProcessRecord()
+        /// <summary>
+        /// Processes the cmdlet record.
+        /// </summary>
+        protected override void ProcessCmdletRecord()
         {
             var request = new RestRequest($"release/approvals/{this.ApprovalId}");
 
@@ -27,7 +51,7 @@
 
             request.AddJsonBody(requestBody);
 
-            var response = this.client.Patch<ReleaseApproval>(request);
+            var response = this.Client.Patch<ReleaseApproval>(request);
 
             this.WriteObject(response, DevOpsModelTarget.Release, ErrorCategory.NotSpecified, this);
         }

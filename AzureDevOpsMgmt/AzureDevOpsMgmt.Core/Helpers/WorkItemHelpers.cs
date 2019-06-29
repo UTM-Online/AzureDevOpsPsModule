@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Helpers
 {
     using System.Collections.Generic;
@@ -19,26 +20,26 @@ namespace AzureDevOpsMgmt.Helpers
     using Microsoft.VisualStudio.Services.WebApi;
 
     /// <summary>
-    /// Class WorkItemHelpers.
+    ///     Class WorkItemHelpers.
     /// </summary>
     public static class WorkItemHelpers
     {
         /// <summary>
-        /// Deeps the copy.
+        ///     Deeps the copy.
         /// </summary>
         /// <param name="wi">The wi.</param>
         /// <returns>A clone of the original WorkItem.</returns>
         public static WorkItem DeepCopy(this WorkItem wi)
         {
             var newWorkItem = new WorkItem
-                       {
-                           Id = wi.Id,
-                           Rev = wi.Rev,
-                           Fields = wi.Fields == null ? null : new Dictionary<string, object>(),
-                           Links = wi.Links == null ? null : new ReferenceLinks(),
-                           Relations = wi.Relations == null ? null : new List<WorkItemRelation>(),
-                           Url = wi.Url
-                       };
+                                  {
+                                      Id = wi.Id,
+                                      Rev = wi.Rev,
+                                      Fields = wi.Fields == null ? null : new Dictionary<string, object>(),
+                                      Links = wi.Links == null ? null : new ReferenceLinks(),
+                                      Relations = wi.Relations == null ? null : new List<WorkItemRelation>(),
+                                      Url = wi.Url
+                                  };
 
             if (newWorkItem.Fields != null && wi.Fields?.Count > 0)
             {
