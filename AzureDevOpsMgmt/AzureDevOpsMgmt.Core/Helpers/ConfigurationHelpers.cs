@@ -8,6 +8,8 @@
 
     using Microsoft.Win32;
 
+    using UTMO.Common.Guards;
+
     public static class ConfigurationHelpers
     {
         static ConfigurationHelpers()
