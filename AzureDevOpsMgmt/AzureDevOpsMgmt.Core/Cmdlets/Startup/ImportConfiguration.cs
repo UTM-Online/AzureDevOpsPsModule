@@ -22,6 +22,8 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
     using AzureDevOpsMgmt.Models;
     using AzureDevOpsMgmt.Resources;
 
+    using Meziantou.Framework.Win32;
+
     /// <summary>
     /// Class ImportConfiguration.
     /// Implements the <see cref="System.Management.Automation.PSCmdlet" />
@@ -59,6 +61,29 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
                 var defaultPatToken = accountData.PatTokens.First(a => a.Id == defaultAccount.TokenId);
                 AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(defaultAccount, defaultPatToken, configuration.DefaultProject);
                 this.WriteObject($"Default Account Settings Loaded Successfully.\r\nAccount Name: {configuration.DefaultAccount}\r\nProject Name: {configuration.DefaultProject}");
+            }
+
+            if (!AzureDevOpsConfiguration.Config.Accounts.HasCompleted1905Upgrade)
+            {
+                foreach (var token in AzureDevOpsConfiguration.Config.Accounts.PatTokens)
+                {
+                    if (token.MachineScopeId == default && !token.NotOnMachines.Contains(ConfigurationHelpers.GetMachineId()))
+                    {
+                        var cred = CredentialManager.ReadCredential(token.CredentialManagerId);
+
+                        if (cred != default(Credential))
+                        {
+                            token.MachineScopeId = ConfigurationHelpers.GetMachineId();
+                        }
+                        else
+                        {
+                            token.NotOnMachines.Add(ConfigurationHelpers.GetMachineId());
+                        }
+                    }
+                }
+
+                AzureDevOpsConfiguration.Config.Accounts.HasCompleted1905Upgrade = true;
+                FileHelpers.WriteFileJson(FileNames.AccountData, AzureDevOpsConfiguration.Config.Accounts);
             }
 
             this.SetPsVariable("AzureDevOpsConfiguration", AzureDevOpsConfiguration.Config);

@@ -41,6 +41,12 @@ namespace AzureDevOpsMgmt.Models
         /// <value>The pat tokens.</value>
         public ObservableCollection<AzureDevOpsPatToken> PatTokens { get; set; }
 
+        /// <summary>Gets or sets a value indicating whether this instance has completed 1905 upgrade.</summary>
+        /// <value>
+        ///   <c>true</c> if this instance has completed 1905 upgrade; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasCompleted1905Upgrade { get; set; }
+
         /// <summary>Adds the account.</summary>
         /// <param name="friendlyName">Name of the friendly.</param>
         /// <param name="accountName">Name of the account.</param>
