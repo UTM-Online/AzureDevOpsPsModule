@@ -128,6 +128,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="app.config" />
+    <None Include="Nuget.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\EventMessages.resx">
