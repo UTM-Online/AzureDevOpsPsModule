@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
 
+    using AzureDevOpsMgmt.CoreTests.Resources;
     using AzureDevOpsMgmt.Models;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;

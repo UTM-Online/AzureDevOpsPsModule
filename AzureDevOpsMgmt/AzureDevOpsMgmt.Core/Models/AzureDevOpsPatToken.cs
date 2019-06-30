@@ -37,17 +37,19 @@ namespace AzureDevOpsMgmt.Models
         {
             this.TokenValue =
                 new Lazy<string>(() => CredentialManager.ReadCredential(this.CredentialManagerId).Password);
+
+            this.NotOnMachines = new List<Guid>();
+            this.MachineScopeId = Guid.Empty;
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.AzureDevOpsPatToken" /> class.</summary>
         /// <param name="friendlyName">Name of the friendly.</param>
         /// <param name="tokenValue">The token value.</param>
-        public AzureDevOpsPatToken(string friendlyName, string tokenValue)
+        public AzureDevOpsPatToken(string friendlyName, string tokenValue) : this()
         {
             this.FriendlyName = friendlyName;
             this.Id = Guid.NewGuid();
-            this.TokenValue =
-                new Lazy<string>(() => CredentialManager.ReadCredential(this.CredentialManagerId).Password);
+
             this.UpdateToken(tokenValue);
         }
 

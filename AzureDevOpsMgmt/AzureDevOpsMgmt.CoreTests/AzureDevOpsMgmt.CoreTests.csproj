@@ -55,14 +55,15 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Helpers\JsonHelpersTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\ConfigLoadingTests.cs" />
-    <Compile Include="TestResources.Designer.cs">
+    <Compile Include="Resources\TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tests\Helpers\JsonHelpersTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Serialization\ConfigLoadingTests.cs" />
+    <Compile Include="Tests\Versioning\Version1905UpgradeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -74,7 +75,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestResources.resx">
+    <EmbeddedResource Include="Resources\TestResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TestResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -107,7 +108,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <None Include="Resources\Pre1905TestConfigFile.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

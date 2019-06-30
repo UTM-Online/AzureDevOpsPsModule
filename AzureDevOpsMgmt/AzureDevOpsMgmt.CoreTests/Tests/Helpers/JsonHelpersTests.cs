@@ -11,7 +11,7 @@ namespace AzureDevOpsMgmt.CoreTests.Helpers
 {
     using System.Linq;
 
-    using AzureDevOpsMgmt.CoreTests;
+    using AzureDevOpsMgmt.CoreTests.Resources;
     using AzureDevOpsMgmt.Helpers;
 
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;

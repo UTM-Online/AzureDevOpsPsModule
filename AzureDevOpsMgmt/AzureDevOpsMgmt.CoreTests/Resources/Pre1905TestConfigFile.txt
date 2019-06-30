@@ -12,7 +12,6 @@
     ],
     "PatTokens": [
         {
-            "MachineScopeId": "49d87ded-f3e4-4f35-8fc9-07ea92006dce",
             "FriendlyName": "Test-Token",
             "Id": "8c09b891-b84b-41c9-b298-cf19f2135082"
         }
