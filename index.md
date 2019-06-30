@@ -12,6 +12,6 @@ Want to install the module? Just run:
 Install-Module -Name AzureDevOpsMgmt -Repository PSGallery -Scope:CurrentUser
 ```
 
-Build / Release Status: [![Build status](https://utmo.visualstudio.com/RemotePowerShell/_apis/build/status/AzureDevOps%20PS%20Module%20Build%20&%20Publish)](https://utmo.visualstudio.com/RemotePowerShell/_build/latest?definitionId=50)
+Build / Release Status: [![Build status](https://dev.azure.com/utmo-public/PowerShellModules/_apis/build/status/AzureDevOps%20PS%20Module%20Build%20%26%20Publish)](https://dev.azure.com/utmo-public/PowerShellModules/_build/latest?definitionId=2)
 
 [See the Module on PowerShell Gallery](https://www.powershellgallery.com/packages/AzureDevOpsMgmt)
