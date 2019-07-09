@@ -38,6 +38,11 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         [Parameter]
         public long Id { get; set; }
 
+        /// <summary>Gets or sets the fields.</summary>
+        /// <value>The fields.</value>
+        [Parameter]
+        public string Fields { get; set; }
+
         /// <summary>
         /// When overridden in the derived class, performs execution
         /// of the command.
@@ -46,6 +51,12 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         protected override void ProcessCmdletRecord()
         {
             var workItemRequest = new RestRequest($"wit/workitems/{this.Id}", Method.GET);
+
+            if (!string.IsNullOrWhiteSpace(this.Fields))
+            {
+                workItemRequest.AddQueryParameter("fields", this.Fields);
+            }
+
             var workItemResponse = this.Client.Execute<WorkItem>(workItemRequest);
 
             this.WriteObject(workItemResponse, DevOpsModelTarget.WorkItem, ErrorCategory.NotSpecified, this);

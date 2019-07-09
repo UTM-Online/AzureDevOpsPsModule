@@ -68,6 +68,7 @@
     <Compile Include="Cmdlets\Startup\ImportConfiguration.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItemFields.cs" />
+    <Compile Include="Cmdlets\WorkItems\SearchWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\UpdateWorkItem.cs" />
     <Compile Include="Exceptions\NoPatTokenLinkedException.cs" />
     <Compile Include="Exceptions\ObjectExistsException.cs" />
