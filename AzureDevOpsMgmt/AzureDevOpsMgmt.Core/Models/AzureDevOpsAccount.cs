@@ -78,6 +78,11 @@ namespace AzureDevOpsMgmt.Models
         [JsonProperty(PropertyName = "AccountProjects")]
         private List<string> InternalProjectsList { get; set; }
 
+        /// <summary>Gets or sets the internal projects and teams.</summary>
+        /// <value>The internal projects and teams.</value>
+        [JsonProperty(PropertyName = "AccountProjectsAndTeams")]
+        private Dictionary<string, List<string>> InternalProjectsAndTeams { get; set; }
+
         /// <summary>Adds the project to the account.</summary>
         /// <param name="name">The project name.</param>
         /// <exception cref="T:AzureDevOpsMgmt.Exceptions.ObjectExistsException">
