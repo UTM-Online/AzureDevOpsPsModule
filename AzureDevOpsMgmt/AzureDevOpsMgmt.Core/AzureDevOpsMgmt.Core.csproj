@@ -159,7 +159,7 @@
       <Version>12.0.2</Version>
     </PackageReference>
     <PackageReference Include="RestSharp">
-      <Version>106.6.9</Version>
+      <Version>106.6.10</Version>
     </PackageReference>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt">
       <Version>5.5.0</Version>
@@ -168,7 +168,7 @@
       <Version>1.0.7</Version>
     </PackageReference>
     <PackageReference Include="UTMO.PowerShell5.DI.Unity">
-      <Version>1.0.25</Version>
+      <Version>1.0.27</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
