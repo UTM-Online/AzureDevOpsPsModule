@@ -25,6 +25,7 @@
     - link: /docs/cmdlets/api/getbuild/
     - link: /docs/cmdlets/api/approverelease/
     - link: /docs/cmdlets/api/denyreleasetep/
+    - link: /docs/cmdlets/api/searchworkitems/
 - title: Assistants Cmdlets
   docs:
     - link: /docs/cmdlets/assistants/updateremainingwork/
