@@ -19,6 +19,8 @@
         /// </summary>
         protected RestClient client;
 
+        protected virtual string OverrideApiPath { get; set; }
+
         protected sealed override void BeginProcessing()
         {
             if (!AzureDevOpsConfiguration.Config.ReadyForCommands)
@@ -27,6 +29,15 @@
             }
 
             this.client = this.GetRestClient();
+
+            if (this.OverrideApiPath != null)
+            {
+                var currentAccount = AzureDevOpsConfiguration.Config.CurrentConnection;
+                var escapedProjectString = Uri.EscapeUriString(currentAccount.ProjectName);
+
+                this.client.BaseUrl = new Uri($"{currentAccount.Account.BaseUrl}/{escapedProjectString}{this.OverrideApiPath}");
+            }
+
             AppDomain.CurrentDomain.AssemblyResolve += this.CurrentDomain_BindingRedirect;
 
             this.BeginProcessingCmdlet();

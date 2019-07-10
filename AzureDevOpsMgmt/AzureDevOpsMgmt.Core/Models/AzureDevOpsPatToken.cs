@@ -15,6 +15,7 @@ namespace AzureDevOpsMgmt.Models
 {
     using System;
 
+    using AzureDevOpsMgmt.Helpers;
     using AzureDevOpsMgmt.Resources;
 
     using Meziantou.Framework.Win32;
@@ -42,6 +43,7 @@ namespace AzureDevOpsMgmt.Models
             this.FriendlyName = friendlyName;
             this.Id = Guid.NewGuid();
             this.TokenValue = new Lazy<string>(() => CredentialManager.ReadCredential(this.CredentialManagerId).Password);
+            this.IsInScope = new Lazy<bool>(this.CheckIfMachineIsInScope);
             this.UpdateToken(tokenValue);
         }
 
@@ -56,6 +58,15 @@ namespace AzureDevOpsMgmt.Models
         /// </summary>
         /// <value>The name of the friendly.</value>
         public string FriendlyName { get; set; }
+
+        /// <summary>Gets or sets the created on machine.</summary>
+        /// <value>The created on machine.</value>
+        public Guid CreatedOnMachine { get; set; }
+
+        /// <summary>Gets or sets the is in scope.</summary>
+        /// <value>The is in scope.</value>
+        [JsonIgnore]
+        public Lazy<bool> IsInScope { get; set; }
 
         /// <summary>
         /// Gets or sets the token value.

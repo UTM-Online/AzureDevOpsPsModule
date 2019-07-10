@@ -22,14 +22,14 @@ namespace AzureDevOpsMgmt.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class StaticStrings {
+    internal class WorkItemQueries {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal StaticStrings() {
+        internal WorkItemQueries() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace AzureDevOpsMgmt.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AzureDevOpsMgmt.Resources.StaticStrings", typeof(StaticStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AzureDevOpsMgmt.Resources.WorkItemQueries", typeof(WorkItemQueries).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,15 @@ namespace AzureDevOpsMgmt.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to joshsAzureDevOpsPSModule.
+        ///   Looks up a localized string similar to SELECT [System.Id]
+        ///FROM WorkItems
+        ///WHERE [System.AssignedTo] = @Me
+        ///AND ([System.WorkItemType] = &apos;Bug&apos; OR [System.WorkItemType] = &apos;Task&apos;)
+        ///AND ([System.State] &lt;&gt; &apos;Closed&apos; OR [System.State] &lt;&gt; &apos;Resolved&apos;).
         /// </summary>
-        internal static string ApplicationName {
+        internal static string AllActiveBugsAndTasksForIteration {
             get {
-                return ResourceManager.GetString("ApplicationName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The default string.
-        /// </summary>
-        internal static string Default {
-            get {
-                return ResourceManager.GetString("Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AzureDevOpsMgmt.
-        /// </summary>
-        internal static string ModuleName {
-            get {
-                return ResourceManager.GetString("ModuleName", resourceCulture);
+                return ResourceManager.GetString("AllActiveBugsAndTasksForIteration", resourceCulture);
             }
         }
     }

@@ -13,6 +13,7 @@
 // ***********************************************************************
 namespace AzureDevOpsMgmt.Cmdlets.Startup
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
@@ -120,6 +121,11 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             {
                 accountData = FileHelpers.ReadFileJson<AzureDevOpsAccountCollection>(FileNames.AccountData);
                 accountData.Init();
+            }
+
+            if (accountData.PatTokens.Any(p => p.Id == Guid.Empty))
+            {
+                this.WriteWarning("A PAT Token was imported that contained an empty GUID.  Interactions with Azure Dev Ops may not work as expected.");
             }
 
             return accountData;
