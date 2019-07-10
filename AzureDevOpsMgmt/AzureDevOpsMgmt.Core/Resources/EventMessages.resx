@@ -117,14 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="JsonPatchSideB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\JsonPatchSideB.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="JsonPatchTestSideA" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\JsonPatchTestSideA.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="TestConfigFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TestConfigFile.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="TOKEN_ID_CANNOT_BE_EMPTY_GUID" xml:space="preserve">
+    <value>Unable to write configuration data to disk.  Pat token with empty ID's were detected.  Please report this error the developer and include what you were doing at the time the exception was encountered.</value>
   </data>
 </root>

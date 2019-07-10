@@ -16,7 +16,10 @@ namespace AzureDevOpsMgmt.Helpers
 {
     using System;
     using System.IO;
+    using System.Linq;
 
+    using AzureDevOpsMgmt.Exceptions;
+    using AzureDevOpsMgmt.Models;
     using AzureDevOpsMgmt.Resources;
 
     using Newtonsoft.Json;
@@ -75,6 +78,20 @@ namespace AzureDevOpsMgmt.Helpers
             {
                 file.Write(serializedObject);
             }
+        }
+
+        /// <summary>Writes the file json.</summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="fileData">The file data.</param>
+        /// <exception cref="EmptyIdFoundException"></exception>
+        public static void WriteFileJson(string fileName, AzureDevOpsAccountCollection fileData)
+        {
+            if (fileData.PatTokens.Any(p => p.Id == Guid.Empty))
+            {
+                throw new EmptyIdFoundException(EventMessages.TOKEN_ID_CANNOT_BE_EMPTY_GUID);
+            }
+
+            WriteFileJson(fileName, fileData);
         }
     }
 }

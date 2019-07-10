@@ -73,6 +73,10 @@ namespace AzureDevOpsMgmt.Models
         /// <value>The token identifier.</value>
         public Guid? TokenId { get; set; }
 
+        /// <summary>Gets or sets the linked tokens.</summary>
+        /// <value>The linked tokens.</value>
+        public List<Guid> LinkedTokens { get; set; }
+
         /// <summary>Gets or sets the internal projects list.</summary>
         /// <value>The internal projects list.</value>
         [JsonProperty(PropertyName = "AccountProjects")]

@@ -22,14 +22,14 @@ namespace AzureDevOpsMgmt.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class StaticStrings {
+    internal class EventMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal StaticStrings() {
+        internal EventMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace AzureDevOpsMgmt.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AzureDevOpsMgmt.Resources.StaticStrings", typeof(StaticStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AzureDevOpsMgmt.Resources.EventMessages", typeof(EventMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,11 @@ namespace AzureDevOpsMgmt.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to joshsAzureDevOpsPSModule.
+        ///   Looks up a localized string similar to Unable to write configuration data to disk.  Pat token with empty ID&apos;s were detected.  Please report this error the developer and include what you were doing at the time the exception was encountered..
         /// </summary>
-        internal static string ApplicationName {
+        internal static string TOKEN_ID_CANNOT_BE_EMPTY_GUID {
             get {
-                return ResourceManager.GetString("ApplicationName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The default string.
-        /// </summary>
-        internal static string Default {
-            get {
-                return ResourceManager.GetString("Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AzureDevOpsMgmt.
-        /// </summary>
-        internal static string ModuleName {
-            get {
-                return ResourceManager.GetString("ModuleName", resourceCulture);
+                return ResourceManager.GetString("TOKEN_ID_CANNOT_BE_EMPTY_GUID", resourceCulture);
             }
         }
     }
