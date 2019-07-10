@@ -1,4 +1,20 @@
-﻿namespace AzureDevOpsMgmt.Cmdlets.WorkItems
+﻿// ***********************************************************************
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : josh
+// Created          : 07-08-2019
+//
+// Last Modified By : josh
+// Last Modified On : 07-08-2019
+// ***********************************************************************
+// <copyright file="SearchWorkItem.cs" company="UTM-Online">
+//     Copyright ©  2019
+// </copyright>
+// <summary>
+//  This cmdlet enables the user to search for work items using the "Work Item Query Language"
+// </summary>
+// ***********************************************************************
+
+namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 {
     using System;
     using System.Collections.Generic;
@@ -14,31 +30,39 @@
 
     using RestSharp;
 
+    /// <summary>
+    ///     Class SearchWorkItem.
+    ///     Implements the <see cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
+    /// </summary>
     [Cmdlet(VerbsCommon.Search, "WorkItems")]
     public class SearchWorkItem : ApiCmdlet
     {
-        [Parameter]
-        public string TeamName { get; set; }
+        /// <summary>The work items</summary>
+        private readonly List<WorkItem> workItems = new List<WorkItem>();
 
-        [Parameter]
-        public string[] Properties { get; set; }
+        /// <summary>The query results</summary>
+        private WorkItemQueryResult queryResults;
 
+        /// <summary>Gets or sets the query.</summary>
+        /// <value>The query.</value>
         [Parameter]
         public string Query { get; set; }
 
-        protected override IRestClient Client { get; set; }
+        /// <summary>Gets or sets the name of the team.</summary>
+        /// <value>The name of the team.</value>
+        [Parameter]
+        public string TeamName { get; set; }
 
-        private List<WorkItem> workItems;
-
-        private WorkItemQueryResult queryResults;
-
+        /// <summary>Begins the processing cmdlet.</summary>
         protected override void BeginProcessingCmdlet()
         {
             var currentAccount = AzureDevOpsConfiguration.Config.CurrentConnection;
             var escapedProjectString = Uri.EscapeUriString(currentAccount.ProjectName);
             var escapedTeamString = Uri.EscapeUriString(this.TeamName);
-            var client = new RestClient($"{currentAccount.Account.BaseUrl}/{escapedProjectString}/{escapedTeamString}/_apis");
-            client.Authenticator = new BarerTokenAuthenticator();
+            var client = new RestClient($"{currentAccount.Account.BaseUrl}/{escapedProjectString}/{escapedTeamString}/_apis")
+                             {
+                                 Authenticator = new BarerTokenAuthenticator()
+                             };
             client.DefaultParameters.Add(new Parameter("api-version", "5.0", ParameterType.QueryString));
             client.DefaultParameters.Add(new Parameter("Accepts", "application/json", ParameterType.HttpHeader));
             client.DefaultParameters.Add(new Parameter("ContentType", "application/json", ParameterType.HttpHeader));
@@ -47,6 +71,20 @@
             this.Client = client;
         }
 
+        /// <summary>Ends the cmdlet processing.</summary>
+        protected override void EndCmdletProcessing()
+        {
+            if (this.workItems.Any())
+            {
+                this.WriteObject(this.workItems, true);
+            }
+            else
+            {
+                this.WriteWarning("Query returned no results!");
+            }
+        }
+
+        /// <summary>Processes the cmdlet record.</summary>
         protected override void ProcessCmdletRecord()
         {
             var request = new RestRequest("/wit/wiql");
@@ -57,8 +95,7 @@
 
             if (!response.IsSuccessful)
             {
-                // TODO: Add error handling logic here
-                return;
+                this.ThrowTerminatingError(new ErrorRecord(response.ErrorException, this.BuildStandardErrorId(DevOpsModelTarget.WorkItem), ErrorCategory.NotSpecified, response));
             }
 
             this.queryResults = response.Data;
@@ -67,22 +104,10 @@
 
             foreach (var item in this.queryResults.WorkItems)
             {
-                var arguments = new Dictionary<string, object>() { { "Id", item.Id }, { "Fields", queryFields } };
+                var arguments = new Dictionary<string, object> { { "Id", item.Id }, { "Fields", queryFields } };
                 var workItem = this.InvokeModuleCmdlet<WorkItem>("Get-WorkItem", arguments).First();
 
                 this.workItems.Add(workItem);
-            }
-        }
-
-        protected override void EndCmdletProcessing()
-        {
-            if (this.workItems.Any())
-            {
-                this.WriteObject(this.workItems, true);
-            }
-            else
-            {
-                this.WriteWarning("Query returned no results!");
             }
         }
     }
