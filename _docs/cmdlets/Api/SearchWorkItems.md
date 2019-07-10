@@ -23,7 +23,7 @@ Using the provided query string, performs a search of work items in your project
 <br>
 ## Parameters
 ### -TeamName
-The name of the team you want your query to run under.
+    The name of the team you want your query to run under.
 
 Type: | string
 Position: | Named
