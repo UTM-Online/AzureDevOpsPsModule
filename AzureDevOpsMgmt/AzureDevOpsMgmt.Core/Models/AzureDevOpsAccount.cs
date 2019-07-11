@@ -22,6 +22,8 @@ namespace AzureDevOpsMgmt.Models
 
     using Newtonsoft.Json;
 
+    using UTMO.Common.Guards;
+
     /// <summary>
     /// Class AzureDevOpsAccount.
     /// </summary>
@@ -103,6 +105,11 @@ namespace AzureDevOpsMgmt.Models
         public void RemoveProject(string name)
         {
             this.InternalProjectsList.Remove(name);
+        }
+
+        internal void UpgradeProjectList()
+        {
+            Guard.Requires(this.InternalProjectsAndTeams == null, () => new AccountProjectsAlreadyUpgradedException(this.FriendlyName));
         }
     }
 }
