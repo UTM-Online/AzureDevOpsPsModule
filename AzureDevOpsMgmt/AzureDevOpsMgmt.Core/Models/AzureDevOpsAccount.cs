@@ -110,12 +110,25 @@ namespace AzureDevOpsMgmt.Models
             Guard.StringNotNull(nameof(teamName), teamName);
             Guard.Requires<ProjectNotFoundException>(this.InternalProjectsAndTeams.ContainsKey(projectName));
 
+            if (!this.InternalProjectsAndTeams[projectName].Contains(teamName))
+            {
+                this.InternalProjectsAndTeams[projectName].Add(teamName);
+            }
+        }
+
+        /// <summary>Removes the project team.</summary>
+        /// <param name="projectName">Name of the project.</param>
+        /// <param name="teamName">Name of the team.</param>
+        public void RemoveProjectTeam(string projectName, string teamName)
+        {
+            Guard.StringNotNull(nameof(projectName), projectName);
+            Guard.StringNotNull(nameof(teamName), teamName);
+            Guard.Requires<ProjectNotFoundException>(this.InternalProjectsAndTeams.ContainsKey(projectName));
+
             if (this.InternalProjectsAndTeams[projectName].Contains(teamName))
             {
-                return;
+                this.InternalProjectsAndTeams[projectName].Remove(teamName);
             }
-
-            this.InternalProjectsAndTeams[projectName].Add(teamName);
         }
 
         /// <summary>Removes the project from the account.</summary>
