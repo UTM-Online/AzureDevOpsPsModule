@@ -40,7 +40,7 @@ namespace AzureDevOpsMgmt.Models
             this.AccountName = accountName;
             this.TokenId = tokenId;
             this.BaseUrl = baseUrl;
-            this.InternalProjectsList = new List<string>();
+            this.InternalProjectsAndTeams = new Dictionary<string, List<string>>();
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.AzureDevOpsAccount"/> class.</summary>
@@ -57,7 +57,9 @@ namespace AzureDevOpsMgmt.Models
         /// <summary>Gets or sets the account projects.</summary>
         /// <value>The account projects.</value>
         [JsonIgnore]
+        #pragma warning disable 612,618
         public IReadOnlyList<string> AccountProjects => this.InternalProjectsList;
+#pragma warning restore 612,618
 
         /// <summary>Gets or sets the base URL.</summary>
         /// <value>The base URL.</value>
