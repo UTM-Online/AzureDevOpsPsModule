@@ -34,7 +34,7 @@ namespace AzureDevOpsMgmt.Cmdlets
         /// <summary>Gets or sets the client.</summary>
         /// <value>The client.</value>
         [ShouldInject]
-        protected IRestClient Client { get; set; }
+        protected virtual IRestClient Client { get; set; }
 
         /// <summary>
         ///     Gets a value indicating whether this instance is debug.
