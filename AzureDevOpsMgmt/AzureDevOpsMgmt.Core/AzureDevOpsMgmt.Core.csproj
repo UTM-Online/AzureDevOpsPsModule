@@ -49,6 +49,7 @@
     <Compile Include="Cmdlets\Accounts\AddAccount.cs" />
     <Compile Include="Cmdlets\Accounts\AddAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\AddPatToken.cs" />
+    <Compile Include="Cmdlets\Accounts\AddProjectTeam.cs" />
     <Compile Include="Cmdlets\Accounts\GetAccount.cs" />
     <Compile Include="Cmdlets\Accounts\GetStartUpAccount.cs" />
     <Compile Include="Cmdlets\Accounts\GetPatToken.cs" />
