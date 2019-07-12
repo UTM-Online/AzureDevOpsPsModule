@@ -74,6 +74,7 @@
     <Compile Include="Exceptions\NoPatTokenLinkedException.cs" />
     <Compile Include="Exceptions\NoProjectsFoundException.cs" />
     <Compile Include="Exceptions\ObjectExistsException.cs" />
+    <Compile Include="Exceptions\ProjectNotFoundException.cs" />
     <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\ConfigurationHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />

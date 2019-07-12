@@ -101,6 +101,23 @@ namespace AzureDevOpsMgmt.Models
             this.InternalProjectsAndTeams.Add(name, new List<string>());
         }
 
+        /// <summary>Adds the project team.</summary>
+        /// <param name="projectName">Name of the project.</param>
+        /// <param name="teamName">Name of the team.</param>
+        public void AddProjectTeam(string projectName, string teamName)
+        {
+            Guard.StringNotNull(nameof(projectName), projectName);
+            Guard.StringNotNull(nameof(teamName), teamName);
+            Guard.Requires<ProjectNotFoundException>(this.InternalProjectsAndTeams.ContainsKey(projectName));
+
+            if (this.InternalProjectsAndTeams[projectName].Contains(teamName))
+            {
+                return;
+            }
+
+            this.InternalProjectsAndTeams[projectName].Add(teamName);
+        }
+
         /// <summary>Removes the project from the account.</summary>
         /// <param name="name">The name.</param>
         public void RemoveProject(string name)
