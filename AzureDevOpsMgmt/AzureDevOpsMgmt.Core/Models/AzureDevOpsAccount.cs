@@ -78,6 +78,7 @@ namespace AzureDevOpsMgmt.Models
         /// <summary>Gets or sets the internal projects list.</summary>
         /// <value>The internal projects list.</value>
         [JsonProperty(PropertyName = "AccountProjects")]
+        [Obsolete("This property has been replaced by the InternalProjectsAndTeams property")]
         private List<string> InternalProjectsList { get; set; }
 
         /// <summary>Gets or sets the internal projects and teams.</summary>
@@ -92,12 +93,10 @@ namespace AzureDevOpsMgmt.Models
         /// </exception>
         public void AddProject(string name)
         {
-            if (this.InternalProjectsList.Any(p => p.Equals(name, StringComparison.OrdinalIgnoreCase)))
-            {
-                throw new ObjectExistsException("Account Project");
-            }
+            Guard.StringNotNull(nameof(name), name);
+            Guard.Requires(!this.InternalProjectsAndTeams.ContainsKey(name), () => new ObjectExistsException("Project"));
 
-            this.InternalProjectsList.Add(name);
+            this.InternalProjectsAndTeams.Add(name, new List<string>());
         }
 
         /// <summary>Removes the project from the account.</summary>
@@ -107,6 +106,7 @@ namespace AzureDevOpsMgmt.Models
             this.InternalProjectsList.Remove(name);
         }
 
+#pragma warning disable 612,618
         /// <summary>Upgrades the project list.</summary>
         internal void UpgradeProjectList()
         {
@@ -120,5 +120,7 @@ namespace AzureDevOpsMgmt.Models
                 this.InternalProjectsAndTeams.Add(project, new List<string>());
             }
         }
+
+        #pragma warning restore 612,618
     }
 }
