@@ -107,9 +107,18 @@ namespace AzureDevOpsMgmt.Models
             this.InternalProjectsList.Remove(name);
         }
 
+        /// <summary>Upgrades the project list.</summary>
         internal void UpgradeProjectList()
         {
             Guard.Requires(this.InternalProjectsAndTeams == null, () => new AccountProjectsAlreadyUpgradedException(this.FriendlyName));
+            Guard.Requires<NoProjectsFoundException>(this.InternalProjectsList.Any());
+
+            this.InternalProjectsAndTeams = new Dictionary<string, List<string>>();
+
+            foreach (var project in this.InternalProjectsList)
+            {
+                this.InternalProjectsAndTeams.Add(project, new List<string>());
+            }
         }
     }
 }

@@ -72,6 +72,7 @@
     <Compile Include="Cmdlets\WorkItems\UpdateWorkItem.cs" />
     <Compile Include="Exceptions\AccountProjectsAlreadyUpgradedException.cs" />
     <Compile Include="Exceptions\NoPatTokenLinkedException.cs" />
+    <Compile Include="Exceptions\NoProjectsFoundException.cs" />
     <Compile Include="Exceptions\ObjectExistsException.cs" />
     <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\ConfigurationHelpers.cs" />
