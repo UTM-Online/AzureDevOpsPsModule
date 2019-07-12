@@ -105,7 +105,10 @@ namespace AzureDevOpsMgmt.Models
         /// <param name="name">The name.</param>
         public void RemoveProject(string name)
         {
-            this.InternalProjectsList.Remove(name);
+            Guard.StringNotNull(nameof(name), name);
+            Guard.Requires<NoProjectsFoundException>(this.InternalProjectsAndTeams.ContainsKey(name));
+
+            this.InternalProjectsAndTeams.Remove(name);
         }
 
 #pragma warning disable 612,618
