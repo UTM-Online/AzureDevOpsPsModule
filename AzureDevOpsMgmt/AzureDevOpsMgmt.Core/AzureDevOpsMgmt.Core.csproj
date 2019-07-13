@@ -57,6 +57,7 @@
     <Compile Include="Cmdlets\Accounts\RemoveAccount.cs" />
     <Compile Include="Cmdlets\Accounts\RemoveAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\RemovePatToken.cs" />
+    <Compile Include="Cmdlets\Accounts\RemoveProjectTeam.cs" />
     <Compile Include="Cmdlets\Accounts\SetAccountContext.cs" />
     <Compile Include="Cmdlets\Accounts\SetStartUpAccount.cs" />
     <Compile Include="Cmdlets\Assisstants\MoveRemainingWorkToNextSprint.cs" />
