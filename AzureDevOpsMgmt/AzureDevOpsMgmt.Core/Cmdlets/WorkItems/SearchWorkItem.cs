@@ -48,28 +48,9 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         [Parameter]
         public string Query { get; set; }
 
-        /// <summary>Gets or sets the name of the team.</summary>
-        /// <value>The name of the team.</value>
-        [Parameter]
-        public string TeamName { get; set; }
-
-        /// <summary>Begins the processing cmdlet.</summary>
-        protected override void BeginProcessingCmdlet()
-        {
-            var currentAccount = AzureDevOpsConfiguration.Config.CurrentConnection;
-            var escapedProjectString = Uri.EscapeUriString(currentAccount.ProjectName);
-            var escapedTeamString = Uri.EscapeUriString(this.TeamName);
-            var client = new RestClient($"{currentAccount.Account.BaseUrl}/{escapedProjectString}/{escapedTeamString}/_apis")
-                             {
-                                 Authenticator = new BarerTokenAuthenticator()
-                             };
-            client.DefaultParameters.Add(new Parameter("api-version", "5.0", ParameterType.QueryString));
-            client.DefaultParameters.Add(new Parameter("Accepts", "application/json", ParameterType.HttpHeader));
-            client.DefaultParameters.Add(new Parameter("ContentType", "application/json", ParameterType.HttpHeader));
-            client.UseSerializer(() => new JsonNetSerializer());
-
-            this.Client = client;
-        }
+        /// <inheritdoc />
+        [ShouldInject("AdoTeamsApi")]
+        protected override IRestClient Client { get; set; }
 
         /// <summary>Ends the cmdlet processing.</summary>
         protected override void EndCmdletProcessing()

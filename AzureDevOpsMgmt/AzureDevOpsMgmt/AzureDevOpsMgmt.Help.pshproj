@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<ModuleObject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" fVersion="1.1" type="Binary" mclass="Module" useSupports="false">
+<ModuleObject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" fVersion="1.1" type="Binary" mclass="Module" useSupports="true">
   <Name>AzureDevOpsMgmt</Name>
-  <Version>0.3.1903.27</Version>
+  <Version>1.2.1907.1</Version>
   <Description>A module to quickly and easly manage repetative interactions with VSTS</Description>
   <HasManifest>true</HasManifest>
   <OverridePostCount>false</OverridePostCount>
@@ -607,7 +607,7 @@ TokenId         : 88b61c24-4c58-4f15-9181-17c415d8f6cb</Output>
     <CmdletObject verb="Get" noun="AzureDevOpsWorkItem">
       <Name>Get-AzureDevOpsWorkItem</Name>
       <Syntax>
-        <string>Get-AzureDevOpsWorkItem [-Id &lt;Int64&gt;]</string>
+        <string>Get-AzureDevOpsWorkItem [-Id &lt;Int64&gt;] [-Fields &lt;String&gt;]</string>
       </Syntax>
       <GeneralHelp>
         <Synopsis>Retrieves a single work item from the Project / Account</Synopsis>
@@ -621,7 +621,7 @@ TokenId         : 88b61c24-4c58-4f15-9181-17c415d8f6cb</Output>
         <ReturnTypeDescription />
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Id Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Id Fields Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Parameters>
         <ParameterDescription type="Int64" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
@@ -631,6 +631,15 @@ TokenId         : 88b61c24-4c58-4f15-9181-17c415d8f6cb</Output>
           </Attributes>
           <Aliases />
           <Description>The Id of the work item you want to retrieve from the project.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Fields</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description />
           <DefaultValue />
         </ParameterDescription>
       </Parameters>
@@ -1097,7 +1106,7 @@ RequiredPermissions : 0</Output>
     <CmdletObject verb="Update" noun="AzureDevOpsRemainingWork">
       <Name>Update-AzureDevOpsRemainingWork</Name>
       <Syntax>
-        <string>Update-AzureDevOpsRemainingWork [[-Description] &lt;String&gt;] [-Id] &lt;Int64&gt; [-WorkCompletedThisSession] &lt;String[]&gt;</string>
+        <string>Update-AzureDevOpsRemainingWork [-Description &lt;String&gt;] -Id &lt;Int64&gt; -WorkCompletedThisSession &lt;String[]&gt;</string>
       </Syntax>
       <GeneralHelp>
         <Synopsis>Takes a time span string as input (the amount of time spent on a task), performs some calculations, and updates the work item with new values for completed and remaining work.</Synopsis>
@@ -1114,7 +1123,7 @@ RequiredPermissions : 0</Output>
         <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Description Id WorkCompletedThisSession Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Parameters>
-        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>Description</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
@@ -1123,7 +1132,7 @@ RequiredPermissions : 0</Output>
           <Description>A description of the work you performed.  What you supply here will be added as a comment on the work item.</Description>
           <DefaultValue />
         </ParameterDescription>
-        <ParameterDescription type="Int64" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="1" globbing="false">
+        <ParameterDescription type="Int64" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>Id</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
@@ -1132,7 +1141,7 @@ RequiredPermissions : 0</Output>
           <Description>The Id number of the work item you want to update your remaining work value on.</Description>
           <DefaultValue />
         </ParameterDescription>
-        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>WorkCompletedThisSession</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
@@ -1244,6 +1253,50 @@ Update-AzureDevOpsWorkItem -Id $wi.Id -UpdateWorkItem $wi -OriginalWorkItem $ori
           <LinkUrl>http://devopsmodule.utmonline.net/docs/cmdlets/api/updateworkitem/</LinkUrl>
         </RelatedLink>
       </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Search" noun="AzureDevOpsWorkItems">
+      <Name>Search-AzureDevOpsWorkItems</Name>
+      <Syntax>
+        <string>Search-AzureDevOpsWorkItems [-Query &lt;String&gt;] [-TeamName &lt;String&gt;]</string>
+      </Syntax>
+      <GeneralHelp>
+        <Synopsis>Using the provided query string, performs a search of work items in your project / team.</Synopsis>
+        <Description />
+        <Notes />
+        <InputType />
+        <InputUrl />
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnUrl />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Query TeamName Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Query</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The query formated using the "Work Item Query Language" syntax</Description>
+          <DefaultValue>None</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>TeamName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The name of the team you want your query to run under.</Description>
+          <DefaultValue>None</DefaultValue>
+        </ParameterDescription>
+      </Parameters>
+      <Examples />
+      <RelatedLinks />
       <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" ps51="false" ps60="false" ps61="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w10="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" w2k16s="false" w2k16d="false" />
       <Publish>false</Publish>
     </CmdletObject>

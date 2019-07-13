@@ -49,6 +49,7 @@
     <Compile Include="Cmdlets\Accounts\AddAccount.cs" />
     <Compile Include="Cmdlets\Accounts\AddAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\AddPatToken.cs" />
+    <Compile Include="Cmdlets\Accounts\AddProjectTeam.cs" />
     <Compile Include="Cmdlets\Accounts\GetAccount.cs" />
     <Compile Include="Cmdlets\Accounts\GetStartUpAccount.cs" />
     <Compile Include="Cmdlets\Accounts\GetPatToken.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Cmdlets\Accounts\RemoveAccount.cs" />
     <Compile Include="Cmdlets\Accounts\RemoveAccountProject.cs" />
     <Compile Include="Cmdlets\Accounts\RemovePatToken.cs" />
+    <Compile Include="Cmdlets\Accounts\RemoveProjectTeam.cs" />
     <Compile Include="Cmdlets\Accounts\SetAccountContext.cs" />
     <Compile Include="Cmdlets\Accounts\SetStartUpAccount.cs" />
     <Compile Include="Cmdlets\Assisstants\MoveRemainingWorkToNextSprint.cs" />
@@ -70,8 +72,11 @@
     <Compile Include="Cmdlets\WorkItems\GetWorkItemFields.cs" />
     <Compile Include="Cmdlets\WorkItems\SearchWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\UpdateWorkItem.cs" />
+    <Compile Include="Exceptions\AccountProjectsAlreadyUpgradedException.cs" />
     <Compile Include="Exceptions\NoPatTokenLinkedException.cs" />
+    <Compile Include="Exceptions\NoProjectsFoundException.cs" />
     <Compile Include="Exceptions\ObjectExistsException.cs" />
+    <Compile Include="Exceptions\ProjectNotFoundException.cs" />
     <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\ConfigurationHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
@@ -123,6 +128,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="app.config" />
+    <None Include="Nuget.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\EventMessages.resx">
