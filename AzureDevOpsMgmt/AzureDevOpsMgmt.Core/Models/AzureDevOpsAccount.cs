@@ -61,6 +61,11 @@ namespace AzureDevOpsMgmt.Models
         public IReadOnlyList<string> AccountProjects => this.InternalProjectsList;
 #pragma warning restore 612,618
 
+        /// <summary>Gets the account projects and teams.</summary>
+        /// <value>The account projects and teams.</value>
+        [JsonIgnore]
+        public IReadOnlyDictionary<string, List<string>> AccountProjectsAndTeams => this.InternalProjectsAndTeams;
+
         /// <summary>Gets or sets the base URL.</summary>
         /// <value>The base URL.</value>
         public string BaseUrl { get; set; }
