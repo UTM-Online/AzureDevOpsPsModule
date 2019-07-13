@@ -83,7 +83,7 @@ namespace AzureDevOpsMgmt.Helpers
         /// <summary>Writes the file json.</summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileData">The file data.</param>
-        /// <exception cref="EmptyIdFoundException"></exception>
+        /// <exception cref="EmptyIdFoundException">An input account contained an empty token ID.</exception>
         public static void WriteFileJson(string fileName, AzureDevOpsAccountCollection fileData)
         {
             if (fileData.PatTokens.Any(p => p.Id == Guid.Empty))
