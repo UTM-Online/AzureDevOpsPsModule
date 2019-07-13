@@ -2799,6 +2799,26 @@ Update-AzureDevOpsWorkItem -Id $wi.Id -UpdateWorkItem $wi -OriginalWorkItem $ori
 		</maml:alert>
 	</maml:alertSet>
 	<command:examples>
+		<command:example>
+			<maml:title>--------------------------  Example 1  --------------------------</maml:title>
+			<maml:introduction>
+				<maml:paragraph>PS C:\&gt;</maml:paragraph>
+			</maml:introduction>
+			<dev:code>Search-AzureDevopsWorkItems -TeamName &quot;MyTeam&quot; -Query &quot;Select [System.Id], [System.Title], [System.State] From WorkItems Where [System.WorkItemType] = &apos;Task&apos; AND [State] &lt;&gt; &apos;Closed&apos; AND [State] &lt;&gt; &apos;Removed&apos; order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc&quot;</dev:code>
+			<dev:remarks>
+				<maml:para>Querying Azure Dev Ops for all Taks that are not closed or removed and sorting them by the priority and created date selecting the Id, Title, and State columns.</maml:para>
+				<maml:para />
+				<maml:para />
+				<maml:para></maml:para>
+			</dev:remarks>
+			<command:commandLines>
+				<command:commandLine>
+					<command:commandText>
+						<maml:para />
+					</command:commandText>
+				</command:commandLine>
+			</command:commandLines>
+		</command:example>
 	</command:examples>
 	<maml:relatedLinks>
 	</maml:relatedLinks>
