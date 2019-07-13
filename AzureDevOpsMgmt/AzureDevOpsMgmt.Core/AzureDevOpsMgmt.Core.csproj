@@ -69,6 +69,7 @@
     <Compile Include="Cmdlets\ReleaseManagement\DenyReleaseStep.cs" />
     <Compile Include="Cmdlets\ReleaseManagement\GetRelease.cs" />
     <Compile Include="Cmdlets\Startup\ImportConfiguration.cs" />
+    <Compile Include="Cmdlets\WorkItems\GetCurrentIteration.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItemFields.cs" />
     <Compile Include="Cmdlets\WorkItems\SearchWorkItem.cs" />
