@@ -17,6 +17,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
     using System.Management.Automation;
 
     using AzureDevOpsMgmt.Helpers;
+    using AzureDevOpsMgmt.Models;
 
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
     using Microsoft.VisualStudio.Services.WebApi.Patch;
@@ -81,7 +82,11 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
                 }
                 else
                 {
-                    this.WriteError(new ErrorRecord(new Exception("Unable to retrieve original work items"), "AzureDevOpsMgmt.Cmdlets.UpdateWorkItem.FetchWorkItem.UnknownFailure", ErrorCategory.NotSpecified, $"Workitem: {this.Id}"));
+                    this.ProcessErrorResponse(
+                        getResponse,
+                        DevOpsModelTarget.WorkItem,
+                        ErrorCategory.NotSpecified,
+                        this);
                 }
             }
 
@@ -100,7 +105,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 
             if (!restResponse.IsSuccessful)
             {
-                this.WriteError(new ErrorRecord(restResponse.ErrorException, "AzureDevOpsMgmt.Cmdlet.UpdateWorkItem.UnknownError", ErrorCategory.NotSpecified, request));
+                this.ProcessErrorResponse(restResponse, DevOpsModelTarget.WorkItem, ErrorCategory.NotSpecified, this);
             }
             else if (this.UpdatedWorkItem.Rev == updateWorkItem.Rev)
             {
