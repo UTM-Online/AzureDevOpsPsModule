@@ -43,10 +43,6 @@
             this.BeginProcessingCmdlet();
         }
 
-        protected virtual void BeginProcessingCmdlet()
-        {
-        }
-
         private Assembly CurrentDomain_BindingRedirect(object sender, ResolveEventArgs args)
         {
             var name = new AssemblyName(args.Name);
@@ -149,61 +145,10 @@
         }
 
         /// <summary>
-        ///     Begins the cmdlet processing.
-        /// </summary>
-        protected override sealed void BeginCmdletProcessing()
-        {
-            if (!AzureDevOpsConfiguration.Config.ReadyForCommands)
-            {
-                // ReSharper disable once ExceptionNotDocumented
-                this.ThrowTerminatingError(
-                    new ErrorRecord(
-                        new InvalidOperationException(
-                            "Account context has not been set.  Please run \"Set-AzureDevOpsAccountContext\" before continuing."),
-                        "AzureDevOps.Cmdlet.Auth.AccountContextNotSetException",
-                        ErrorCategory.AuthenticationError,
-                        this));
-            }
-
-            if (this.OverrideApiPath != null)
-            {
-                var currentAccount = AzureDevOpsConfiguration.Config.CurrentConnection;
-                var escapedProjectString = Uri.EscapeUriString(currentAccount.ProjectName);
-
-                this.Client.BaseUrl = new Uri(
-                    $"{currentAccount.Account.BaseUrl}/{escapedProjectString}{this.OverrideApiPath}");
-            }
-
-            AppDomain.CurrentDomain.AssemblyResolve += this.CurrentDomain_BindingRedirect;
-
-            this.BeginProcessingCmdlet();
-        }
-
-        /// <summary>
         ///     Begins the processing cmdlet.
         /// </summary>
         protected virtual void BeginProcessingCmdlet()
         {
-        }
-
-        /// <summary>
-        ///     Handles the BindingRedirect event of the CurrentDomain control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="args">The <see cref="ResolveEventArgs" /> instance containing the event data.</param>
-        /// <returns>An Assembly.</returns>
-        private Assembly CurrentDomain_BindingRedirect(object sender, ResolveEventArgs args)
-        {
-            var name = new AssemblyName(args.Name);
-
-            switch (name.Name)
-            {
-                case "Newtonsoft.Json":
-                    return typeof(JsonSerializer).Assembly;
-
-                default:
-                    return null;
-            }
         }
 
         private void WriteErrorInternal<T>(
