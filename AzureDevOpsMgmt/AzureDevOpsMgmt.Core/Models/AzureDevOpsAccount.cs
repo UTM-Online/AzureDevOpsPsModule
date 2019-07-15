@@ -22,6 +22,8 @@ namespace AzureDevOpsMgmt.Models
 
     using Newtonsoft.Json;
 
+    using UTMO.Common.Guards;
+
     /// <summary>
     /// Class AzureDevOpsAccount.
     /// </summary>
@@ -38,7 +40,7 @@ namespace AzureDevOpsMgmt.Models
             this.AccountName = accountName;
             this.TokenId = tokenId;
             this.BaseUrl = baseUrl;
-            this.InternalProjectsList = new List<string>();
+            this.InternalProjectsAndTeams = new Dictionary<string, List<string>>();
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.AzureDevOpsAccount"/> class.</summary>
@@ -55,7 +57,14 @@ namespace AzureDevOpsMgmt.Models
         /// <summary>Gets or sets the account projects.</summary>
         /// <value>The account projects.</value>
         [JsonIgnore]
+        #pragma warning disable 612,618
         public IReadOnlyList<string> AccountProjects => this.InternalProjectsList;
+#pragma warning restore 612,618
+
+        /// <summary>Gets the account projects and teams.</summary>
+        /// <value>The account projects and teams.</value>
+        [JsonIgnore]
+        public IReadOnlyDictionary<string, List<string>> AccountProjectsAndTeams => this.InternalProjectsAndTeams;
 
         /// <summary>Gets or sets the base URL.</summary>
         /// <value>The base URL.</value>
@@ -76,7 +85,13 @@ namespace AzureDevOpsMgmt.Models
         /// <summary>Gets or sets the internal projects list.</summary>
         /// <value>The internal projects list.</value>
         [JsonProperty(PropertyName = "AccountProjects")]
+        [Obsolete("This property has been replaced by the InternalProjectsAndTeams property")]
         private List<string> InternalProjectsList { get; set; }
+
+        /// <summary>Gets or sets the internal projects and teams.</summary>
+        /// <value>The internal projects and teams.</value>
+        [JsonProperty(PropertyName = "AccountProjectsAndTeams")]
+        private Dictionary<string, List<string>> InternalProjectsAndTeams { get; set; }
 
         /// <summary>Adds the project to the account.</summary>
         /// <param name="name">The project name.</param>
@@ -85,19 +100,67 @@ namespace AzureDevOpsMgmt.Models
         /// </exception>
         public void AddProject(string name)
         {
-            if (this.InternalProjectsList.Any(p => p.Equals(name, StringComparison.OrdinalIgnoreCase)))
-            {
-                throw new ObjectExistsException("Account Project");
-            }
+            Guard.StringNotNull(nameof(name), name);
+            Guard.Requires(!this.InternalProjectsAndTeams.ContainsKey(name), () => new ObjectExistsException("Project"));
 
-            this.InternalProjectsList.Add(name);
+            this.InternalProjectsAndTeams.Add(name, new List<string>());
+        }
+
+        /// <summary>Adds the project team.</summary>
+        /// <param name="projectName">Name of the project.</param>
+        /// <param name="teamName">Name of the team.</param>
+        public void AddProjectTeam(string projectName, string teamName)
+        {
+            Guard.StringNotNull(nameof(projectName), projectName);
+            Guard.StringNotNull(nameof(teamName), teamName);
+            Guard.Requires<ProjectNotFoundException>(this.InternalProjectsAndTeams.ContainsKey(projectName));
+
+            if (!this.InternalProjectsAndTeams[projectName].Contains(teamName))
+            {
+                this.InternalProjectsAndTeams[projectName].Add(teamName);
+            }
+        }
+
+        /// <summary>Removes the project team.</summary>
+        /// <param name="projectName">Name of the project.</param>
+        /// <param name="teamName">Name of the team.</param>
+        public void RemoveProjectTeam(string projectName, string teamName)
+        {
+            Guard.StringNotNull(nameof(projectName), projectName);
+            Guard.StringNotNull(nameof(teamName), teamName);
+            Guard.Requires<ProjectNotFoundException>(this.InternalProjectsAndTeams.ContainsKey(projectName));
+
+            if (this.InternalProjectsAndTeams[projectName].Contains(teamName))
+            {
+                this.InternalProjectsAndTeams[projectName].Remove(teamName);
+            }
         }
 
         /// <summary>Removes the project from the account.</summary>
         /// <param name="name">The name.</param>
         public void RemoveProject(string name)
         {
-            this.InternalProjectsList.Remove(name);
+            Guard.StringNotNull(nameof(name), name);
+            Guard.Requires<NoProjectsFoundException>(this.InternalProjectsAndTeams.ContainsKey(name));
+
+            this.InternalProjectsAndTeams.Remove(name);
         }
+
+#pragma warning disable 612,618
+        /// <summary>Upgrades the project list.</summary>
+        internal void UpgradeProjectList()
+        {
+            Guard.Requires(this.InternalProjectsAndTeams == null, () => new AccountProjectsAlreadyUpgradedException(this.FriendlyName));
+            Guard.Requires<NoProjectsFoundException>(this.InternalProjectsList.Any());
+
+            this.InternalProjectsAndTeams = new Dictionary<string, List<string>>();
+
+            foreach (var project in this.InternalProjectsList)
+            {
+                this.InternalProjectsAndTeams.Add(project, new List<string>());
+            }
+        }
+
+        #pragma warning restore 612,618
     }
 }

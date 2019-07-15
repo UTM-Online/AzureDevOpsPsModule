@@ -32,6 +32,7 @@ namespace AzureDevOpsMgmt.Resources
         public DependencyContainer()
         {
             this.RegisterFactory<IRestClient, RestClient>(i => this.RestClientFactory());
+            this.RegisterFactory<IRestClient, RestClient>(this.RestClientFactoryForTeams, "AdoTeamsApi");
         }
 
         /// <summary>
@@ -43,6 +44,24 @@ namespace AzureDevOpsMgmt.Resources
             var currentAccount = AzureDevOpsConfiguration.Config.CurrentConnection;
             var escapedProjectString = Uri.EscapeUriString(currentAccount.ProjectName);
             var client = new RestClient($"{currentAccount.Account.BaseUrl}/{escapedProjectString}/_apis");
+            client.Authenticator = new BarerTokenAuthenticator();
+            client.DefaultParameters.Add(new Parameter("api-version", "5.0", ParameterType.QueryString));
+            client.DefaultParameters.Add(new Parameter("Accepts", "application/json", ParameterType.HttpHeader));
+            client.DefaultParameters.Add(new Parameter("ContentType", "application/json", ParameterType.HttpHeader));
+            client.UseSerializer(() => new JsonNetSerializer());
+            return client;
+        }
+
+        /// <summary>
+        /// Rests the client factory.
+        /// </summary>
+        /// <returns>A RestClient.</returns>
+        private RestClient RestClientFactoryForTeams()
+        {
+            var currentAccount = AzureDevOpsConfiguration.Config.CurrentConnection;
+            var escapedProjectString = Uri.EscapeUriString(currentAccount.ProjectName);
+            var escapedTeamNameString = Uri.EscapeUriString(currentAccount.CurrentTeam);
+            var client = new RestClient($"{currentAccount.Account.BaseUrl}/{escapedProjectString}/{escapedTeamNameString}/_apis");
             client.Authenticator = new BarerTokenAuthenticator();
             client.DefaultParameters.Add(new Parameter("api-version", "5.0", ParameterType.QueryString));
             client.DefaultParameters.Add(new Parameter("Accepts", "application/json", ParameterType.HttpHeader));
