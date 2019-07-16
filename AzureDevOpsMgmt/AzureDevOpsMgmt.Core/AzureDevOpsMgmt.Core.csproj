@@ -75,7 +75,6 @@
     <Compile Include="Helpers\CmdletHelpers.cs" />
     <Compile Include="Helpers\ConfigurationHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
-    <Compile Include="Helpers\Guard.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
     <Compile Include="Models\DevOpsModelTarget.cs" />
     <Compile Include="Models\ResponseModel.cs" />

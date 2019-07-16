@@ -3,11 +3,12 @@
     using System;
     using System.Diagnostics.Contracts;
 
-    using AzureDevOpsMgmt.Guards;
     using AzureDevOpsMgmt.Models;
     using AzureDevOpsMgmt.Resources;
 
     using Microsoft.Win32;
+
+    using UTMO.Common.Guards;
 
     public static class ConfigurationHelpers
     {

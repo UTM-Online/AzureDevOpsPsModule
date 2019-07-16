@@ -36,6 +36,7 @@ namespace AzureDevOpsMgmt.Models
         public AzureDevOpsPatToken()
         {
             this.TokenValue = new Lazy<string>(() => CredentialManager.ReadCredential(this.CredentialManagerId).Password);
+            this.IsInScope = new Lazy<bool>(this.CheckIfMachineIsInScope);
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.AzureDevOpsPatToken"/> class.</summary>
