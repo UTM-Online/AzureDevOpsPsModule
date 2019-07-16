@@ -92,7 +92,7 @@ namespace AzureDevOpsMgmt.Helpers
                 throw new InvalidOperationException(EventMessages.TOKEN_ID_CANNOT_BE_EMPTY_GUID);
             }
 
-            WriteFileJson(fileName, fileData);
+            FileHelpers.WriteFileJson(fileName, (object)fileData);
         }
     }
 }
