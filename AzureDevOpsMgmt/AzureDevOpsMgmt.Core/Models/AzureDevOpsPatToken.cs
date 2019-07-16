@@ -99,13 +99,13 @@ namespace AzureDevOpsMgmt.Models
 
         /// <summary>Gets the credential manager identifier.</summary>
         /// <value>The credential manager identifier.</value>
-        private string CredentialManagerId => $"{StaticStrings.ApplicationName}_{this.Id}";
+        internal string CredentialManagerId => $"{StaticStrings.ApplicationName}_{this.Id}";
 
         /// <summary>Updates the token.</summary>
         /// <param name="newValue">The new value.</param>
         public void UpdateToken(string newValue)
         {
-            Guard.Requires<InvalidOperationException>(this.CreatedOnMachine == default || this.IsInScope.Value, "You can not update a key created on another machine.");
+            Guard.Requires<InvalidOperationException>(this.MachineScopeId == default || this.IsInScope, "You can not update a key created on another machine.");
 
             CredentialManager.WriteCredential(this.CredentialManagerId, Environment.UserName, newValue, CredentialPersistence.LocalMachine);
         }
@@ -113,7 +113,7 @@ namespace AzureDevOpsMgmt.Models
         /// <summary>Deletes the token.</summary>
         public void DeleteToken()
         {
-            Guard.Requires<InvalidOperationException>(this.CreatedOnMachine == default || this.IsInScope.Value, "You can not delete a key created on another machine.");
+            Guard.Requires<InvalidOperationException>(this.MachineScopeId == default || this.IsInScope, "You can not delete a key created on another machine.");
 
             try
             {
