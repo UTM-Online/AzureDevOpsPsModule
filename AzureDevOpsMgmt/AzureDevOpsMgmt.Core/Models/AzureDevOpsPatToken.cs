@@ -15,6 +15,7 @@
 namespace AzureDevOpsMgmt.Models
 {
     using System;
+    using System.ComponentModel;
     using System.Collections.Generic;
 
     using AzureDevOpsMgmt.Helpers;
@@ -24,6 +25,8 @@ namespace AzureDevOpsMgmt.Models
     using Meziantou.Framework.Win32;
 
     using Newtonsoft.Json;
+
+    using UTMO.Common.Guards;
 
     /// <summary>
     ///     Class AzureDevOpsPatToken.
@@ -96,29 +99,31 @@ namespace AzureDevOpsMgmt.Models
 
         /// <summary>Gets the credential manager identifier.</summary>
         /// <value>The credential manager identifier.</value>
-        internal string CredentialManagerId
-        {
-            get
-            {
-                return $"{StaticStrings.ApplicationName}_{this.Id}";
-            }
-        }
-
-        /// <summary>Deletes the token.</summary>
-        public void DeleteToken()
-        {
-            CredentialManager.DeleteCredential(this.CredentialManagerId);
-        }
+        private string CredentialManagerId => $"{StaticStrings.ApplicationName}_{this.Id}";
 
         /// <summary>Updates the token.</summary>
         /// <param name="newValue">The new value.</param>
         public void UpdateToken(string newValue)
         {
-            CredentialManager.WriteCredential(
-                this.CredentialManagerId,
-                Environment.UserName,
-                newValue,
-                CredentialPersistence.LocalMachine);
+            Guard.Requires<InvalidOperationException>(this.CreatedOnMachine == default || this.IsInScope.Value, "You can not update a key created on another machine.");
+
+            CredentialManager.WriteCredential(this.CredentialManagerId, Environment.UserName, newValue, CredentialPersistence.LocalMachine);
+        }
+
+        /// <summary>Deletes the token.</summary>
+        public void DeleteToken()
+        {
+            Guard.Requires<InvalidOperationException>(this.CreatedOnMachine == default || this.IsInScope.Value, "You can not delete a key created on another machine.");
+
+            try
+            {
+                CredentialManager.DeleteCredential(this.CredentialManagerId);
+            }
+            catch (Win32Exception win32Exception) when(win32Exception.Message.Equals("Element not found", StringComparison.OrdinalIgnoreCase))
+            {
+                // Do nothing if we encounter an "Element not found" exception. This happens if the key was previously deleted and the operation did not
+                // complete or if the credential entry was removed from the credential manager externally
+            }
         }
     }
 }
