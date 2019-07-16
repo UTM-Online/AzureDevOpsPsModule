@@ -83,7 +83,10 @@ namespace AzureDevOpsMgmt.Helpers
         /// <summary>Writes the file json.</summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileData">The file data.</param>
-        /// <exception cref="EmptyIdFoundException"></exception>
+        /// <exception cref="EmptyIdFoundException">An input account contained an empty token ID.</exception>
+        /// <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
+        /// <exception cref="T:System.IO.DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive).</exception>
+        /// <exception cref="T:System.UnauthorizedAccessException">The caller does not have the required permission.</exception>
         public static void WriteFileJson(string fileName, AzureDevOpsAccountCollection fileData)
         {
             if (fileData.PatTokens.Any(p => p.Id == Guid.Empty))
@@ -91,7 +94,7 @@ namespace AzureDevOpsMgmt.Helpers
                 throw new EmptyIdFoundException(EventMessages.TOKEN_ID_CANNOT_BE_EMPTY_GUID);
             }
 
-            WriteFileJson(fileName, fileData);
+            FileHelpers.WriteFileJson(fileName, (object)fileData);
         }
     }
 }
