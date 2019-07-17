@@ -35,6 +35,9 @@ namespace AzureDevOpsMgmt.Models
         Release,
 
         /// <summary>  Indicates that the error took place during internal processing of an operation.</summary>
-        InternalOperation
+        InternalOperation,
+
+        /// <summary>  Area's and Iterations Resources</summary>
+        AreasAndIterations
     }
 }
