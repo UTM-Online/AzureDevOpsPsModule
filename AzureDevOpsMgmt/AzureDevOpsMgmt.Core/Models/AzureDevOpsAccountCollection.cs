@@ -190,6 +190,18 @@ namespace AzureDevOpsMgmt.Models
         internal void RemovePatToken(string friendlyName)
         {
             var token = this.PatTokens.First(i => i.FriendlyName == friendlyName);
+
+            var linkedAccounts = this.Accounts.Where(a => a.TokenId == token.Id).ToList();
+
+            if (linkedAccounts.Any())
+            {
+                foreach (var account in linkedAccounts)
+                {
+                    account.TokenId = null;
+                    this.PerformAccountUpdate(a => a.FriendlyName == account.FriendlyName, account);
+                }
+            }
+
             token.DeleteToken();
             this.PatTokens.Remove(token);
         }
