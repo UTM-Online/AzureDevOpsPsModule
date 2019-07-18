@@ -68,14 +68,25 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
 
             if ((configuration.DefaultAccount != null) & (configuration.DefaultProject != null))
             {
-                var defaultAccount = accountData.Accounts.First(a => a.FriendlyName == configuration.DefaultAccount);
-                var defaultPatToken = accountData.PatTokens.First(a => a.Id == defaultAccount.TokenId);
-                AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(
-                    defaultAccount,
-                    defaultPatToken,
-                    configuration.DefaultProject);
-                this.WriteObject(
-                    $"Default Account Settings Loaded Successfully.\r\nAccount Name: {configuration.DefaultAccount}\r\nProject Name: {configuration.DefaultProject}");
+                AzureDevOpsAccount defaultAccount = null;
+                AzureDevOpsPatToken defaultPatToken = null;
+
+                try
+                {
+                    defaultAccount = accountData.Accounts.First(a => a.FriendlyName == configuration.DefaultAccount);
+                    defaultPatToken = accountData.PatTokens.First(a => a.Id == defaultAccount.TokenId);
+                }
+                catch (InvalidOperationException ioe) when(ioe.Message == "Sequence contains no matching element")
+                {
+                    this.ResetUserDefaultSettings();
+                    this.WriteWarning("Corruption encountered well loading user default settings!  Settings have been reset to default (empty) values and will need to be configured again.");
+                }
+
+                if (defaultAccount != null && defaultPatToken != null)
+                {
+                    AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(defaultAccount, defaultPatToken, configuration.DefaultProject);
+                    this.WriteObject($"Default Account Settings Loaded Successfully.\r\nAccount Name: {configuration.DefaultAccount}\r\nProject Name: {configuration.DefaultProject}");
+                }
             }
 
             if (!AzureDevOpsConfiguration.Config.Accounts.HasCompleted1905Upgrade)
@@ -153,6 +164,14 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             }
 
             return configuration;
+        }
+
+        /// <summary>Repairs the users default settings.</summary>
+        private void ResetUserDefaultSettings()
+        {
+            var configuration = new UserConfiguration();
+
+            FileHelpers.WriteFileJson(FileNames.UserData, configuration);
         }
     }
 }
