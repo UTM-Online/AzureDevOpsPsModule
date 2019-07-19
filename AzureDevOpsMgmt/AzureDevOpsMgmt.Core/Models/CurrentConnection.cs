@@ -46,5 +46,9 @@ namespace AzureDevOpsMgmt.Models
         /// </summary>
         /// <value>The name of the project.</value>
         public string ProjectName { get; set; }
+
+        /// <summary>Gets the current team.</summary>
+        /// <value>The current team.</value>
+        public string CurrentTeam { get; internal set; }
     }
 }

@@ -1,4 +1,13 @@
-﻿using System.Reflection;
+﻿// ***********************************************************************
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 05-29-2019
+// ***********************************************************************
+// <copyright file="AssemblyInfo.cs" company="UTM Online">
+//     Copyright ©  2019
+// </copyright>
+// ***********************************************************************
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -34,4 +43,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: InternalsVisibleTo("AzureDevOpsMgmt.CoreTests")]
+[assembly:InternalsVisibleTo("AzureDevOpsMgmt.CoreTests")]

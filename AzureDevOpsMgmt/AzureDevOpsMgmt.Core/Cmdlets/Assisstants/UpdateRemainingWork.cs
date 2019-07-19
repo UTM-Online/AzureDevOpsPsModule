@@ -25,16 +25,19 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 
     /// <summary>
-    /// Class UpdateRemainingWork.
-    /// Implements the <see cref="System.Management.Automation.PSCmdlet" />
+    ///     Class UpdateRemainingWork.
+    ///     Implements the <see cref="System.Management.Automation.PSCmdlet" />
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
     [Cmdlet(VerbsData.Update, "RemainingWork")]
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Public properties must be public to be visible in shell")]
+    [SuppressMessage(
+        "ReSharper",
+        "MemberCanBePrivate.Global",
+        Justification = "Public properties must be public to be visible in shell")]
     public class UpdateRemainingWork : PSCmdlet
     {
         /// <summary>
-        /// The original work item
+        ///     The original work item
         /// </summary>
         private WorkItem originalWorkItem;
 
@@ -42,64 +45,85 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
         private WorkItem updateWorkItem;
 
         /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        [Parameter(Mandatory = true)]
-        public long Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the work completed this session.
-        /// </summary>
-        /// <value>The work completed this session.</value>
-        [Parameter(Mandatory = true)]
-        public string[] WorkCompletedThisSession { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
+        ///     Gets or sets the description.
         /// </summary>
         /// <value>The description.</value>
         [Parameter]
         public string Description { get; set; }
 
         /// <summary>
-        /// When overridden in the derived class, performs initialization
-        /// of command execution.
-        /// Default implementation in the base class just returns.
+        ///     Gets or sets the identifier.
         /// </summary>
-        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
-        ///             during the execution of this method.
-        ///             The Cmdlet should generally just allow PipelineStoppedException
-        ///             to percolate up to the caller of ProcessRecord etc.
+        /// <value>The identifier.</value>
+        [Parameter(Mandatory = true)]
+        public long Id { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the work completed this session.
+        /// </summary>
+        /// <value>The work completed this session.</value>
+        [Parameter(Mandatory = true)]
+        public string[] WorkCompletedThisSession { get; set; }
+
+        /// <summary>
+        ///     When overridden in the derived class, performs initialization
+        ///     of command execution.
+        ///     Default implementation in the base class just returns.
+        /// </summary>
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">
+        ///     The pipeline has already been terminated, or was terminated
+        ///     during the execution of this method.
+        ///     The Cmdlet should generally just allow PipelineStoppedException
+        ///     to percolate up to the caller of ProcessRecord etc.
         /// </exception>
         protected override void BeginProcessing()
         {
             this.WriteDebug($"Loading data for work item {this.Id}");
-            this.originalWorkItem = this.InvokeModuleCmdlet<WorkItem>("Get-WorkItem", new Dictionary<string, object> { { "Id", this.Id } }).First();
+            this.originalWorkItem = this.InvokeModuleCmdlet<WorkItem>(
+                "Get-WorkItem",
+                new Dictionary<string, object> { { "Id", this.Id } }).First();
             this.updateWorkItem = this.originalWorkItem.DeepCopy();
-            this.WriteDebug($"Data loaded for work item {this.originalWorkItem.Fields["System.Title"]} have been loaded and cloned");
+            this.WriteDebug(
+                $"Data loaded for work item {this.originalWorkItem.Fields["System.Title"]} have been loaded and cloned");
         }
 
         /// <summary>
-        /// When overridden in the derived class, performs clean-up
-        /// after the command execution.
-        /// Default implementation in the base class just returns.
+        ///     When overridden in the derived class, performs clean-up
+        ///     after the command execution.
+        ///     Default implementation in the base class just returns.
         /// </summary>
-        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
-        ///             during the execution of this method.
-        ///             The Cmdlet should generally just allow PipelineStoppedException
-        ///             to percolate up to the caller of ProcessRecord etc.
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">
+        ///     The pipeline has already been terminated, or was terminated
+        ///     during the execution of this method.
+        ///     The Cmdlet should generally just allow PipelineStoppedException
+        ///     to percolate up to the caller of ProcessRecord etc.
         /// </exception>
-        /// <exception cref="T:System.Management.Automation.SessionStateOverflowException">If the maximum number of variables has been reached for this scope.</exception>
-        /// <exception cref="T:System.Management.Automation.ProviderNotFoundException">If the variable refers to a provider that could not be found.</exception>
-        /// <exception cref="T:System.Management.Automation.DriveNotFoundException">If the variable refers to a drive that could not be found.</exception>
+        /// <exception cref="T:System.Management.Automation.SessionStateOverflowException">
+        ///     If the maximum number of variables has
+        ///     been reached for this scope.
+        /// </exception>
+        /// <exception cref="T:System.Management.Automation.ProviderNotFoundException">
+        ///     If the variable refers to a provider that
+        ///     could not be found.
+        /// </exception>
+        /// <exception cref="T:System.Management.Automation.DriveNotFoundException">
+        ///     If the variable refers to a drive that could
+        ///     not be found.
+        /// </exception>
         /// <exception cref="T:System.Management.Automation.ProviderInvocationException">If the provider threw an exception.</exception>
-        /// <exception cref="T:System.Management.Automation.SessionStateUnauthorizedAccessException">If the variable is read-only or constant.</exception>
+        /// <exception cref="T:System.Management.Automation.SessionStateUnauthorizedAccessException">
+        ///     If the variable is read-only
+        ///     or constant.
+        /// </exception>
         protected override void EndProcessing()
         {
             this.WriteDebug("Creating command invocation dictionary");
-            var invocationDictionary =
-                new Dictionary<string, object> { { "Id", this.Id }, { "UpdatedWorkItem", this.updateWorkItem }, { "OriginalWorkItem", this.originalWorkItem } };
+            var invocationDictionary = new Dictionary<string, object>
+                                           {
+                                               { "Id", this.Id },
+                                               { "UpdatedWorkItem", this.updateWorkItem },
+                                               { "OriginalWorkItem", this.originalWorkItem }
+                                           };
 
             if (this.MyInvocation.BoundParameters.ContainsKey("Debug"))
             {
@@ -120,26 +144,38 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
         }
 
         /// <summary>
-        /// When overridden in the derived class, performs execution
-        /// of the command.
+        ///     When overridden in the derived class, performs execution
+        ///     of the command.
         /// </summary>
-        /// <exception cref="T:System.OverflowException">Represents a number that is less than <see cref="F:System.TimeSpan.MinValue" /> or greater than <see cref="F:System.TimeSpan.MaxValue" />.-or- At least one of the days, hours, minutes, or seconds components is outside its valid range.</exception>
-        /// <exception cref="T:System.ArgumentNullException">Argument is <see langword="null" />.</exception>
-        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
-        ///             during the execution of this method.
-        ///             The Cmdlet should generally just allow PipelineStoppedException
-        ///             to percolate up to the caller of ProcessRecord etc.
+        /// <exception cref="T:System.OverflowException">
+        ///     Represents a number that is less than
+        ///     <see cref="F:System.TimeSpan.MinValue" /> or greater than <see cref="F:System.TimeSpan.MaxValue" />.-or- At least
+        ///     one of the days, hours, minutes, or seconds components is outside its valid range.
         /// </exception>
+        /// <exception cref="T:System.ArgumentNullException">Argument is <see langword="null" />.</exception>
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">
+        ///     The pipeline has already been terminated, or was terminated
+        ///     during the execution of this method.
+        ///     The Cmdlet should generally just allow PipelineStoppedException
+        ///     to percolate up to the caller of ProcessRecord etc.
+        /// </exception>
+        [SuppressMessage("ReSharper", "StyleCop.SA1126", Justification = "Suppression Approved!")]
         protected override void ProcessRecord()
         {
             this.WriteDebug("Loading required field values from work item");
-            this.originalWorkItem.Fields.TryGetValue("Microsoft.VSTS.Scheduling.RemainingWork", out var rawRemainingWork);
+            this.originalWorkItem.Fields.TryGetValue(
+                "Microsoft.VSTS.Scheduling.RemainingWork",
+                out var rawRemainingWork);
 
             this.WriteDebug($"Remaining Work field value is {rawRemainingWork ?? "Unspecified"}");
-            this.originalWorkItem.Fields.TryGetValue("Microsoft.VSTS.Scheduling.OriginalEstimate", out var rawOriginalEstimate);
+            this.originalWorkItem.Fields.TryGetValue(
+                "Microsoft.VSTS.Scheduling.OriginalEstimate",
+                out var rawOriginalEstimate);
 
             this.WriteDebug($"Original Estimate field value is {rawOriginalEstimate ?? "Unspecified"}");
-            this.originalWorkItem.Fields.TryGetValue("Microsoft.VSTS.Scheduling.CompletedWork", out var rawCompletedWork);
+            this.originalWorkItem.Fields.TryGetValue(
+                "Microsoft.VSTS.Scheduling.CompletedWork",
+                out var rawCompletedWork);
 
             this.WriteDebug($"Completed Work field value is {rawCompletedWork ?? "Unspecified"}");
             this.WriteDebug("Beginning Work Time Calculations");
@@ -187,14 +223,17 @@ namespace AzureDevOpsMgmt.Cmdlets.Assisstants
             }
 
             this.updateWorkItem.Fields["Microsoft.VSTS.Scheduling.RemainingWork"] = newRemainingWork;
-            this.WriteDebug($"The new remaining work value is {this.updateWorkItem.Fields["Microsoft.VSTS.Scheduling.RemainingWork"] ?? "N/A"}");
+            this.WriteDebug(
+                $"The new remaining work value is {this.updateWorkItem.Fields["Microsoft.VSTS.Scheduling.RemainingWork"] ?? "N/A"}");
             this.updateWorkItem.Fields["Microsoft.VSTS.Scheduling.CompletedWork"] = newCompletedWorkHours;
-            this.WriteDebug($"The new compleated work value is {this.updateWorkItem.Fields["Microsoft.VSTS.Scheduling.CompletedWork"] ?? "N/A"}");
+            this.WriteDebug(
+                $"The new compleated work value is {this.updateWorkItem.Fields["Microsoft.VSTS.Scheduling.CompletedWork"] ?? "N/A"}");
 
             if (!string.IsNullOrWhiteSpace(this.Description))
             {
                 this.updateWorkItem.Fields.Add("System.History", this.Description);
-                this.WriteDebug($"The description to be appended to the update is {this.updateWorkItem.Fields["System.History"] ?? "ERROR"}");
+                this.WriteDebug(
+                    $"The description to be appended to the update is {this.updateWorkItem.Fields["System.History"] ?? "ERROR"}");
             }
         }
     }

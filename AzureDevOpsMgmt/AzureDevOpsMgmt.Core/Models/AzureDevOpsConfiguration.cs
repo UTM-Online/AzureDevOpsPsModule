@@ -25,12 +25,12 @@ namespace AzureDevOpsMgmt.Models
         {
             get
             {
-                if (PrivateConfig == null)
+                if (AzureDevOpsConfiguration.PrivateConfig == null)
                 {
-                    PrivateConfig = new AzureDevOpsConfiguration();
+                    AzureDevOpsConfiguration.PrivateConfig = new AzureDevOpsConfiguration();
                 }
 
-                return PrivateConfig;
+                return AzureDevOpsConfiguration.PrivateConfig;
             }
         }
 

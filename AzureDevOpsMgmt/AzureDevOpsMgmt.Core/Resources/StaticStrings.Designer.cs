@@ -70,7 +70,7 @@ namespace AzureDevOpsMgmt.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The default string.
+        ///   Looks up a localized string similar to Default.
         /// </summary>
         internal static string Default {
             get {

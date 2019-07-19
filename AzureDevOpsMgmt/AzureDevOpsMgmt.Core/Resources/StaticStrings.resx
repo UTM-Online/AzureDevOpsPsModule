@@ -121,7 +121,7 @@
     <value>joshsAzureDevOpsPSModule</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>The default string</value>
+    <value>Default</value>
   </data>
   <data name="ModuleName" xml:space="preserve">
     <value>AzureDevOpsMgmt</value>

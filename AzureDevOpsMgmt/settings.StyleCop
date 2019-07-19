@@ -6,6 +6,7 @@
       <Value>Cmdlet</Value>
       <Value>Api</Value>
       <Value>Dev</Value>
+      <Value>Guid</Value>
     </CollectionProperty>
   </GlobalSettings>
 </StyleCopSettings>

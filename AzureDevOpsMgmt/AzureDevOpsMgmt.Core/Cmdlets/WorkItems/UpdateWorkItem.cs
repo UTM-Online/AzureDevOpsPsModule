@@ -65,16 +65,16 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         ///             to percolate up to the caller of ProcessRecord etc.
         /// </exception>
         // ReSharper disable once StyleCop.SA1650
-        protected override void ProcessRecord()
+        protected override void ProcessCmdletRecord()
         {
             var request = new RestRequest($"wit/workitems/{this.Id}");
 
-            // request.RequestFormat = DataFormat.Json;
+            //// request.RequestFormat = DataFormat.Json;
 
             if (this.OriginalWorkItem == null)
             {
                 var getRequest = new RestRequest($"wit/workitems/{this.Id}");
-                var getResponse = this.client.Execute<WorkItem>(getRequest);
+                var getResponse = this.Client.Execute<WorkItem>(getRequest);
 
                 if (getResponse.IsSuccessful)
                 {
@@ -94,11 +94,12 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 
             request.AddJsonBody(patchDocument);
             request.AddParameter("Content-Type", "application/json-patch+json", ParameterType.HttpHeader);
-            var restResponse = this.client.Patch(request);
+            var restResponse = this.Client.Patch(request);
             var updateWorkItem = JsonConvert.DeserializeObject<WorkItem>(restResponse.Content);
 
             if (this.IsDebug)
             {
+                // ReSharper disable once ExceptionNotDocumented
                 this.SetPsVariable("UpdateRestResponse", restResponse);
             }
 

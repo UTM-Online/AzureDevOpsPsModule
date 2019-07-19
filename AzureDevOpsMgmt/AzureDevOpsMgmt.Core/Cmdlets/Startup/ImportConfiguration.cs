@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Cmdlets.Startup
 {
     using System;
@@ -23,29 +24,40 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
     using AzureDevOpsMgmt.Models;
     using AzureDevOpsMgmt.Resources;
 
+    using Meziantou.Framework.Win32;
+
     /// <summary>
-    /// Class ImportConfiguration.
-    /// Implements the <see cref="System.Management.Automation.PSCmdlet" />
+    ///     Class ImportConfiguration.
+    ///     Implements the <see cref="System.Management.Automation.PSCmdlet" />
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
     [Cmdlet(VerbsData.Import, "Configuration")]
     public class ImportConfiguration : PSCmdlet
     {
+        /// <summary>Processes the credentials.</summary>
+        /// <param name="token">The token.</param>
+        internal static void ProcessCredentials(AzureDevOpsPatToken token)
+        {
+            if (token.MachineScopeId == Guid.Empty
+                && !token.NotOnMachines.Contains(ConfigurationHelpers.GetMachineId()))
+            {
+                var cred = CredentialManager.ReadCredential(token.CredentialManagerId);
+
+                if (cred != default(Credential))
+                {
+                    token.MachineScopeId = ConfigurationHelpers.GetMachineId();
+                }
+                else
+                {
+                    token.NotOnMachines.Add(ConfigurationHelpers.GetMachineId());
+                }
+            }
+        }
+
         /// <summary>
-        /// When overridden in the derived class, performs execution
-        /// of the command.
+        ///     When overridden in the derived class, performs execution
+        ///     of the command.
         /// </summary>
-        /// <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
-        /// <exception cref="T:System.IO.IOException">The directory cannot be created.</exception>
-        /// <exception cref="T:System.UnauthorizedAccessException">The caller does not have the required permission.</exception>
-        /// <exception cref="T:System.IO.DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive).</exception>
-        /// <exception cref="T:System.IO.FileNotFoundException">The configuration file specified was not found.</exception>
-        /// <exception cref="T:System.OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
-        /// <exception cref="T:System.Management.Automation.ProviderNotFoundException">If the Configuration refers to a provider that could not be found.</exception>
-        /// <exception cref="T:System.Management.Automation.DriveNotFoundException">If the Configuration refers to a drive that could not be found.</exception>
-        /// <exception cref="T:System.Management.Automation.ProviderInvocationException">If the provider threw an exception.</exception>
-        /// <exception cref="T:System.Management.Automation.SessionStateUnauthorizedAccessException">If the variable is read-only or constant.</exception>
-        /// <exception cref="T:System.Management.Automation.SessionStateOverflowException">If the maximum number of variables has been reached for this scope.</exception>
         protected override void ProcessRecord()
         {
             var accountData = this.LoadAccountData();
@@ -54,7 +66,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             AzureDevOpsConfiguration.Config.Accounts = accountData;
             AzureDevOpsConfiguration.Config.Configuration = configuration;
 
-            if (configuration.DefaultAccount != null & configuration.DefaultProject != null)
+            if ((configuration.DefaultAccount != null) & (configuration.DefaultProject != null))
             {
                 AzureDevOpsAccount defaultAccount = null;
                 AzureDevOpsPatToken defaultPatToken = null;
@@ -77,9 +89,56 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
                 }
             }
 
+            if (!AzureDevOpsConfiguration.Config.Accounts.HasCompleted1905Upgrade)
+            {
+                foreach (var token in AzureDevOpsConfiguration.Config.Accounts.PatTokens)
+                {
+                    ImportConfiguration.ProcessCredentials(token);
+                }
+
+                AzureDevOpsConfiguration.Config.Accounts.HasCompleted1905Upgrade = true;
+                FileHelpers.WriteFileJson(FileNames.AccountData, AzureDevOpsConfiguration.Config.Accounts);
+            }
+
             this.SetPsVariable("AzureDevOpsConfiguration", AzureDevOpsConfiguration.Config);
         }
 
+        /// <summary>Loads the account data.</summary>
+        /// <returns>Account configuration collection.</returns>
+        private AzureDevOpsAccountCollection LoadAccountData()
+        {
+            AzureDevOpsAccountCollection accountData;
+
+            if (!File.Exists(FileHelpers.GetConfigFilePath(FileNames.AccountData)))
+            {
+                var dirInfo = new DirectoryInfo(FileHelpers.GetConfigFilePath(FileNames.AccountData));
+
+                if (dirInfo.Parent != null && !dirInfo.Parent.Exists)
+                {
+                    dirInfo.Parent.Create();
+                }
+
+                accountData = new AzureDevOpsAccountCollection
+                                  {
+                                      Accounts = new ObservableCollection<AzureDevOpsAccount>(),
+                                      PatTokens = new ObservableCollection<AzureDevOpsPatToken>()
+                                  };
+
+                accountData.Init();
+
+                FileHelpers.WriteFileJson(FileNames.AccountData, accountData);
+            }
+            else
+            {
+                accountData = FileHelpers.ReadFileJson<AzureDevOpsAccountCollection>(FileNames.AccountData);
+                accountData.Init();
+            }
+
+            return accountData;
+        }
+
+        /// <summary>Loads the user configuration.</summary>
+        /// <returns>The UserConfiguration.</returns>
         private UserConfiguration LoadUserConfiguration()
         {
             UserConfiguration configuration;
@@ -105,45 +164,6 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             }
 
             return configuration;
-        }
-
-        /// <summary>Loads the account data.</summary>
-        /// <returns>Account configuration collection.</returns>
-        private AzureDevOpsAccountCollection LoadAccountData()
-        {
-            AzureDevOpsAccountCollection accountData;
-
-            if (!File.Exists(FileHelpers.GetConfigFilePath(FileNames.AccountData)))
-            {
-                var dirInfo = new DirectoryInfo(FileHelpers.GetConfigFilePath(FileNames.AccountData));
-
-                if (dirInfo.Parent != null && !dirInfo.Parent.Exists)
-                {
-                    dirInfo.Parent.Create();
-                }
-
-                accountData = new AzureDevOpsAccountCollection()
-                                  {
-                                      Accounts = new ObservableCollection<AzureDevOpsAccount>(),
-                                      PatTokens = new ObservableCollection<AzureDevOpsPatToken>()
-                                  };
-
-                accountData.Init();
-
-                FileHelpers.WriteFileJson(FileNames.AccountData, accountData);
-            }
-            else
-            {
-                accountData = FileHelpers.ReadFileJson<AzureDevOpsAccountCollection>(FileNames.AccountData);
-                accountData.Init();
-            }
-
-            if (accountData.PatTokens.Any(p => p.Id == Guid.Empty))
-            {
-                this.WriteWarning("A PAT Token was imported that contained an empty GUID.  Interactions with Azure Dev Ops may not work as expected.");
-            }
-
-            return accountData;
         }
 
         /// <summary>Repairs the users default settings.</summary>

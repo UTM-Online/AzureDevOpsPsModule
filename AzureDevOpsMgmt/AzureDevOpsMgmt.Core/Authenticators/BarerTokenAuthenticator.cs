@@ -6,7 +6,7 @@
 // Last Modified By : joirwi
 // Last Modified On : 03-19-2019
 // ***********************************************************************
-// <copyright file="BarrerTokenAuthenticator.cs" company="Microsoft">
+// <copyright file="BarerTokenAuthenticator.cs" company="Microsoft">
 //     Copyright ©  2019
 // </copyright>
 // <summary></summary>
