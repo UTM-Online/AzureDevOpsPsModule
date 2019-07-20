@@ -51,7 +51,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
 
             account.AddProject(this.ProjectName);
 
-            AzureDevOpsConfiguration.Config.Accounts.PerformAccountUpdate(i => i.FriendlyName.Equals(this.AccountFriendlyName, StringComparison.OrdinalIgnoreCase), account);
+            AzureDevOpsConfiguration.Config.Accounts.PerformAccountUpdate(account);
         }
     }
 }

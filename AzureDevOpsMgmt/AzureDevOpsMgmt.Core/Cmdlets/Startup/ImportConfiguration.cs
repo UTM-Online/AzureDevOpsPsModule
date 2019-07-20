@@ -14,6 +14,7 @@
 namespace AzureDevOpsMgmt.Cmdlets.Startup
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
@@ -62,7 +63,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
                 try
                 {
                     defaultAccount = accountData.Accounts.First(a => a.FriendlyName == configuration.DefaultAccount);
-                    defaultPatToken = accountData.PatTokens.First(a => a.Id == defaultAccount.TokenId);
+                    defaultPatToken = accountData.PatTokens.First(a => defaultAccount.LinkedPatTokens.Contains(a.Id));
                 }
                 catch (InvalidOperationException ioe) when(ioe.Message == "Sequence contains no matching element")
                 {
@@ -136,6 +137,11 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             {
                 accountData = FileHelpers.ReadFileJson<AzureDevOpsAccountCollection>(FileNames.AccountData);
                 accountData.Init();
+
+                if (accountData.Accounts.Any(a => a.TokenId != null))
+                {
+                    accountData = this.MigrateTokenIdToTokenList(accountData);
+                }
             }
 
             if (accountData.PatTokens.Any(p => p.Id == Guid.Empty))
@@ -152,6 +158,31 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             var configuration = new UserConfiguration();
 
             FileHelpers.WriteFileJson(FileNames.UserData, configuration);
+        }
+
+        /// <summary>Migrates the token identifier to token list.</summary>
+        /// <param name="accountsCollection">The accounts collection.</param>
+        /// <returns>The Azure DevOps Account Collection.</returns>
+        private AzureDevOpsAccountCollection MigrateTokenIdToTokenList(AzureDevOpsAccountCollection accountsCollection)
+        {
+            var updatedAccounts = new List<AzureDevOpsAccount>();
+
+            foreach (AzureDevOpsAccount account in accountsCollection.Accounts.Where(a => a.TokenId != null))
+            {
+                account.MigrateTokenToLinkedTokens();
+
+                updatedAccounts.Add(account);
+            }
+
+            if (updatedAccounts.Any())
+            {
+                foreach (var account in updatedAccounts)
+                {
+                    accountsCollection.PerformAccountUpdate(account);
+                }
+            }
+
+            return accountsCollection;
         }
     }
 }

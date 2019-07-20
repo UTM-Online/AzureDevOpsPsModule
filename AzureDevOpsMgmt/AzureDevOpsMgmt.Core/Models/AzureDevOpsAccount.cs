@@ -22,6 +22,8 @@ namespace AzureDevOpsMgmt.Models
 
     using Newtonsoft.Json;
 
+    using UTMO.Common.Guards;
+
     /// <summary>
     /// Class AzureDevOpsAccount.
     /// </summary>
@@ -36,9 +38,14 @@ namespace AzureDevOpsMgmt.Models
         {
             this.FriendlyName = friendlyName;
             this.AccountName = accountName;
-            this.TokenId = tokenId;
             this.BaseUrl = baseUrl;
             this.InternalProjectsList = new List<string>();
+            this.LinkedTokens = new List<Guid>();
+
+            if (tokenId != null)
+            {
+                this.LinkedTokens.Add(tokenId.Value);
+            }
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.AzureDevOpsAccount"/> class.</summary>
@@ -57,6 +64,11 @@ namespace AzureDevOpsMgmt.Models
         [JsonIgnore]
         public IReadOnlyList<string> AccountProjects => this.InternalProjectsList;
 
+        /// <summary>Gets the linked pat tokens.</summary>
+        /// <value>The linked pat tokens.</value>
+        [JsonIgnore]
+        public IReadOnlyList<Guid> LinkedPatTokens => this.LinkedTokens;
+
         /// <summary>Gets or sets the base URL.</summary>
         /// <value>The base URL.</value>
         public string BaseUrl { get; set; }
@@ -71,11 +83,13 @@ namespace AzureDevOpsMgmt.Models
         /// Gets or sets the token identifier.
         /// </summary>
         /// <value>The token identifier.</value>
+        [Obsolete(null, false)]
         public Guid? TokenId { get; set; }
 
         /// <summary>Gets or sets the linked tokens.</summary>
         /// <value>The linked tokens.</value>
-        public List<Guid> LinkedTokens { get; set; }
+        [JsonProperty("LinkedTokens")]
+        private List<Guid> LinkedTokens { get; set; }
 
         /// <summary>Gets or sets the internal projects list.</summary>
         /// <value>The internal projects list.</value>
@@ -102,6 +116,41 @@ namespace AzureDevOpsMgmt.Models
         public void RemoveProject(string name)
         {
             this.InternalProjectsList.Remove(name);
+        }
+
+        /// <summary>Adds the linked token.</summary>
+        /// <param name="tokenId">The token identifier.</param>
+        public void AddLinkedToken(Guid tokenId)
+        {
+            Guard.Requires<ArgumentNullException>(tokenId != default);
+            Guard.Requires<InvalidOperationException>(!this.LinkedTokens.Contains(tokenId), "The Token specified is already linked to this account");
+
+            this.LinkedTokens.Add(tokenId);
+        }
+
+        /// <summary>Removes the linked token.</summary>
+        /// <param name="tokenId">The token identifier.</param>
+        public void RemoveLinkedToken(Guid tokenId)
+        {
+            Guard.Requires<ArgumentNullException>(tokenId != default);
+            Guard.Requires<InvalidOperationException>(this.LinkedTokens.Contains(tokenId), "The token specified is not linked to this account");
+
+            this.LinkedTokens.Remove(tokenId);
+        }
+
+        /// <summary>Migrates the token to linked tokens.</summary>
+        internal void MigrateTokenToLinkedTokens()
+        {
+            if (this.LinkedTokens == null)
+            {
+                this.LinkedTokens = new List<Guid>();
+            }
+
+            if (this.TokenId != null)
+            {
+                this.LinkedTokens.Add(this.TokenId.Value);
+                this.TokenId = null;
+            }
         }
     }
 }
