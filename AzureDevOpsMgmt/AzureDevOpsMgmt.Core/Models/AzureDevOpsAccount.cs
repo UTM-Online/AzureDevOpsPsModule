@@ -6,7 +6,7 @@
 // Last Modified By : joirwi
 // Last Modified On : 03-15-2019
 // ***********************************************************************
-// <copyright file="AzureDevOpsAccount.cs" company="Microsoft">
+// <copyright file="AzureDevOpsAccount.cs" company="UTM-Online">
 //     Copyright ©  2019
 // </copyright>
 // <summary></summary>
@@ -80,6 +80,7 @@ namespace AzureDevOpsMgmt.Models
         /// Gets or sets the token identifier.
         /// </summary>
         /// <value>The token identifier.</value>
+        [Obsolete(null, false)]
         public Guid? TokenId { get; set; }
 
         /// <summary>Gets or sets the linked tokens.</summary>
