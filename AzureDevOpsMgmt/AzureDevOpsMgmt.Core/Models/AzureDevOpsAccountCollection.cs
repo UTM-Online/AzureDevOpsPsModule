@@ -111,9 +111,11 @@ namespace AzureDevOpsMgmt.Models
             var patTokenId = this.PatTokens.First(i => i.FriendlyName.Equals(patTokenFriendlyName, StringComparison.OrdinalIgnoreCase)).Id;
 
             var account = this.Accounts.First(i => i.FriendlyName.Equals(accountFriendlyName, StringComparison.OrdinalIgnoreCase));
-            account.TokenId = patTokenId;
 
-            this.PerformAccountUpdate(i => i.FriendlyName == account.FriendlyName, account);
+            account.AddLinkedToken(patTokenId);
+
+            this.PerformAccountUpdate(account);
+
         }
 
         /// <summary>Performs the account transaction.</summary>
@@ -122,9 +124,9 @@ namespace AzureDevOpsMgmt.Models
         /// <returns>
         ///   <c>true</c> if operation succeed, <c>false</c> otherwise.
         /// </returns>
-        internal bool PerformAccountUpdate(Func<AzureDevOpsAccount, bool> selector, AzureDevOpsAccount updateData)
+        internal bool PerformAccountUpdate(AzureDevOpsAccount updateData)
         {
-            var tempItem = this.Accounts.First(selector);
+            var tempItem = this.Accounts.First(a => a.FriendlyName == updateData.FriendlyName);
 
             try
             {
@@ -202,7 +204,7 @@ namespace AzureDevOpsMgmt.Models
                 foreach (var account in linkedAccounts)
                 {
                     account.TokenId = null;
-                    this.PerformAccountUpdate(a => a.FriendlyName == account.FriendlyName, account);
+                    this.PerformAccountUpdate(account);
                 }
             }
 

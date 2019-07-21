@@ -38,8 +38,15 @@ namespace AzureDevOpsMgmt.Models
         {
             this.FriendlyName = friendlyName;
             this.AccountName = accountName;
-            this.TokenId = tokenId;
             this.BaseUrl = baseUrl;
+            this.InternalProjectsList = new List<string>();
+            this.LinkedTokens = new List<Guid>();
+
+            if (tokenId != null)
+            {
+                this.LinkedTokens.Add(tokenId.Value);
+            }
+
             this.InternalProjectsAndTeams = new Dictionary<string, List<string>>();
         }
 
@@ -60,6 +67,11 @@ namespace AzureDevOpsMgmt.Models
         #pragma warning disable 612,618
         public IReadOnlyList<string> AccountProjects => this.InternalProjectsList;
 #pragma warning restore 612,618
+
+        /// <summary>Gets the linked pat tokens.</summary>
+        /// <value>The linked pat tokens.</value>
+        [JsonIgnore]
+        public IReadOnlyList<Guid> LinkedPatTokens => this.LinkedTokens;
 
         /// <summary>Gets the account projects and teams.</summary>
         /// <value>The account projects and teams.</value>
@@ -85,6 +97,7 @@ namespace AzureDevOpsMgmt.Models
 
         /// <summary>Gets or sets the linked tokens.</summary>
         /// <value>The linked tokens.</value>
+        [JsonProperty("LinkedTokens")]
         private List<Guid> LinkedTokens { get; set; }
 
         /// <summary>Gets or sets the internal projects list.</summary>
@@ -166,6 +179,39 @@ namespace AzureDevOpsMgmt.Models
             }
         }
 
-        #pragma warning restore 612,618
+        /// <summary>Adds the linked token.</summary>
+        /// <param name="tokenId">The token identifier.</param>
+        public void AddLinkedToken(Guid tokenId)
+        {
+            Guard.Requires<ArgumentNullException>(tokenId != default);
+            Guard.Requires<InvalidOperationException>(!this.LinkedTokens.Contains(tokenId), "The Token specified is already linked to this account");
+
+            this.LinkedTokens.Add(tokenId);
+        }
+
+        /// <summary>Removes the linked token.</summary>
+        /// <param name="tokenId">The token identifier.</param>
+        public void RemoveLinkedToken(Guid tokenId)
+        {
+            Guard.Requires<ArgumentNullException>(tokenId != default);
+            Guard.Requires<InvalidOperationException>(this.LinkedTokens.Contains(tokenId), "The token specified is not linked to this account");
+
+            this.LinkedTokens.Remove(tokenId);
+        }
+
+        /// <summary>Migrates the token to linked tokens.</summary>
+        internal void MigrateTokenToLinkedTokens()
+        {
+            if (this.LinkedTokens == null)
+            {
+                this.LinkedTokens = new List<Guid>();
+            }
+
+            if (this.TokenId != null)
+            {
+                this.LinkedTokens.Add(this.TokenId.Value);
+                this.TokenId = null;
+            }
+        }
     }
 }
