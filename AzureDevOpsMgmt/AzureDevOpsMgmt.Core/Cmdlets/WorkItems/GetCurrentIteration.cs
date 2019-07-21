@@ -31,6 +31,7 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
     ///     Implements the <see cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
     /// </summary>
     /// <seealso cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
+    [Cmdlet(VerbsCommon.Get, "CurrentIteration")]
     public class GetCurrentIteration : ApiCmdlet
     {
         /// <summary>
