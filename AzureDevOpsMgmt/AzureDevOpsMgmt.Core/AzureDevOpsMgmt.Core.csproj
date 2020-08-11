@@ -66,6 +66,7 @@
     <Compile Include="Cmdlets\Assisstants\UpdateRemainingWork.cs" />
     <Compile Include="Cmdlets\Builds\GetBuild.cs" />
     <Compile Include="Cmdlets\ApiCmdlet.cs" />
+    <Compile Include="Cmdlets\InvokeAdoRestApi.cs" />
     <Compile Include="Cmdlets\ReleaseManagement\ApproveReleaseStep.cs" />
     <Compile Include="Cmdlets\ReleaseManagement\DenyReleaseStep.cs" />
     <Compile Include="Cmdlets\ReleaseManagement\GetRelease.cs" />
