@@ -38,6 +38,10 @@ namespace AzureDevOpsMgmt.Models
         InternalOperation,
 
         /// <summary>  Area's and Iterations Resources</summary>
-        AreasAndIterations
+        AreasAndIterations,
+
+
+        /// <summary>  A User Defined ADO Target</summary>
+        CustomTarget
     }
 }
