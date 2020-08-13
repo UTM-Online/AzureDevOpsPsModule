@@ -33,10 +33,12 @@ permalink: /docs/cmdletlist/
 | [<small class="cmdlet">Get-AzureDevOpsBuild</small>](/docs/cmdlets/api/getbuild/) | Gets a single build by specifying BuildId or get all builds for one or multiple build definitions by specifying the BuildDefinitionIds. |
 | [<small class="cmdlet">Approve-AzureDevOpsReleaseStep</small>](/docs/cmdlets/api/approverelease/) | Marks a release step as approved for continued processing. |
 | [<small class="cmdlet">Deny-AzureDevOpsReleaseStep</small>](/docs/cmdlets/api/denyreleasetep/) | Marks a release step as denied for continued processing. |
-| [<small class="cmdlet">Get-CurrentIteration</small>](/docs/cmdlets/api/getcurrentiteration/) | Get's the current iteration for the team. |
+| [<small class="cmdlet">Get-AzureDevOpsCurrentIteration</small>](/docs/cmdlets/api/getcurrentiteration/) | Get's the current iteration for the team. |
+| [<small class="cmdlet">Get-AzureDevOpsNextIteration</small>](/docs/cmdlets/api/getnextiteration/) | Gets the next iteration for the team. |
 
 ## Cmdlets that help automate common tasks
 
 | Cmdlet Name | Description |
 | :---: | :---: |
 | [<small class="cmdlet">Update-AzureDevOpsRemainingWork</small>](/docs/cmdlets/assistants/updateremainingwork/) | Takes a time span string as input (the amount of time spent on a task), performs some calculations, and updates the work item with new values for completed and remaining work. |
+| [<small class="cmdlet">Move-AzureDevOpsRemainingWorkToNextSprint</small>](/docs/cmdlets/assistants/moveremainingworktonextsprint/) | Moves incompleated work items in the current sprint to the next sprint |
