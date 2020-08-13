@@ -32,7 +32,8 @@ permalink: /docs/cmdletlist/
 | [<small class="cmdlet">Get-AzureDevOpsRelease</small>](/docs/cmdlets/api/getrelease/) | Gets a release from the release pipeline using a combination of DefinitionId and Id (if specified). |
 | [<small class="cmdlet">Get-AzureDevOpsBuild</small>](/docs/cmdlets/api/getbuild/) | Gets a single build by specifying BuildId or get all builds for one or multiple build definitions by specifying the BuildDefinitionIds. |
 | [<small class="cmdlet">Approve-AzureDevOpsReleaseStep</small>](/docs/cmdlets/api/approverelease/) | Marks a release step as approved for continued processing. |
-| [<small class="cmdlet">Deny-AzureDevOpsReleaseStep</small>](/docs/cmdlets/api/denyreleasetep/)
+| [<small class="cmdlet">Deny-AzureDevOpsReleaseStep</small>](/docs/cmdlets/api/denyreleasetep/) | Marks a release step as denied for continued processing. |
+| [<small class="cmdlet">Get-CurrentIteration</small>](/docs/cmdlets/api/getcurrentiteration/) | Get's the current iteration for the team. |
 
 ## Cmdlets that help automate common tasks
 
