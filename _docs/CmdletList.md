@@ -35,6 +35,7 @@ permalink: /docs/cmdletlist/
 | [<small class="cmdlet">Deny-AzureDevOpsReleaseStep</small>](/docs/cmdlets/api/denyreleasetep/) | Marks a release step as denied for continued processing. |
 | [<small class="cmdlet">Get-AzureDevOpsCurrentIteration</small>](/docs/cmdlets/api/getcurrentiteration/) | Get's the current iteration for the team. |
 | [<small class="cmdlet">Get-AzureDevOpsNextIteration</small>](/docs/cmdlets/api/getnextiteration/) | Gets the next iteration for the team. |
+| [<small class="cmdlet">New-AzureDevOpsWorkItem</small>](/docs/cmdlets/api/newworkitem/) | Creates a new work item using the specified input paramters. |
 
 ## Cmdlets that help automate common tasks
 
