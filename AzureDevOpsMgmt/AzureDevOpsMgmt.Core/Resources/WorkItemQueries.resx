@@ -122,6 +122,7 @@
 FROM WorkItems
 WHERE [System.AssignedTo] = @Me
 AND ([System.WorkItemType] = 'Bug' OR [System.WorkItemType] = 'Task')
-AND ([System.State] &lt;&gt; 'Closed' OR [System.State] &lt;&gt; 'Resolved')</value>
+AND ([System.State] &lt;&gt; 'Closed' OR [System.State] &lt;&gt; 'Resolved')
+AND [System.IterationPath] = {0}</value>
   </data>
 </root>

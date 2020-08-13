@@ -1,16 +1,13 @@
 ﻿// ***********************************************************************
-// Assembly         : AzureDevOpsMgmt.Helpers
-// Author           : joirwi
-// Created          : 03-19-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-19-2019
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 08-15-2019
 // ***********************************************************************
-// <copyright file="RemoveAccountProject.cs" company="Microsoft">
+// <copyright file="RemoveAccountProject.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Cmdlets.Accounts
 {
     using System;

@@ -1,33 +1,34 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+﻿// ***********************************************************************
+// Assembly         : AzureDevOpsMgmt.CoreTests
+// Author           : Josh Irwin
+// Created          : 08-15-2019
+// ***********************************************************************
+// <copyright file="Version1905UpgradeTests.cs" company="UTM Online">
+//     Copyright ©  2019
+// </copyright>
+// ***********************************************************************
 namespace AzureDevOpsMgmt.CoreTests.Tests.Versioning
 {
     using System.Diagnostics;
     using System.Linq;
-
-    using AzureDevOpsMgmt.Cmdlets.Startup;
+    using System.Reflection;
     using AzureDevOpsMgmt.CoreTests.Resources;
     using AzureDevOpsMgmt.Helpers;
     using AzureDevOpsMgmt.Models;
 
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Summary description for Version1905UpgradeTests
+    /// Summary Version1905UpgradeTests
     /// </summary>
     [TestClass]
     public class Version1905UpgradeTests
     {
-        public Version1905UpgradeTests()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-
+        /// <summary>
+        /// The test context instance.
+        /// </summary>
         private TestContext testContextInstance;
 
         /// <summary>
@@ -38,55 +39,56 @@ namespace AzureDevOpsMgmt.CoreTests.Tests.Versioning
         {
             get
             {
-                return testContextInstance;
+                return this.testContextInstance;
             }
+
             set
             {
-                testContextInstance = value;
+                this.testContextInstance = value;
             }
         }
 
         #region Additional test attributes
-        //
         // You can use the following additional attributes as you write your tests:
-        //
         // Use ClassInitialize to run code before running the first test in the class
         // [ClassInitialize()]
         // public static void MyClassInitialize(TestContext testContext) { }
-        //
         // Use ClassCleanup to run code after all tests in a class have run
         // [ClassCleanup()]
         // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
+        // Use TestInitialize to run code before running each test
         // [TestInitialize()]
         // public void MyTestInitialize() { }
-        //
         // Use TestCleanup to run code after each test has run
         // [TestCleanup()]
         // public void MyTestCleanup() { }
-        //
         #endregion
 
+        /// <summary>
+        /// The account not on machine test.
+        /// </summary>
         [TestMethod]
         public void AccountNotOnMachineTest()
         {
             var accountCollection = JsonConvert.DeserializeObject<AzureDevOpsAccountCollection>(TestResources.Pre1905TestConfigFile);
             var token = accountCollection.PatTokens.First();
 
-            ImportConfiguration.ProcessCredentials(token);
+            ModuleStartup.ProcessCredentials(token);
 
             Assert.IsFalse(token.IsInScope);
             Debug.Write(ConfigurationHelpers.GetMachineId());
         }
 
+        /// <summary>
+        /// The account on machine test.
+        /// </summary>
         [TestMethod]
         public void AccountOnMachineTest()
         {
             var accountCollection = JsonConvert.DeserializeObject<AzureDevOpsAccountCollection>(TestResources.TestConfigFile);
             var token = accountCollection.PatTokens.First();
 
-            ImportConfiguration.ProcessCredentials(token);
+            ModuleStartup.ProcessCredentials(token);
 
             Assert.IsTrue(token.IsInScope);
         }

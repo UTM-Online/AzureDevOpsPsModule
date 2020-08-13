@@ -27,12 +27,13 @@ namespace AzureDevOpsMgmt.Resources
     public class DependencyContainer : PsUnityContainer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyContainer"/> class.
+        /// Initializes a new instance of the <see cref="DependencyContainer" /> class.
         /// </summary>
         public DependencyContainer()
         {
             this.RegisterFactory<IRestClient, RestClient>(i => this.RestClientFactory());
             this.RegisterFactory<IRestClient, RestClient>(this.RestClientFactoryForTeams, "AdoTeamsApi");
+            this.RegisterFactory<IRestClient, RestClient>(this.RestClientFactoryForVstsGraph, "AdoGraphApi");
         }
 
         /// <summary>
@@ -62,6 +63,22 @@ namespace AzureDevOpsMgmt.Resources
             var escapedProjectString = Uri.EscapeUriString(currentAccount.ProjectName);
             var escapedTeamNameString = Uri.EscapeUriString(currentAccount.CurrentTeam);
             var client = new RestClient($"{currentAccount.Account.BaseUrl}/{escapedProjectString}/{escapedTeamNameString}/_apis");
+            client.Authenticator = new BarerTokenAuthenticator();
+            client.DefaultParameters.Add(new Parameter("api-version", "5.0", ParameterType.QueryString));
+            client.DefaultParameters.Add(new Parameter("Accepts", "application/json", ParameterType.HttpHeader));
+            client.DefaultParameters.Add(new Parameter("ContentType", "application/json", ParameterType.HttpHeader));
+            client.UseSerializer(() => new JsonNetSerializer());
+            return client;
+        }
+
+        /// <summary>
+        /// Rests the client factory for VSTS graph.
+        /// </summary>
+        /// <returns>A RestClient.</returns>
+        private RestClient RestClientFactoryForVstsGraph()
+        {
+            var currentAccount = AzureDevOpsConfiguration.Config.CurrentConnection;
+            var client = new RestClient($"{currentAccount.Account.BaseUrl}/_apis");
             client.Authenticator = new BarerTokenAuthenticator();
             client.DefaultParameters.Add(new Parameter("api-version", "5.0", ParameterType.QueryString));
             client.DefaultParameters.Add(new Parameter("Accepts", "application/json", ParameterType.HttpHeader));

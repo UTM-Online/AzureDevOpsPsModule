@@ -19,7 +19,7 @@ namespace AzureDevOpsMgmt.Exceptions
     public class NoPatTokenLinkedException : ApplicationException
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NoPatTokenLinkedException"/> class.
+        /// Initializes a new instance of the <see cref="NoPatTokenLinkedException" /> class.
         /// </summary>
         /// <param name="accountName">Name of the account.</param>
         public NoPatTokenLinkedException(string accountName) : base($"{accountName} does not have a PAT token assigned to it")

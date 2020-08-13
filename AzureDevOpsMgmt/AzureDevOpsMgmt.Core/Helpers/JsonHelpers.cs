@@ -1,39 +1,35 @@
 ﻿// ***********************************************************************
 // Assembly         : AzureDevOpsMgmt.Core
-// Author           : joirwi
-// Created          : 03-20-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-20-2019
+// Author           : Josh Irwin
+// Created          : 08-15-2019
 // ***********************************************************************
-// <copyright file="JsonHelpers.cs" company="Microsoft">
+// <copyright file="JsonHelpers.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
 
 namespace AzureDevOpsMgmt.Helpers
 {
     using System.Linq;
     using System.Text.RegularExpressions;
-
     using Microsoft.VisualStudio.Services.WebApi.Patch;
     using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
-
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    ///     Class Json Helpers.
+    /// Class Json Helpers.
     /// </summary>
     // ReSharper disable once StyleCop.SA1650
     public static class JsonHelpers
     {
-        /// <summary>The field name fixer</summary>
+        /// <summary>
+        /// The field name fixer
+        /// </summary>
         private static readonly Regex FieldNameFixer = new Regex("/Fields/", RegexOptions.Compiled);
 
         /// <summary>
-        ///     Creates the patch.
+        /// Creates the patch.
         /// </summary>
         /// <param name="originalObject">The original object.</param>
         /// <param name="modifiedObject">The modified object.</param>
@@ -50,22 +46,72 @@ namespace AzureDevOpsMgmt.Helpers
         }
 
         /// <summary>
-        ///     Adds the specified path.
+        /// Adds the specified path.
         /// </summary>
         /// <param name="patchDoc">The patch document.</param>
         /// <param name="path">The path.</param>
         /// <param name="value">The value.</param>
-        private static void Add(this JsonPatchDocument patchDoc, string path, object value)
+        /// <returns>A JsonPatchDocument.</returns>
+        public static JsonPatchDocument Add(this JsonPatchDocument patchDoc, string path, object value)
         {
             var patch = new JsonPatchOperation
-                            {
-                                Operation = Operation.Add, Path = JsonHelpers.SanitizePath(path), Value = value
-                            };
+            {
+                Operation = Operation.Add, Path = JsonHelpers.SanitizePath(path), Value = value
+            };
+            patchDoc.Add(patch);
+
+            return patchDoc;
+        }
+
+        /// <summary>
+        /// Adds if not null.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>A JsonPatchDocument.</returns>
+        public static JsonPatchDocument AddIfNotNull(this JsonPatchDocument document, string path, object value)
+        {
+            if (value == null)
+            {
+                return document;
+            }
+
+            document.Add(path, value);
+
+            return document;
+        }
+
+        /// <summary>
+        /// Removes the specified path.
+        /// </summary>
+        /// <param name="patchDoc">The patch document.</param>
+        /// <param name="path">The path.</param>
+        public static void Remove(this JsonPatchDocument patchDoc, string path)
+        {
+            var patch = new JsonPatchOperation { Operation = Operation.Remove, Path = JsonHelpers.SanitizePath(path) };
             patchDoc.Add(patch);
         }
 
         /// <summary>
-        ///     Fills the patch for object.
+        /// Replaces the specified path.
+        /// </summary>
+        /// <param name="patchDoc">The patch document.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="value">The value.</param>
+        public static void Replace(this JsonPatchDocument patchDoc, string path, object value)
+        {
+            var patch = new JsonPatchOperation
+            {
+                Operation = Operation.Replace,
+                Path = JsonHelpers.SanitizePath(path),
+                Value = value
+            };
+            patchDoc.Add(patch);
+        }
+
+        /// <summary>
+        /// Fills the patch for object.
         /// </summary>
         /// <param name="orig">The original.</param>
         /// <param name="mod">The mod.</param>
@@ -101,8 +147,8 @@ namespace AzureDevOpsMgmt.Helpers
                     patch.Replace(path + modProp.Name, modProp.Value.ToString());
                 }
                 else if (!string.Equals(
-                             origProp.Value.ToString(Formatting.None),
-                             modProp.Value.ToString(Formatting.None)))
+                    origProp.Value.ToString(Formatting.None),
+                    modProp.Value.ToString(Formatting.None)))
                 {
                     if (origProp.Value.Type == JTokenType.Object)
                     {
@@ -129,47 +175,25 @@ namespace AzureDevOpsMgmt.Helpers
             }
         }
 
-        /// <summary>Gets the private serializer.</summary>
+        /// <summary>
+        /// Gets the private serializer.
+        /// </summary>
         /// <returns>A JsonSerializer.</returns>
         private static JsonSerializer GetPrivateSerializer() =>
             JsonSerializer.Create(
                 new JsonSerializerSettings
-                    {
-                        FloatParseHandling = FloatParseHandling.Double,
-                        FloatFormatHandling = FloatFormatHandling.DefaultValue,
-                        NullValueHandling = NullValueHandling.Include,
-                        Formatting = Formatting.Indented
-                    });
+                {
+                    FloatParseHandling = FloatParseHandling.Double,
+                    FloatFormatHandling = FloatFormatHandling.DefaultValue,
+                    NullValueHandling = NullValueHandling.Include,
+                    Formatting = Formatting.Indented
+                });
 
         /// <summary>
-        ///     Removes the specified path.
+        /// Sanitizes the path.
         /// </summary>
-        /// <param name="patchDoc">The patch document.</param>
         /// <param name="path">The path.</param>
-        private static void Remove(this JsonPatchDocument patchDoc, string path)
-        {
-            var patch = new JsonPatchOperation { Operation = Operation.Remove, Path = JsonHelpers.SanitizePath(path) };
-            patchDoc.Add(patch);
-        }
-
-        /// <summary>
-        ///     Replaces the specified path.
-        /// </summary>
-        /// <param name="patchDoc">The patch document.</param>
-        /// <param name="path">The path.</param>
-        /// <param name="value">The value.</param>
-        private static void Replace(this JsonPatchDocument patchDoc, string path, object value)
-        {
-            var patch = new JsonPatchOperation
-                            {
-                                Operation = Operation.Replace, Path = JsonHelpers.SanitizePath(path), Value = value
-                            };
-            patchDoc.Add(patch);
-        }
-
-        /// <summary>Sanitizes the path.</summary>
-        /// <param name="path">The path.</param>
-        /// <returns>  The Sanitized String</returns>
+        /// <returns>The Sanitized String</returns>
         private static string SanitizePath(string path)
         {
             if (JsonHelpers.FieldNameFixer.IsMatch(path))

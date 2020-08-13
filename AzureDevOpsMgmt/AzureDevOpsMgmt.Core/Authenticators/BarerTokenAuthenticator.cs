@@ -1,16 +1,13 @@
 ﻿// ***********************************************************************
 // Assembly         : AzureDevOpsMgmt.Core
-// Author           : joirwi
-// Created          : 03-19-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-19-2019
+// Author           : Josh Irwin
+// Created          : 08-15-2019
 // ***********************************************************************
-// <copyright file="BarerTokenAuthenticator.cs" company="Microsoft">
+// <copyright file="BarerTokenAuthenticator.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Authenticators
 {
     using System;

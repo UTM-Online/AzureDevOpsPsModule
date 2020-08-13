@@ -1,15 +1,11 @@
 ﻿// ***********************************************************************
 // Assembly         : AzureDevOpsMgmt.Core
-// Author           : joirwi
-// Created          : 03-21-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-21-2019
+// Author           : Josh Irwin
+// Created          : 08-15-2019
 // ***********************************************************************
-// <copyright file="WorkItemHelpers.cs" company="Microsoft">
+// <copyright file="WorkItemHelpers.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
 
 namespace AzureDevOpsMgmt.Helpers
@@ -20,12 +16,12 @@ namespace AzureDevOpsMgmt.Helpers
     using Microsoft.VisualStudio.Services.WebApi;
 
     /// <summary>
-    ///     Class WorkItemHelpers.
+    /// Class WorkItemHelpers.
     /// </summary>
     public static class WorkItemHelpers
     {
         /// <summary>
-        ///     Deeps the copy.
+        /// Deeps the copy.
         /// </summary>
         /// <param name="wi">The wi.</param>
         /// <returns>A clone of the original WorkItem.</returns>
@@ -68,9 +64,11 @@ namespace AzureDevOpsMgmt.Helpers
             return newWorkItem;
         }
 
-        /// <summary>Deeps the copy.</summary>
+        /// <summary>
+        /// Deeps the copy.
+        /// </summary>
         /// <param name="wir">The Work Item Relationship</param>
-        /// <returns> A clone of the input work item relationship</returns>
+        /// <returns>A clone of the input work item relationship</returns>
         private static WorkItemRelation DeepCopy(this WorkItemRelation wir)
         {
             var newWorkItemRelation = new WorkItemRelation

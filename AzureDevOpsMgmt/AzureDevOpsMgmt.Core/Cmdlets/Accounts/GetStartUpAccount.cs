@@ -25,12 +25,10 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// When overridden in the derived class, performs execution
         /// of the command.
         /// </summary>
-        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">
-        /// The pipeline has already been terminated, or was terminated
-        ///             during the execution of this method.
-        ///             The Cmdlet should generally just allow PipelineStoppedException
-        ///             to percolate up to the caller of ProcessRecord etc.
-        /// </exception>
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
+        /// during the execution of this method.
+        /// The Cmdlet should generally just allow PipelineStoppedException
+        /// to percolate up to the caller of ProcessRecord etc.</exception>
         protected override void ProcessRecord()
         {
             this.WriteObject(AzureDevOpsConfiguration.Config.Configuration);

@@ -25,19 +25,21 @@ namespace AzureDevOpsMgmt.Cmdlets
     using UTMO.Powershell5.DI.CmdletBase;
 
     /// <summary>
-    ///     Class ApiCmdlet.
-    ///     Implements the <see cref="UTMO.Powershell5.DI.CmdletBase.DiBasePsCmdlet" />
+    /// Class ApiCmdlet.
+    /// Implements the <see cref="UTMO.Powershell5.DI.CmdletBase.DiBasePsCmdlet" />
     /// </summary>
     /// <seealso cref="UTMO.Powershell5.DI.CmdletBase.DiBasePsCmdlet" />
     public abstract class ApiCmdlet : DiBasePsCmdlet
     {
-        /// <summary>Gets or sets the client.</summary>
+        /// <summary>
+        /// Gets or sets the client.
+        /// </summary>
         /// <value>The client.</value>
         [ShouldInject]
         protected virtual IRestClient Client { get; set; }
 
         /// <summary>
-        ///     Gets a value indicating whether this instance is debug.
+        /// Gets a value indicating whether this instance is debug.
         /// </summary>
         /// <value><c>true</c> if this instance is debug; otherwise, <c>false</c>.</value>
         protected bool IsDebug
@@ -49,7 +51,7 @@ namespace AzureDevOpsMgmt.Cmdlets
         }
 
         /// <summary>
-        ///     Gets a value indicating whether this instance is verbose.
+        /// Gets a value indicating whether this instance is verbose.
         /// </summary>
         /// <value><c>true</c> if this instance is verbose; otherwise, <c>false</c>.</value>
         protected bool IsVerbose
@@ -61,13 +63,13 @@ namespace AzureDevOpsMgmt.Cmdlets
         }
 
         /// <summary>
-        ///     Gets or sets the override API path.
+        /// Gets or sets the override API path.
         /// </summary>
         /// <value>The override API path.</value>
         protected virtual string OverrideApiPath { get; set; }
 
         /// <summary>
-        ///     Writes the object.
+        /// Writes the object.
         /// </summary>
         /// <typeparam name="T">The type of object to be written.</typeparam>
         /// <param name="response">The response.</param>
@@ -126,6 +128,15 @@ namespace AzureDevOpsMgmt.Cmdlets
             }
         }
 
+        /// <summary>
+        /// Processes the error response.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <param name="onErrorTarget">The on error target.</param>
+        /// <param name="onErrorCategory">The on error category.</param>
+        /// <param name="onErrorTargetObject">The on error target object.</param>
+        /// <param name="onErrorReason">The on error reason.</param>
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1126:PrefixCallsCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         protected void ProcessErrorResponse(
             IRestResponse response,
             DevOpsModelTarget onErrorTarget,
@@ -176,7 +187,7 @@ namespace AzureDevOpsMgmt.Cmdlets
         }
 
         /// <summary>
-        ///     Begins the cmdlet processing.
+        /// Begins the cmdlet processing.
         /// </summary>
         protected override sealed void BeginCmdletProcessing()
         {
@@ -207,14 +218,14 @@ namespace AzureDevOpsMgmt.Cmdlets
         }
 
         /// <summary>
-        ///     Begins the processing cmdlet.
+        /// Begins the processing cmdlet.
         /// </summary>
         protected virtual void BeginProcessingCmdlet()
         {
         }
 
         /// <summary>
-        ///     Handles the BindingRedirect event of the CurrentDomain control.
+        /// Handles the BindingRedirect event of the CurrentDomain control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="args">The <see cref="ResolveEventArgs" /> instance containing the event data.</param>
@@ -234,7 +245,7 @@ namespace AzureDevOpsMgmt.Cmdlets
         }
 
         /// <summary>
-        ///     Writes the error internal.
+        /// Writes the error internal.
         /// </summary>
         /// <typeparam name="T">The type of response</typeparam>
         /// <param name="response">The response.</param>
@@ -260,11 +271,11 @@ namespace AzureDevOpsMgmt.Cmdlets
                 errorId = this.BuildStandardErrorId(onErrorTarget, onErrorReason);
             }
 
-            this.WriteError(response.ErrorException, errorId, onErrorCategory, onErrorTargetObject);
+            this.WriteError(response.ErrorException ?? new Exception("Unknown Error"), errorId, onErrorCategory, onErrorTargetObject);
         }
 
         /// <summary>
-        ///     Writes the error internal.
+        /// Writes the error internal.
         /// </summary>
         /// <param name="response">The response.</param>
         /// <param name="onErrorTarget">The on error target.</param>
@@ -289,7 +300,7 @@ namespace AzureDevOpsMgmt.Cmdlets
                 errorId = this.BuildStandardErrorId(onErrorTarget, onErrorReason);
             }
 
-            this.WriteError(response.ErrorException, errorId, onErrorCategory, onErrorTargetObject);
+            this.WriteError(response.ErrorException ?? new Exception("Unknown Error"), errorId, onErrorCategory, onErrorTargetObject);
         }
     }
 }

@@ -1,16 +1,13 @@
 ﻿// ***********************************************************************
-// Assembly         : AzureDevOpsMgmt.Helpers
-// Author           : joirwi
-// Created          : 03-18-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-18-2019
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 08-15-2019
 // ***********************************************************************
-// <copyright file="CurrentConnection.cs" company="Microsoft">
+// <copyright file="CurrentConnection.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Models
 {
     /// <summary>
@@ -18,7 +15,9 @@ namespace AzureDevOpsMgmt.Models
     /// </summary>
     public class CurrentConnection
     {
-        /// <summary>Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.CurrentConnection"/> class.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:AzureDevOpsMgmt.Models.CurrentConnection" /> class.
+        /// </summary>
         /// <param name="account">The account.</param>
         /// <param name="token">The token.</param>
         /// <param name="projectName">Name of the project.</param>
@@ -47,7 +46,9 @@ namespace AzureDevOpsMgmt.Models
         /// <value>The name of the project.</value>
         public string ProjectName { get; set; }
 
-        /// <summary>Gets the current team.</summary>
+        /// <summary>
+        /// Gets the current team.
+        /// </summary>
         /// <value>The current team.</value>
         public string CurrentTeam { get; internal set; }
     }

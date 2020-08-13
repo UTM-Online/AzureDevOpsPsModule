@@ -7,7 +7,7 @@
 //     Copyright ©  2019
 // </copyright>
 // ***********************************************************************
-namespace AzureDevOpsMgmt.CoreTests.Helpers
+namespace AzureDevOpsMgmt.CoreTests.Tests.Helpers
 {
     using System.Linq;
 
@@ -37,8 +37,8 @@ namespace AzureDevOpsMgmt.CoreTests.Helpers
 
             var patchDoc = JsonHelpers.CreatePatch(original, update);
 
-            Assert.AreEqual("5.9166", (string)patchDoc.First(p => p.Operation == Operation.Replace && p.Path == "/fields/Microsoft.VSTS.Scheduling.RemainingWork").Value.ToString());
-            Assert.AreEqual("0.0833", (string)patchDoc.First(p => p.Operation == Operation.Replace && p.Path == "/fields/Microsoft.VSTS.Scheduling.CompletedWork").Value.ToString());
+            Assert.AreEqual("5.9166", patchDoc.First(p => p.Operation == Operation.Replace && p.Path == "/fields/Microsoft.VSTS.Scheduling.RemainingWork").Value.ToString());
+            Assert.AreEqual("0.0833", patchDoc.First(p => p.Operation == Operation.Replace && p.Path == "/fields/Microsoft.VSTS.Scheduling.CompletedWork").Value.ToString());
         }
     }
 }

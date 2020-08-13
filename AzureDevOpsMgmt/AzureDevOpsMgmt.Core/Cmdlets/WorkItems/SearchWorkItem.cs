@@ -2,57 +2,63 @@
 // Assembly         : AzureDevOpsMgmt.Core
 // Author           : josh
 // Created          : 07-08-2019
-//
-// Last Modified By : josh
-// Last Modified On : 07-08-2019
 // ***********************************************************************
 // <copyright file="SearchWorkItem.cs" company="UTM-Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary>
-//  This cmdlet enables the user to search for work items using the "Work Item Query Language"
-// </summary>
+// <summary>This cmdlet enables the user to search for work items using the "Work Item Query Language"</summary>
 // ***********************************************************************
 
 namespace AzureDevOpsMgmt.Cmdlets.WorkItems
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Management.Automation;
 
-    using AzureDevOpsMgmt.Authenticators;
     using AzureDevOpsMgmt.Helpers;
     using AzureDevOpsMgmt.Models;
-    using AzureDevOpsMgmt.Serialization;
 
     using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 
     using RestSharp;
 
     /// <summary>
-    ///     Class SearchWorkItem.
-    ///     Implements the <see cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
+    /// Class SearchWorkItem.
+    /// Implements the <see cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
+    /// Implements the <see cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
     /// </summary>
+    /// <seealso cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
     [Cmdlet(VerbsCommon.Search, "WorkItems")]
     public class SearchWorkItem : ApiCmdlet
     {
-        /// <summary>The work items</summary>
+        /// <summary>
+        /// The work items
+        /// </summary>
         private readonly List<WorkItem> workItems = new List<WorkItem>();
 
-        /// <summary>The query results</summary>
+        /// <summary>
+        /// The query results
+        /// </summary>
         private WorkItemQueryResult queryResults;
 
-        /// <summary>Gets or sets the query.</summary>
+        /// <summary>
+        /// Gets or sets the query.
+        /// </summary>
         /// <value>The query.</value>
         [Parameter]
         public string Query { get; set; }
 
+        /// <summary>
+        /// Gets or sets the client.
+        /// </summary>
+        /// <value>The client.</value>
         /// <inheritdoc />
         [ShouldInject("AdoTeamsApi")]
         protected override IRestClient Client { get; set; }
 
-        /// <summary>Ends the cmdlet processing.</summary>
+        /// <summary>
+        /// Ends the cmdlet processing.
+        /// </summary>
         protected override void EndCmdletProcessing()
         {
             if (this.workItems.Any())
@@ -65,7 +71,9 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
             }
         }
 
-        /// <summary>Processes the cmdlet record.</summary>
+        /// <summary>
+        /// Processes the cmdlet record.
+        /// </summary>
         protected override void ProcessCmdletRecord()
         {
             var request = new RestRequest("/wit/wiql");

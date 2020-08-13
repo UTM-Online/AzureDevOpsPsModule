@@ -2,14 +2,10 @@
 // Assembly         : AzureDevOpsMgmt.Core
 // Author           : josh
 // Created          : 07-12-2019
-//
-// Last Modified By : josh
-// Last Modified On : 07-13-2019
 // ***********************************************************************
 // <copyright file="RemoveProjectTeam.cs" company="UTM-Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
 namespace AzureDevOpsMgmt.Cmdlets.Accounts
 {

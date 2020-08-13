@@ -1,15 +1,11 @@
 ﻿// ***********************************************************************
 // Assembly         : AzureDevOpsMgmt.Core
-// Author           : joirwi
-// Created          : 03-19-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-19-2019
+// Author           : Josh Irwin
+// Created          : 08-15-2019
 // ***********************************************************************
-// <copyright file="GetWorkItem.cs" company="Microsoft">
+// <copyright file="GetWorkItem.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
 
 namespace AzureDevOpsMgmt.Cmdlets.WorkItems
@@ -26,7 +22,9 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
     /// <summary>
     /// Class GetWorkItem.
     /// Implements the <see cref="System.Management.Automation.PSCmdlet" />
+    /// Implements the <see cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
     /// </summary>
+    /// <seealso cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
     [Cmdlet(VerbsCommon.Get, "WorkItem")]
     public class GetWorkItem : ApiCmdlet
@@ -38,7 +36,9 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
         [Parameter]
         public long Id { get; set; }
 
-        /// <summary>Gets or sets the fields.</summary>
+        /// <summary>
+        /// Gets or sets the fields.
+        /// </summary>
         /// <value>The fields.</value>
         [Parameter]
         public string Fields { get; set; }

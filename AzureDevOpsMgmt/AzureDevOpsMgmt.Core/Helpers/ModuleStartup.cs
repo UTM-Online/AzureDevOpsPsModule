@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : AzureDevOpsMgmt.Helpers
-// Author           : joirwi
-// Created          : 03-19-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-19-2019
-// ***********************************************************************
-// <copyright file="ImportConfiguration.cs" company="Microsoft">
-//     Copyright ©  2019
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-namespace AzureDevOpsMgmt.Cmdlets.Startup
+﻿namespace AzureDevOpsMgmt.Helpers
 {
     using System;
     using System.Collections.Generic;
@@ -20,24 +6,85 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
     using System.IO;
     using System.Linq;
     using System.Management.Automation;
-
-    using AzureDevOpsMgmt.Helpers;
-    using AzureDevOpsMgmt.Models;
-    using AzureDevOpsMgmt.Resources;
-
     using Meziantou.Framework.Win32;
+    using Microsoft.TeamFoundation.Framework.Common;
+    using Models;
+    using Resources;
 
-    /// <summary>
-    ///     Class ImportConfiguration.
-    ///     Implements the <see cref="System.Management.Automation.PSCmdlet" />
-    /// </summary>
-    /// <seealso cref="System.Management.Automation.PSCmdlet" />
-    [Cmdlet(VerbsData.Import, "Configuration")]
-    public class ImportConfiguration : PSCmdlet
+    public class ModuleStartup : IModuleAssemblyInitializer
     {
-        /// <summary>Processes the credentials.</summary>
+        public void OnImport()
+        {
+            var accountData = this.LoadAccountData();
+            var configuration = this.LoadUserConfiguration();
+
+            AzureDevOpsConfiguration.Config.Accounts = accountData;
+            AzureDevOpsConfiguration.Config.Configuration = configuration;
+
+            if ((configuration.DefaultAccount != null) & (configuration.DefaultProject != null))
+            {
+                AzureDevOpsAccount defaultAccount = null;
+                AzureDevOpsPatToken defaultPatToken = null;
+
+                try
+                {
+                    defaultAccount = accountData.Accounts.First(a => a.FriendlyName == configuration.DefaultAccount);
+                    defaultPatToken = accountData.PatTokens.First(a => defaultAccount.LinkedPatTokens.Contains(a.Id));
+                }
+                catch (InvalidOperationException ioe) when (ioe.Message == "Sequence contains no matching element")
+                {
+                    this.ResetUserDefaultSettings();
+
+                    var warningParams = new Dictionary<string, string>()
+                                        {
+                                            {
+                                                "Message",
+                                                "Corruption encountered well loading user default settings!  Settings have been reset to default (empty) values and will need to be configured again."
+                                            }
+                                        };
+                    this.InvokePsCommand("Write-Warning", warningParams);
+                }
+
+                if (defaultAccount != null && defaultPatToken != null)
+                {
+                    AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(defaultAccount, defaultPatToken, configuration.DefaultProject);
+
+                    var outputParams = new Dictionary<string, string>()
+                                       {
+                                           {
+                                               "Message",
+                                               $"Default Account Settings Loaded Successfully.\r\nAccount Name: {configuration.DefaultAccount}\r\nProject Name: {configuration.DefaultProject}"
+                                           }
+                                       };
+                    this.InvokePsCommand("Write-Host", outputParams);
+                }
+            }
+
+            if (!AzureDevOpsConfiguration.Config.Accounts.HasCompleted1905Upgrade)
+            {
+                foreach (var token in AzureDevOpsConfiguration.Config.Accounts.PatTokens)
+                {
+                    ModuleStartup.ProcessCredentials(token);
+                }
+
+                AzureDevOpsConfiguration.Config.Accounts.HasCompleted1905Upgrade = true;
+                FileHelpers.WriteFileJson(FileNames.AccountData, AzureDevOpsConfiguration.Config.Accounts);
+            }
+
+            var setVariableParams = new Dictionary<string,object>()
+                                    {
+                                        {"Name", "AzureDevOpsConfiguration"},
+                                        {"Value", AzureDevOpsConfiguration.Config}
+                                    };
+
+            this.InvokePsCommand("Set-Variable", setVariableParams);
+        }
+
+        /// <summary>
+        /// Processes the credentials.
+        /// </summary>
         /// <param name="token">The token.</param>
-        internal static void ProcessCredentials(AzureDevOpsPatToken token)
+         internal static void ProcessCredentials(AzureDevOpsPatToken token)
         {
             if (token.MachineScopeId == Guid.Empty
                 && !token.NotOnMachines.Contains(ConfigurationHelpers.GetMachineId()))
@@ -56,55 +103,8 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
         }
 
         /// <summary>
-        ///     When overridden in the derived class, performs execution
-        ///     of the command.
+        /// Loads the account data.
         /// </summary>
-        protected override void ProcessRecord()
-        {
-            var accountData = this.LoadAccountData();
-            var configuration = this.LoadUserConfiguration();
-
-            AzureDevOpsConfiguration.Config.Accounts = accountData;
-            AzureDevOpsConfiguration.Config.Configuration = configuration;
-
-            if ((configuration.DefaultAccount != null) & (configuration.DefaultProject != null))
-            {
-                AzureDevOpsAccount defaultAccount = null;
-                AzureDevOpsPatToken defaultPatToken = null;
-
-                try
-                {
-                    defaultAccount = accountData.Accounts.First(a => a.FriendlyName == configuration.DefaultAccount);
-                    defaultPatToken = accountData.PatTokens.First(a => defaultAccount.LinkedPatTokens.Contains(a.Id));
-                }
-                catch (InvalidOperationException ioe) when(ioe.Message == "Sequence contains no matching element")
-                {
-                    this.ResetUserDefaultSettings();
-                    this.WriteWarning("Corruption encountered well loading user default settings!  Settings have been reset to default (empty) values and will need to be configured again.");
-                }
-
-                if (defaultAccount != null && defaultPatToken != null)
-                {
-                    AzureDevOpsConfiguration.Config.CurrentConnection = new CurrentConnection(defaultAccount, defaultPatToken, configuration.DefaultProject);
-                    this.WriteObject($"Default Account Settings Loaded Successfully.\r\nAccount Name: {configuration.DefaultAccount}\r\nProject Name: {configuration.DefaultProject}");
-                }
-            }
-
-            if (!AzureDevOpsConfiguration.Config.Accounts.HasCompleted1905Upgrade)
-            {
-                foreach (var token in AzureDevOpsConfiguration.Config.Accounts.PatTokens)
-                {
-                    ImportConfiguration.ProcessCredentials(token);
-                }
-
-                AzureDevOpsConfiguration.Config.Accounts.HasCompleted1905Upgrade = true;
-                FileHelpers.WriteFileJson(FileNames.AccountData, AzureDevOpsConfiguration.Config.Accounts);
-            }
-
-            this.SetPsVariable("AzureDevOpsConfiguration", AzureDevOpsConfiguration.Config);
-        }
-
-        /// <summary>Loads the account data.</summary>
         /// <returns>Account configuration collection.</returns>
         private AzureDevOpsAccountCollection LoadAccountData()
         {
@@ -120,10 +120,10 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
                 }
 
                 accountData = new AzureDevOpsAccountCollection
-                                  {
-                                      Accounts = new ObservableCollection<AzureDevOpsAccount>(),
-                                      PatTokens = new ObservableCollection<AzureDevOpsPatToken>()
-                                  };
+                {
+                    Accounts = new ObservableCollection<AzureDevOpsAccount>(),
+                    PatTokens = new ObservableCollection<AzureDevOpsPatToken>()
+                };
 
                 accountData.Init();
 
@@ -134,7 +134,9 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
                 accountData = FileHelpers.ReadFileJson<AzureDevOpsAccountCollection>(FileNames.AccountData);
                 accountData.Init();
 
+#pragma warning disable 618,612
                 if (accountData.Accounts.Any(a => a.TokenId != null))
+#pragma warning restore 618,612
                 {
                     accountData = this.MigrateTokenIdToTokenList(accountData);
                 }
@@ -143,7 +145,9 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             return accountData;
         }
 
-        /// <summary>Loads the user configuration.</summary>
+        /// <summary>
+        /// Loads the user configuration.
+        /// </summary>
         /// <returns>The UserConfiguration.</returns>
         private UserConfiguration LoadUserConfiguration()
         {
@@ -172,7 +176,9 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             return configuration;
         }
 
-        /// <summary>Repairs the users default settings.</summary>
+        /// <summary>
+        /// Repairs the users default settings.
+        /// </summary>
         private void ResetUserDefaultSettings()
         {
             var configuration = new UserConfiguration();
@@ -180,14 +186,18 @@ namespace AzureDevOpsMgmt.Cmdlets.Startup
             FileHelpers.WriteFileJson(FileNames.UserData, configuration);
         }
 
-        /// <summary>Migrates the token identifier to token list.</summary>
+        /// <summary>
+        /// Migrates the token identifier to token list.
+        /// </summary>
         /// <param name="accountsCollection">The accounts collection.</param>
         /// <returns>The Azure DevOps Account Collection.</returns>
         private AzureDevOpsAccountCollection MigrateTokenIdToTokenList(AzureDevOpsAccountCollection accountsCollection)
         {
             var updatedAccounts = new List<AzureDevOpsAccount>();
 
+#pragma warning disable 618,612
             foreach (AzureDevOpsAccount account in accountsCollection.Accounts.Where(a => a.TokenId != null))
+#pragma warning restore 618,612
             {
                 account.MigrateTokenToLinkedTokens();
 

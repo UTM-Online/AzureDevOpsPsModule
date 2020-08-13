@@ -1,16 +1,13 @@
 ﻿// ***********************************************************************
-// Assembly         : AzureDevOpsMgmt.Helpers
-// Author           : joirwi
-// Created          : 03-18-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-18-2019
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 08-15-2019
 // ***********************************************************************
-// <copyright file="SetAccountContext.cs" company="Microsoft">
+// <copyright file="SetAccountContext.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Cmdlets.Accounts
 {
     using System;
@@ -85,12 +82,10 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// of command execution.
         /// Default implementation in the base class just returns.
         /// </summary>
-        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">
-        ///     The pipeline has already been terminated, or was terminated
-        ///     during the execution of this method.
-        ///     The Cmdlet should generally just allow PipelineStoppedException
-        ///     to percolate up to the caller of ProcessRecord etc.
-        /// </exception>
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
+        /// during the execution of this method.
+        /// The Cmdlet should generally just allow PipelineStoppedException
+        /// to percolate up to the caller of ProcessRecord etc.</exception>
         protected override void BeginProcessing()
         {
             AzureDevOpsAccount account =
@@ -114,7 +109,9 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
                                                 ErrorCategory.InvalidArgument,
                                                 this.ProjectName));
             }
+#pragma warning disable 618,612
             else if (account.TokenId == null)
+#pragma warning restore 618,612
             {
                 this.WriteError(
                                 new NoPatTokenLinkedException(account.FriendlyName),
@@ -129,12 +126,10 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// after the command execution.
         /// Default implementation in the base class just returns.
         /// </summary>
-        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">
-        /// The pipeline has already been terminated, or was terminated
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
         /// during the execution of this method.
         /// The Cmdlet should generally just allow PipelineStoppedException
-        /// to percolate up to the caller of ProcessRecord etc.
-        /// </exception>
+        /// to percolate up to the caller of ProcessRecord etc.</exception>
         protected override void EndProcessing()
         {
             this.WriteObject("Connection context has been set");
@@ -147,7 +142,10 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         protected override void ProcessRecord()
         {
             var newCurrentAccount = AzureDevOpsConfiguration.Config.Accounts.Accounts.First(i => i.FriendlyName.Equals(this.GetPsBoundParameter<string>("AccountName"), StringComparison.OrdinalIgnoreCase));
+
+            #pragma warning disable 618,612
             var newPatToken = AzureDevOpsConfiguration.Config.Accounts.PatTokens.First(i => i.Id == newCurrentAccount.TokenId);
+            #pragma warning restore 618,612
 
             if (AzureDevOpsConfiguration.Config.CurrentConnection == null)
             {

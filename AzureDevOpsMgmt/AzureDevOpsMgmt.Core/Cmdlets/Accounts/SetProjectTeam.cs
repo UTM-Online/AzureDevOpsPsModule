@@ -2,14 +2,10 @@
 // Assembly         : AzureDevOpsMgmt.Core
 // Author           : josh
 // Created          : 07-13-2019
-//
-// Last Modified By : josh
-// Last Modified On : 07-13-2019
 // ***********************************************************************
 // <copyright file="SetProjectTeam.cs" company="UTM-Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
 namespace AzureDevOpsMgmt.Cmdlets.Accounts
 {
@@ -25,6 +21,7 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
     /// Implements the <see cref="System.Management.Automation.PSCmdlet" />
     /// </summary>
     /// <seealso cref="System.Management.Automation.PSCmdlet" />
+    [Cmdlet(VerbsCommon.Set, "ProjectTeam")]
     public class SetProjectTeam : PSCmdlet
     {
         /// <summary>

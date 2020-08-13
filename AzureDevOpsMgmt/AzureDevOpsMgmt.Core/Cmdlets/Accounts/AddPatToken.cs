@@ -1,16 +1,13 @@
 ﻿// ***********************************************************************
-// Assembly         : AzureDevOpsMgmt.Helpers
-// Author           : joirwi
-// Created          : 03-18-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-18-2019
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 08-15-2019
 // ***********************************************************************
-// <copyright file="AddPatToken.cs" company="Microsoft">
+// <copyright file="AddPatToken.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Cmdlets.Accounts
 {
     using System.Diagnostics.CodeAnalysis;
@@ -52,10 +49,8 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// When overridden in the derived class, performs execution
         /// of the command.
         /// </summary>
-        /// <exception cref="T:AzureDevOpsMgmt.Exceptions.ObjectExistsException">
-        /// This exception is thrown if the user attempts to add a Pat Token and an existing Token with that friendly name is found in the
-        ///     repository.
-        /// </exception>
+        /// <exception cref="T:AzureDevOpsMgmt.Exceptions.ObjectExistsException">This exception is thrown if the user attempts to add a Pat Token and an existing Token with that friendly name is found in the
+        /// repository.</exception>
         protected override void ProcessRecord()
         {
             AzureDevOpsConfiguration.Config.Accounts.AddPatToken(this.FriendlyName, this.UserName, this.PatToken);

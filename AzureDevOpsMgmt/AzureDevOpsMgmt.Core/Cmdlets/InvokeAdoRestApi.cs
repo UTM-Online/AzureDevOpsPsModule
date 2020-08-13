@@ -10,7 +10,7 @@
     using RestSharp;
     using UTMO.Common.Guards;
 
-    [Cmdlet(VerbsLifecycle.Invoke, "AdoRestApi")]
+    [Cmdlet(VerbsLifecycle.Invoke, "RestApi")]
     public class InvokeAdoRestApi : ApiCmdlet
     {
         [Parameter(Mandatory = true)]

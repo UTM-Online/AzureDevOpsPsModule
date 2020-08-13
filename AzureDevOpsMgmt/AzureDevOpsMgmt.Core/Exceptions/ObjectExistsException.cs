@@ -1,15 +1,11 @@
 ﻿// ***********************************************************************
 // Assembly         : AzureDevOpsMgmt.Core
-// Author           : joirwi
-// Created          : 03-25-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-25-2019
+// Author           : Josh Irwin
+// Created          : 05-29-2019
 // ***********************************************************************
-// <copyright file="ObjectExistsException.cs" company="Microsoft">
+// <copyright file="ObjectExistsException.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
 
 namespace AzureDevOpsMgmt.Exceptions
@@ -24,7 +20,7 @@ namespace AzureDevOpsMgmt.Exceptions
     public class ObjectExistsException : ApplicationException
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ObjectExistsException"/> class.
+        /// Initializes a new instance of the <see cref="ObjectExistsException" /> class.
         /// </summary>
         /// <param name="objectTypeName">Name of the object type.</param>
         public ObjectExistsException(string objectTypeName)

@@ -1,15 +1,11 @@
 ﻿// ***********************************************************************
-// Assembly         : AzureDevOpsMgmt.Helpers
-// Author           : joirwi
-// Created          : 03-15-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-15-2019
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 07-19-2019
 // ***********************************************************************
-// <copyright file="FileHelpers.cs" company="Microsoft">
+// <copyright file="FileHelpers.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
 
 namespace AzureDevOpsMgmt.Helpers
@@ -80,9 +76,12 @@ namespace AzureDevOpsMgmt.Helpers
             }
         }
 
-        /// <summary>Writes the file json.</summary>
+        /// <summary>
+        /// Writes the file json.
+        /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileData">The file data.</param>
+        /// <exception cref="AzureDevOpsMgmt.Exceptions.EmptyIdFoundException">The ID Field is Empty</exception>
         /// <exception cref="EmptyIdFoundException">An input account contained an empty token ID.</exception>
         /// <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
         /// <exception cref="T:System.IO.DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive).</exception>

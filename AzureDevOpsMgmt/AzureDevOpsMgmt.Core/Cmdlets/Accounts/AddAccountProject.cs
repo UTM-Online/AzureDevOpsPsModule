@@ -1,16 +1,13 @@
 ﻿// ***********************************************************************
-// Assembly         : AzureDevOpsMgmt.Helpers
-// Author           : joirwi
-// Created          : 03-18-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-18-2019
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 08-15-2019
 // ***********************************************************************
-// <copyright file="AddAccountProject.cs" company="Microsoft">
+// <copyright file="AddAccountProject.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Cmdlets.Accounts
 {
     using System;

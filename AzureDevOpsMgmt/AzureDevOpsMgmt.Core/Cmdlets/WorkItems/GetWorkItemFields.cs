@@ -19,22 +19,22 @@ namespace AzureDevOpsMgmt.Cmdlets.WorkItems
     using RestSharp;
 
     /// <summary>
-    ///     Class GetWorkItemFields.
-    ///     Implements the <see cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
+    /// Class GetWorkItemFields.
+    /// Implements the <see cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
     /// </summary>
     /// <seealso cref="AzureDevOpsMgmt.Cmdlets.ApiCmdlet" />
     [Cmdlet(VerbsCommon.Get, "WorkItemFields")]
     public class GetWorkItemFields : ApiCmdlet
     {
         /// <summary>
-        ///     Gets or sets the name of the field.
+        /// Gets or sets the name of the field.
         /// </summary>
         /// <value>The name of the field.</value>
         [Parameter]
         public string FieldName { get; set; }
 
         /// <summary>
-        ///     Processes the cmdlet record.
+        /// Processes the cmdlet record.
         /// </summary>
         protected override void ProcessCmdletRecord()
         {

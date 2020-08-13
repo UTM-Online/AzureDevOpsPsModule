@@ -1,4 +1,13 @@
-﻿namespace AzureDevOpsMgmt.CoreTests.Serialization
+﻿// ***********************************************************************
+// Assembly         : AzureDevOpsMgmt.CoreTests
+// Author           : Josh Irwin
+// Created          : 08-15-2019
+// ***********************************************************************
+// <copyright file="ConfigLoadingTests.cs" company="UTM Online">
+//     Copyright ©  2019
+// </copyright>
+// ***********************************************************************
+namespace AzureDevOpsMgmt.CoreTests.Tests.Serialization
 {
     using System;
     using System.Linq;
@@ -10,9 +19,15 @@
 
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// The config loading tests.
+    /// </summary>
     [TestClass]
     public class ConfigLoadingTests
     {
+        /// <summary>
+        /// The load test config test.
+        /// </summary>
         [TestMethod]
         public void LoadTestConfigTest()
         {

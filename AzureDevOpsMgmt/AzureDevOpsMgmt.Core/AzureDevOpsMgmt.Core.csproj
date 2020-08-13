@@ -70,10 +70,11 @@
     <Compile Include="Cmdlets\ReleaseManagement\ApproveReleaseStep.cs" />
     <Compile Include="Cmdlets\ReleaseManagement\DenyReleaseStep.cs" />
     <Compile Include="Cmdlets\ReleaseManagement\GetRelease.cs" />
-    <Compile Include="Cmdlets\Startup\ImportConfiguration.cs" />
     <Compile Include="Cmdlets\WorkItems\GetCurrentIteration.cs" />
+    <Compile Include="Cmdlets\WorkItems\GetNextIteration.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\GetWorkItemFields.cs" />
+    <Compile Include="Cmdlets\WorkItems\NewWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\SearchWorkItem.cs" />
     <Compile Include="Cmdlets\WorkItems\UpdateWorkItem.cs" />
     <Compile Include="Exceptions\AccountProjectsAlreadyUpgradedException.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Helpers\ConfigurationHelpers.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
+    <Compile Include="Helpers\ModuleStartup.cs" />
     <Compile Include="Models\Contracts\IPortable.cs" />
     <Compile Include="Models\DevOpsModelTarget.cs" />
     <Compile Include="Models\ResponseModel.cs" />
@@ -126,10 +128,6 @@
   <ItemGroup>
     <None Include="..\AzureDevOpsMgmt\AzureDevOpsMgmt.psd1">
       <Link>AzureDevOpsMgmt.psd1</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\AzureDevOpsMgmt\AzureDevOpsMgmt.Startup.ps1">
-      <Link>AzureDevOpsMgmt.Startup.ps1</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="app.config" />

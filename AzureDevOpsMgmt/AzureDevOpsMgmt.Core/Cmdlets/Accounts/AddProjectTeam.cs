@@ -2,9 +2,6 @@
 // Assembly         : AzureDevOpsMgmt.Core
 // Author           : josh
 // Created          : 07-11-2019
-//
-// Last Modified By : josh
-// Last Modified On : 07-11-2019
 // ***********************************************************************
 // <copyright file="AddProjectTeam.cs" company="UTM-Online">
 //     Copyright ©  2019

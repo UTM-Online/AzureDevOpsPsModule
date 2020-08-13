@@ -1,16 +1,13 @@
 ﻿// ***********************************************************************
-// Assembly         : AzureDevOpsMgmt.Helpers
-// Author           : joirwi
-// Created          : 03-18-2019
-//
-// Last Modified By : joirwi
-// Last Modified On : 03-18-2019
+// Assembly         : AzureDevOpsMgmt.Core
+// Author           : Josh Irwin
+// Created          : 06-07-2019
 // ***********************************************************************
-// <copyright file="GetAccount.cs" company="Microsoft">
+// <copyright file="GetAccount.cs" company="UTM Online">
 //     Copyright ©  2019
 // </copyright>
-// <summary></summary>
 // ***********************************************************************
+
 namespace AzureDevOpsMgmt.Cmdlets.Accounts
 {
     using System;
@@ -38,12 +35,10 @@ namespace AzureDevOpsMgmt.Cmdlets.Accounts
         /// When overridden in the derived class, performs execution
         /// of the command.
         /// </summary>
-        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">
-        ///             The pipeline has already been terminated, or was terminated
-        ///             during the execution of this method.
-        ///             The Cmdlet should generally just allow PipelineStoppedException
-        ///             to percolate up to the caller of ProcessRecord etc.
-        /// </exception>
+        /// <exception cref="T:System.Management.Automation.PipelineStoppedException">The pipeline has already been terminated, or was terminated
+        /// during the execution of this method.
+        /// The Cmdlet should generally just allow PipelineStoppedException
+        /// to percolate up to the caller of ProcessRecord etc.</exception>
         protected override void ProcessRecord()
         {
             if (string.IsNullOrWhiteSpace(this.FriendlyName))
